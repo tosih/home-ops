@@ -32,7 +32,7 @@ spec:
           type: nfs
           reserveSpace: false
     ssh:
-      externalSecretName: "zfs-provisioner-creds"
+      externalSecretName: zfs-provisioner-creds
       mountPath: /home/zfs/.ssh
     serviceAccount:
       create: true
