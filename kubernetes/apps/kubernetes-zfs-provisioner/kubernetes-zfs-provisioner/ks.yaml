@@ -20,6 +20,10 @@ spec:
       namespace: *namespace
   interval: 1h
   path: ./kubernetes/apps/kubernetes-zfs-provisioner/kubernetes-zfs-provisioner/app
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true
   retryInterval: 2m
   sourceRef:
@@ -28,4 +32,5 @@ spec:
     namespace: flux-system
   targetNamespace: *namespace
   timeout: 5m
+  wait: true
 
