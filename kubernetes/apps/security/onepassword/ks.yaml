@@ -8,6 +8,10 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *appname
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   dependsOn:
     - name: external-secrets
       namespace: *namespace
