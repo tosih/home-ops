@@ -32,6 +32,8 @@ spec:
           policy: Delete
           type: nfs
           reserveSpace: false
+    podSecurityContext:
+      fsGroup: 100
     ssh:
       externalSecretName: zfs-provisioner-creds
       mountPath: /home/zfs/.ssh
