@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: kubernetes-zfs-provisioner
-      version: 2.2.1
+      version: 2.2.2
       sourceRef:
         kind: HelmRepository
         name: kubernetes-zfs-provisioner
@@ -21,6 +21,9 @@ spec:
     remediation:
       retries: 3
   values:
+    image:
+      repository: tosih/zfs-provisioner
+      tag: v2.2.2
     provisioner:
       instance: pv.kubernetes.io/zfs
     storageClass:

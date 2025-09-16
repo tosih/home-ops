@@ -6,4 +6,4 @@ metadata:
   namespace: kubernetes-zfs-provisioner
 spec:
   interval: 5m
-  url: https://ccremer.github.io/kubernetes-zfs-provisioner
+  url: https://tosih.github.io/kubernetes-zfs-provisioner
