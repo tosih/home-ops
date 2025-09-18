@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - ./labeller
   - ./plugin
+  - ./oci-repository.yaml
