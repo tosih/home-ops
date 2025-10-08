@@ -19,3 +19,5 @@ talosconfig
 .venv/
 .DS_Store
 Thumbs.db
+cloudflare_token
+tunnel_token

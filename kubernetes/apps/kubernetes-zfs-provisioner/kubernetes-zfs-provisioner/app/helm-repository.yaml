@@ -1,0 +1,9 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: kubernetes-zfs-provisioner
+  namespace: kubernetes-zfs-provisioner
+spec:
+  interval: 5m
+  url: https://tosih.github.io/kubernetes-zfs-provisioner

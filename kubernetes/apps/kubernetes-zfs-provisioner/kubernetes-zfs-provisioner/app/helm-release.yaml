@@ -1,0 +1,46 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kubernetes-zfs-provisioner
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: kubernetes-zfs-provisioner
+      version: 2.2.2
+      sourceRef:
+        kind: HelmRepository
+        name: kubernetes-zfs-provisioner
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    image:
+      repository: tosih/zfs-provisioner
+      tag: v2.2.2
+    provisioner:
+      instance: pv.kubernetes.io/zfs
+    storageClass:
+      create: true
+      classes:
+        - name: zfs-nfs
+          hostName: 10.0.0.2
+          parentDataset: Data/kubernetes
+          policy: Delete
+          type: nfs
+          reserveSpace: false
+    podSecurityContext:
+      fsGroup: 100
+    ssh:
+      externalSecretName: zfs-provisioner-creds
+      mountPath: /home/zfs/.ssh
+    serviceAccount:
+      create: true
+    rbac:
+      create: true
