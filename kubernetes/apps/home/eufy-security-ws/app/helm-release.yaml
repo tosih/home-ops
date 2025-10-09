@@ -37,6 +37,9 @@ spec:
               tag: latest
             env:
               PORT: &http 3000
+            envFrom:
+              - secretRef:
+                  name: eufy-security-ws-secret
             resources:
               requests:
                 cpu: 100m
