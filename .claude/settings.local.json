@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(talosctl:*)",
-      "Bash(talhelper genconfig:*)"
+      "Bash(talhelper genconfig:*)",
+      "Bash(tree:*)"
     ],
     "deny": [],
     "ask": []

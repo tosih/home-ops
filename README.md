@@ -1,6 +1,10 @@
-# ⛵ Cluster Template
+# ⛵ Home-Ops Kubernetes Cluster
 
-Welcome to my template designed for deploying a single Kubernetes cluster. Whether you're setting up a cluster at home on bare-metal or virtual machines (VMs), this project aims to simplify the process and make Kubernetes more accessible. This template is inspired by my personal [home-ops](https://github.com/onedr0p/home-ops) repository, providing a practical starting point for anyone interested in managing their own Kubernetes environment.
+Welcome to my home Kubernetes cluster! This is a production-grade cluster running on Talos Linux, managed with GitOps principles using Flux.
+
+📖 **[View Full Documentation](https://tosih.github.io/home-ops)** - Complete guides, architecture details, and operational procedures
+
+This cluster is based on [@onedr0p's cluster-template](https://github.com/onedr0p/cluster-template), providing a practical starting point for anyone interested in managing their own Kubernetes environment.
 
 At its core, this project leverages [makejinja](https://github.com/mirkolenz/makejinja), a powerful tool for rendering templates. By reading configuration files—such as [cluster.yaml](./cluster.sample.yaml) and [nodes.yaml](./nodes.sample.yaml)—Makejinja generates the necessary configurations to deploy a Kubernetes cluster with the following features:
 
