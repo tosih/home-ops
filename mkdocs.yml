@@ -74,6 +74,7 @@ nav:
       - Overview: getting-started/overview.md
       - Prerequisites: getting-started/prerequisites.md
       - Initial Setup: getting-started/initial-setup.md
+      - Post Installation: getting-started/post-installation.md
   - Operations:
       - Worker Node Upgrades: operations/worker-upgrade-procedure.md
   - Storage:

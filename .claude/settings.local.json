@@ -6,7 +6,11 @@
       "Bash(tree:*)",
       "Bash(find:*)",
       "Bash(python3 -m pip install:*)",
-      "Bash(cd:*)"
+      "Bash(cd:*)",
+      "Bash(gh auth:*)",
+      "Bash(gh api:*)",
+      "Bash(/repos/tosih/home-ops/pages )",
+      "Bash(mkdocs build:*)"
     ],
     "deny": [],
     "ask": []
