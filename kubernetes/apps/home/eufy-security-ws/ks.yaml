@@ -6,6 +6,10 @@ metadata:
   name: eufy-security-ws
   namespace: &namespace home
 spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   interval: 1h
   path: "./kubernetes/apps/home/eufy-security-ws/app"
   prune: true
