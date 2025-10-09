@@ -58,6 +58,10 @@ spec:
                   periodSeconds: 5
     service:
       app:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 10.0.1.26
         ports:
           http:
             port: *http
+            primary: true
