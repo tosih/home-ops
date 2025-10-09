@@ -1,0 +1,19 @@
+machine:
+  disks:
+    # Partition the system disk to create dedicated space for Ceph
+    - device: /dev/nvme0n1
+      partitions:
+        # EFI partition (unchanged)
+        - mountpoint: /boot/efi
+          size: 2200000000 # 2.2GB
+        # META partition (unchanged)
+        - size: 1000000 # 1MB
+        # STATE partition (unchanged)
+        - mountpoint: /var
+          size: 110000000 # 110MB
+        # EPHEMERAL partition (reduced from 254GB to ~150GB)
+        - mountpoint: /var/lib/containerd
+          size: 150000000000 # 150GB
+        # CEPH partition (new ~100GB partition for Ceph OSDs)
+        - mountpoint: /var/lib/rook
+          size: 100000000000 # 100GB
