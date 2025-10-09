@@ -3,7 +3,10 @@
     "allow": [
       "Bash(talosctl:*)",
       "Bash(talhelper genconfig:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(find:*)",
+      "Bash(python3 -m pip install:*)",
+      "Bash(cd:*)"
     ],
     "deny": [],
     "ask": []

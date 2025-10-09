@@ -26,7 +26,7 @@ The new partition (`nvme0n1p5`) is a dedicated 100GB partition for rook-ceph sto
 
 **The disk partitioning changes require reinstallation of Talos on the worker nodes.** The existing nodes cannot be repartitioned in-place.
 
-See [WORKER_UPGRADE_PROCEDURE.md](./WORKER_UPGRADE_PROCEDURE.md) for safe, rolling upgrade instructions that won't disrupt your cluster.
+See [WORKER_UPGRADE_PROCEDURE.md](../operations/worker-upgrade-procedure.md) for safe, rolling upgrade instructions that won't disrupt your cluster.
 
 ### Configuration Files
 
@@ -94,7 +94,7 @@ Two storage classes are provided:
 
 ### 1. Apply Talos Changes
 
-Follow the [WORKER_UPGRADE_PROCEDURE.md](./WORKER_UPGRADE_PROCEDURE.md) to safely upgrade each worker node with the new disk layout.
+Follow the [Worker Upgrade Procedure](../operations/worker-upgrade-procedure.md) to safely upgrade each worker node with the new disk layout.
 
 ### 2. Deploy Rook-Ceph
 
