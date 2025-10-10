@@ -1,0 +1,14 @@
+---
+apiVersion: ceph.rook.io/v1
+kind: CephBlockPool
+metadata:
+  name: ceph-blockpool
+  namespace: rook-ceph
+spec:
+  failureDomain: host
+  replicated:
+    size: 3
+    requireSafeReplicaSize: true
+  parameters:
+    min_size: "2"
+    compression_mode: aggressive

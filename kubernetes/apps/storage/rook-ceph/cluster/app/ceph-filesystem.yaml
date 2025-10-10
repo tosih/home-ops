@@ -1,0 +1,32 @@
+---
+apiVersion: ceph.rook.io/v1
+kind: CephFilesystem
+metadata:
+  name: ceph-filesystem
+  namespace: rook-ceph
+spec:
+  metadataPool:
+    replicated:
+      size: 3
+      requireSafeReplicaSize: true
+    parameters:
+      min_size: "2"
+  dataPools:
+    - name: data0
+      failureDomain: host
+      replicated:
+        size: 3
+        requireSafeReplicaSize: true
+      parameters:
+        min_size: "2"
+        compression_mode: aggressive
+  preserveFilesystemOnDelete: true
+  metadataServer:
+    activeCount: 1
+    activeStandby: true
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "1Gi"
+      limits:
+        memory: "2Gi"
