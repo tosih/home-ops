@@ -151,8 +151,6 @@ docs/
 │   └── initial-setup.md              # Deployment guide
 ├── operations/
 │   └── worker-upgrade-procedure.md   # Safe upgrade process
-├── storage/
-│   └── rook-ceph-setup.md           # Ceph storage setup
 └── reference/
     ├── architecture.md               # System architecture
     └── tools.md                      # Tool reference

@@ -180,42 +180,9 @@ Configure your home DNS server to forward `*.yourdomain.com` to the k8s-gateway 
 
 | Provider | Type | Use Case |
 |----------|------|----------|
-| Rook-Ceph | Distributed | Persistent volumes with replication |
-| ZFS Provisioner | Local | High-performance local storage |
+| ZFS Provisioner | Local | Local persistent volumes on ZFS pools |
 | emptyDir | Ephemeral | Temporary pod storage |
 | hostPath | Node-local | Node-specific persistent data |
-
-### Ceph Architecture (when configured)
-
-```mermaid
-graph TB
-    subgraph "Worker Nodes"
-        W1[worker0<br/>nvme0n1p5: 100GB]
-        W2[worker1<br/>nvme0n1p5: 100GB]
-        W3[worker2<br/>nvme0n1p5: 100GB]
-    end
-
-    subgraph "Ceph Cluster"
-        MON1[Monitor]
-        MON2[Monitor]
-        MON3[Monitor]
-        OSD1[OSD]
-        OSD2[OSD]
-        OSD3[OSD]
-        MGR[Manager]
-    end
-
-    W1 --> OSD1
-    W2 --> OSD2
-    W3 --> OSD3
-
-    OSD1 --> POOL[ceph-blockpool<br/>3x replication]
-    OSD2 --> POOL
-    OSD3 --> POOL
-
-    POOL --> SC1[ceph-block<br/>StorageClass]
-    POOL --> SC2[ceph-filesystem<br/>StorageClass]
-```
 
 ## Security
 
@@ -288,7 +255,6 @@ Recommended monitoring (not included by default):
 
 - **Node metrics**: CPU, memory, disk, network
 - **Cilium**: Network flows via Hubble
-- **Ceph**: Cluster health, OSD status
 - **Flux**: Reconciliation status
 - **Application**: Custom metrics via ServiceMonitor
 
@@ -304,7 +270,7 @@ Recommended monitoring (not included by default):
 
 **Data backups:**
 
-- Persistent volumes (Ceph) - Use Velero or similar
+- Persistent volumes - Use Velero or application-specific backup tools
 - Application data - Application-specific backup tools
 
 ### Recovery Procedure

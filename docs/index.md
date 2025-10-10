@@ -9,7 +9,6 @@ This is a home Kubernetes cluster built with:
 - **[Talos Linux](https://www.talos.dev/)** - Immutable Kubernetes OS
 - **[Flux](https://fluxcd.io/)** - GitOps continuous delivery
 - **[Cilium](https://cilium.io/)** - Advanced networking and security
-- **[Rook-Ceph](https://rook.io/)** - Cloud-native storage orchestration
 
 ## Quick Links
 
@@ -22,22 +21,6 @@ This is a home Kubernetes cluster built with:
     New to this cluster? Start here to understand the architecture and initial setup.
 
     [:octicons-arrow-right-24: Get started](getting-started/overview.md)
-
--   :material-cog:{ .lg .middle } __Operations__
-
-    ---
-
-    Procedures for maintaining and upgrading cluster components.
-
-    [:octicons-arrow-right-24: Operations guides](operations/worker-upgrade-procedure.md)
-
--   :material-database:{ .lg .middle } __Storage__
-
-    ---
-
-    Configure and manage persistent storage with Rook-Ceph.
-
-    [:octicons-arrow-right-24: Storage setup](storage/rook-ceph-setup.md)
 
 -   :material-book-open-variant:{ .lg .middle } __Reference__
 
@@ -57,7 +40,7 @@ This is a home Kubernetes cluster built with:
 - **Worker Nodes:** 3 nodes (worker0, worker1, worker2)
 - **Network:** 10.0.0.0/16 (nodes on 10.0.50.0/24)
 - **CNI:** Cilium with Gateway API
-- **Storage:** Rook-Ceph with dedicated disk partitions
+- **Storage:** Local ZFS storage provisioner
 
 ### Key Features
 
@@ -65,7 +48,7 @@ This is a home Kubernetes cluster built with:
 - ✅ **Highly Available** - Multi-node control plane
 - ✅ **Encrypted Secrets** - SOPS with age encryption
 - ✅ **External Access** - Cloudflare Tunnel integration
-- ✅ **Persistent Storage** - Ceph block and filesystem storage
+- ✅ **Persistent Storage** - Local ZFS storage
 - ✅ **Automated Updates** - Renovate for dependency management
 
 ## Contributing

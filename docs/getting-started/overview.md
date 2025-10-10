@@ -28,7 +28,6 @@ The cluster consists of:
 
 | Component | Purpose |
 |-----------|---------|
-| Rook-Ceph | Distributed storage | v1.16.3 |
 | ZFS Provisioner | Local ZFS storage | Latest |
 
 ### Networking
@@ -96,8 +95,3 @@ Ready to get started?
 
 1. [Check prerequisites](prerequisites.md) - Ensure you have required tools and accounts
 2. [Initial setup](initial-setup.md) - Deploy your cluster from scratch
-
-Already have a running cluster? Jump to:
-
-- [Operations guides](../operations/worker-upgrade-procedure.md) - Maintenance procedures
-- [Storage setup](../storage/rook-ceph-setup.md) - Configure persistent storage

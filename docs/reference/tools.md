@@ -323,26 +323,26 @@ sops --decrypt --extract '["sops"]' secret.yaml
 
 ```bash
 # Add repository
-helm repo add rook-release https://charts.rook.io/release
+helm repo add <name> <url>
 helm repo update
 
 # Search charts
-helm search repo rook
+helm search repo <keyword>
 
 # Show chart values
-helm show values rook-release/rook-ceph
+helm show values <repo>/<chart>
 
 # Install chart
-helm install rook-ceph rook-release/rook-ceph \
-  --namespace rook-ceph \
+helm install <release> <repo>/<chart> \
+  --namespace <namespace> \
   --create-namespace
 
 # Upgrade chart
-helm upgrade rook-ceph rook-release/rook-ceph \
-  --namespace rook-ceph
+helm upgrade <release> <repo>/<chart> \
+  --namespace <namespace>
 
 # Uninstall chart
-helm uninstall rook-ceph --namespace rook-ceph
+helm uninstall <release> --namespace <namespace>
 ```
 
 ### Release Management

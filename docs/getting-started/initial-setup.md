@@ -258,7 +258,6 @@ Your cluster is now running! Here's what you can do next:
 
 ### Optional Enhancements
 
-- **Add Storage**: [Setup Rook-Ceph](../storage/rook-ceph-setup.md)
 - **Add Monitoring**: Deploy Prometheus & Grafana
 - **Add Applications**: Create new apps in `kubernetes/apps/`
 
