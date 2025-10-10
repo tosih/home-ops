@@ -77,8 +77,6 @@ nav:
       - Post Installation: getting-started/post-installation.md
   - Operations:
       - Worker Node Upgrades: operations/worker-upgrade-procedure.md
-  - Storage:
-      - Rook-Ceph Setup: storage/rook-ceph-setup.md
   - Reference:
       - Architecture: reference/architecture.md
       - Tools: reference/tools.md
