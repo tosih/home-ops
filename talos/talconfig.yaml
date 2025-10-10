@@ -132,4 +132,5 @@ controlPlane:
 worker:
   patches:
     - "@./patches/worker/machine-disks.yaml"
+    - "@./patches/worker/machine-kubelet.yaml"
 
