@@ -15,7 +15,10 @@
       "Bash(ping:*)",
       "Bash(kubectl get:*)",
       "Bash(kubectl:*)",
-      "WebFetch(domain:docs.siderolabs.com)"
+      "WebFetch(domain:docs.siderolabs.com)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []
