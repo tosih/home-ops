@@ -24,26 +24,45 @@ spec:
   crashCollector:
     disable: false
   storage:
-    useAllNodes: false
+    useAllNodes: true
     useAllDevices: false
-    # Using directory storage on EPHEMERAL partition
+    # Using PVC-based storage on EPHEMERAL partition via local-hostpath StorageClass
     # Talos workers have single 256GB NVMe disks with EPHEMERAL consuming all available space
     # Raw block devices not viable without dedicated storage disks
-    config:
-      osdsPerDevice: "1"
-    nodes:
-      - name: worker0
-        config:
-          directories:
-            - path: /var/lib/rook/osd0
-      - name: worker1
-        config:
-          directories:
-            - path: /var/lib/rook/osd0
-      - name: worker2
-        config:
-          directories:
-            - path: /var/lib/rook/osd0
+    storageClassDeviceSets:
+      - name: data
+        count: 3  # 3 OSDs total (1 per worker)
+        portable: false
+        encrypted: false
+        volumeClaimTemplates:
+          - metadata:
+              name: data
+            spec:
+              resources:
+                requests:
+                  storage: 80Gi  # Allocate 80GB per OSD from hostPath
+              storageClassName: local-hostpath
+              volumeMode: Block
+              accessModes:
+                - ReadWriteOnce
+        placement:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - key: node-role.kubernetes.io/worker
+                      operator: Exists
+          podAntiAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+              - weight: 100
+                podAffinityTerm:
+                  labelSelector:
+                    matchExpressions:
+                      - key: app
+                        operator: In
+                        values:
+                          - rook-ceph-osd
+                  topologyKey: kubernetes.io/hostname
   resources:
     mon:
       requests:
