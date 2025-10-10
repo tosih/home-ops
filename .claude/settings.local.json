@@ -18,7 +18,8 @@
       "WebFetch(domain:docs.siderolabs.com)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "WebFetch(domain:rook.io)"
     ],
     "deny": [],
     "ask": []

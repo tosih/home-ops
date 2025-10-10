@@ -26,19 +26,24 @@ spec:
   storage:
     useAllNodes: false
     useAllDevices: false
-    # Using hostPath storage on EPHEMERAL partition
+    # Using directory storage on EPHEMERAL partition
     # Talos workers have single 256GB NVMe disks with EPHEMERAL consuming all available space
     # Raw block devices not viable without dedicated storage disks
+    config:
+      osdsPerDevice: "1"
     nodes:
       - name: worker0
-        directories:
-          - path: /var/lib/rook/osd0
+        config:
+          directories:
+            - path: /var/lib/rook/osd0
       - name: worker1
-        directories:
-          - path: /var/lib/rook/osd0
+        config:
+          directories:
+            - path: /var/lib/rook/osd0
       - name: worker2
-        directories:
-          - path: /var/lib/rook/osd0
+        config:
+          directories:
+            - path: /var/lib/rook/osd0
   resources:
     mon:
       requests:
