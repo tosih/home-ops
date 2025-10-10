@@ -10,7 +10,12 @@
       "Bash(gh auth:*)",
       "Bash(gh api:*)",
       "Bash(/repos/tosih/home-ops/pages )",
-      "Bash(mkdocs build:*)"
+      "Bash(mkdocs build:*)",
+      "Bash(task talos:generate-config:*)",
+      "Bash(ping:*)",
+      "Bash(kubectl get:*)",
+      "Bash(kubectl:*)",
+      "WebFetch(domain:docs.siderolabs.com)"
     ],
     "deny": [],
     "ask": []
