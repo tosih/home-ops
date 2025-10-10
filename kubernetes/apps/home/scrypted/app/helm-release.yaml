@@ -64,7 +64,7 @@ spec:
             port: *secure
             nodePort: 31443
           rebroadcast:
-            port: 34135
+            port: 32135
             nodePort: 32135
     route:
       app:
