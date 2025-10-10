@@ -6,7 +6,7 @@ metadata:
   name: &name rook-ceph-cluster
   namespace: flux-system
 spec:
-  targetNamespace: rook-ceph
+  targetNamespace: storage
   commonMetadata:
     labels:
       app.kubernetes.io/name: *name
