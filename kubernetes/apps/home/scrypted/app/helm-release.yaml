@@ -55,16 +55,17 @@ spec:
                   periodSeconds: 5
     service:
       app:
-        type: LoadBalancer
-        annotations:
-          lbipam.cilium.io/ips: 10.0.1.26
+        type: NodePort
         ports:
           http:
             port: &http 11080
+            nodePort: 31080
           https:
             port: *secure
+            nodePort: 31443
           rebroadcast:
             port: 34135
+            nodePort: 34135
     route:
       app:
         enabled: true
