@@ -16,7 +16,7 @@ spec:
     - name: postgres-cluster
       namespace: databases
   interval: 1h
-  path: "./kubernetes/apps/default/immich/app"
+  path: "./kubernetes/apps/cloud/immich/app"
   prune: true
   sourceRef:
     kind: GitRepository
