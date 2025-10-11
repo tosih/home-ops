@@ -1,0 +1,16 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+  - pairs:
+      app.kubernetes.io/name: immich
+      app.kubernetes.io/instance: immich
+      app.kubernetes.io/part-of: immich
+resources:
+  - ./configmap.yaml
+  - ./database.yaml
+  # - ./external-secret.yaml
+  - ./helm-release.yaml
+  - ./oci-repository.yaml
+  - ./pvc.yaml
+  - ./secret.sops.yaml
