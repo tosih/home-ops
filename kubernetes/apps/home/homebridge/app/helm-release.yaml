@@ -19,35 +19,44 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    defaultPodOptions:
-      hostNetwork: true
-      dnsPolicy: ClusterFirstWithHostNet
     controllers:
-      main:
+      homebridge:
+        type: deployment
         strategy: Recreate
         annotations:
           reloader.stakater.com/auto: "true"
+        pod:
+          hostNetwork: true
+          dnsPolicy: ClusterFirstWithHostNet
         containers:
-          main:
+          app:
             image:
               repository: homebridge/homebridge
-              tag: "2023-11-28"
+              tag: "2024-01-08"
             env:
-              TZ: "${TZ}"
+              TZ: America/Los_Angeles
               ENABLE_AVAHI: "1"
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
-                custom: true
+                type: HTTP
+                path: /
+                port: &port 8581
                 spec:
-                  httpGet:
-                    path: /
-                    port: &port 8581
                   initialDelaySeconds: 30
                   periodSeconds: 10
                   timeoutSeconds: 2
                   failureThreshold: 3
-              readiness: *probes
+              readiness:
+                enabled: true
+                type: HTTP
+                path: /
+                port: *port
+                spec:
+                  initialDelaySeconds: 30
+                  periodSeconds: 10
+                  timeoutSeconds: 2
+                  failureThreshold: 3
               startup:
                 enabled: false
             resources:
@@ -57,32 +66,25 @@ spec:
               limits:
                 memory: 750Mi
     service:
-      main:
+      app:
+        controller: homebridge
         ports:
           http:
             port: *port
-    ingress:
-      main:
+    route:
+      app:
         enabled: true
-        ingressClassName: nginx
-        annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-production
-          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
-        hosts:
-          - host: &host "homebridge.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  name: main
-                  port: http
-        tls:
-          - secretName: homebridge-tls
-            hosts:
-              - *host
+        parentRefs:
+          - name: external
+            namespace: kube-system
+            sectionName: https
+        hostnames: ["homebridge.tosih.org"]
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
     configMaps:
-      config:
-        enabled: true
-        nameOverride: startup-sh
+      startup:
         data:
           startup.sh: |-
             #!/bin/sh
@@ -93,14 +95,17 @@ spec:
             npm install --save homebridge-tplink-smarthome@latest
             npm install --save -g homebridge-camera-ui@latest
     persistence:
-      homebridge:
+      config:
         enabled: true
+        type: persistentVolumeClaim
         existingClaim: homebridge-config
+        globalMounts:
+          - path: /homebridge
       startup-sh:
         enabled: true
         type: configMap
-        name: homebridge-startup-sh
+        name: homebridge-startup
         globalMounts:
           - path: /homebridge/startup.sh
             subPath: startup.sh
-            defaultMode: 493
+            defaultMode: 0755
