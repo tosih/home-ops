@@ -28,6 +28,17 @@ spec:
         pod:
           hostNetwork: true
           dnsPolicy: ClusterFirstWithHostNet
+        initContainers:
+          setup-startup:
+            image:
+              repository: busybox
+              tag: latest
+            command:
+              - sh
+              - -c
+              - |
+                cp /configmap/startup.sh /homebridge/startup.sh
+                chmod +x /homebridge/startup.sh
         containers:
           app:
             image:
@@ -84,6 +95,15 @@ spec:
           - backendRefs:
               - identifier: app
                 port: *port
+    configMaps:
+      startup:
+        data:
+          startup.sh: |
+            #!/bin/sh
+            npm install --save homebridge-dummy@latest
+            npm install --save homebridge-eufy-security@latest
+            npm install --save homebridge-rachio-irrigation@latest
+            npm install --save -g homebridge-camera-ui@latest
     persistence:
       config:
         enabled: true
@@ -91,14 +111,16 @@ spec:
         existingClaim: homebridge-config
         globalMounts:
           - path: /var/lib/homebridge
-      startup:
+      startup-configmap:
         enabled: true
-        type: file
-        mode: "0755"
-        path: /homebridge/startup.sh
-        content: |
-          #!/bin/sh
-          npm install --save homebridge-dummy@latest
-          npm install --save homebridge-eufy-security@latest
-          npm install --save homebridge-rachio-irrigation@latest
-          npm install --save -g homebridge-camera-ui@latest
+        type: configMap
+        name: homebridge-startup
+        advancedMounts:
+          homebridge:
+            setup-startup:
+              - path: /configmap
+      startup-script:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /homebridge
