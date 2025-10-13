@@ -37,6 +37,7 @@ spec:
               tag: latest
             env:
               PORT: &http 3000
+              COUNTRY: US
             envFrom:
               - secretRef:
                   name: eufy-security-ws-secret

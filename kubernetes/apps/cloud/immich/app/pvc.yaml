@@ -11,4 +11,3 @@ spec:
       storage: 10000Gi
   storageClassName: "zfs-nfs"
   volumeMode: Filesystem
-  volumeName: storage-zfs-immich
