@@ -105,7 +105,9 @@ spec:
         enabled: true
         type: configMap
         name: homebridge-startup
-        globalMounts:
-          - path: /homebridge/startup.sh
-            subPath: startup.sh
-            defaultMode: 0755
+        advancedMounts:
+          homebridge:
+            app:
+              - path: /homebridge/startup.sh
+                subPath: startup.sh
+                readOnly: true
