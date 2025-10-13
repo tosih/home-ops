@@ -6,6 +6,6 @@ resources:
   - ./eufy-security-ws/ks.yaml
   - ./home-assistant/ks.yaml
   - ./homebridge/ks.yaml
-  - ./scrypted/ks.yaml
+  # - ./scrypted/ks.yaml  # Disabled
 components:
   - ../../components/common
