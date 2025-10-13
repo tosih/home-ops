@@ -88,7 +88,9 @@ spec:
         data:
           startup.sh: |-
             #!/bin/sh
+            npm install --save homebridge-dummy@latest
             npm install --save homebridge-eufy-security@latest
+            npm install --save homebridge-rachio-irrigation@latest
             npm install --save -g homebridge-camera-ui@latest
     persistence:
       config:
