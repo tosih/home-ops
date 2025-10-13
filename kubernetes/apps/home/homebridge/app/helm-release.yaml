@@ -28,17 +28,6 @@ spec:
         pod:
           hostNetwork: true
           dnsPolicy: ClusterFirstWithHostNet
-        initContainers:
-          setup-startup:
-            image:
-              repository: busybox
-              tag: latest
-            command:
-              - sh
-              - -c
-              - |
-                cp /configmap/startup.sh /homebridge/startup.sh
-                chmod +x /homebridge/startup.sh
         containers:
           app:
             image:
@@ -111,16 +100,11 @@ spec:
         existingClaim: homebridge-config
         globalMounts:
           - path: /var/lib/homebridge
-      startup-configmap:
+      startup-script:
         enabled: true
         type: configMap
         name: homebridge-startup
-        advancedMounts:
-          homebridge:
-            setup-startup:
-              - path: /configmap
-      startup-script:
-        enabled: true
-        type: emptyDir
+        defaultMode: 0755
         globalMounts:
-          - path: /homebridge
+          - path: /homebridge/startup.sh
+            subPath: startup.sh
