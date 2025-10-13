@@ -28,6 +28,15 @@ spec:
         pod:
           hostNetwork: true
           dnsPolicy: ClusterFirstWithHostNet
+        initContainers:
+          copy-startup:
+            image:
+              repository: busybox
+              tag: latest
+            command:
+              - /bin/sh
+              - -c
+              - "cp /tmp/startup.sh /homebridge/startup.sh && chmod +x /homebridge/startup.sh"
         containers:
           app:
             image:
@@ -100,13 +109,22 @@ spec:
         existingClaim: homebridge-config
         globalMounts:
           - path: /var/lib/homebridge
-      startup-sh:
+      startup-sh-source:
         enabled: true
         type: configMap
         name: homebridge
         advancedMounts:
           homebridge:
-            app:
-              - path: /homebridge/startup.sh
+            copy-startup:
+              - path: /tmp/startup.sh
                 subPath: startup.sh
-                readOnly: false
+                readOnly: true
+      startup-sh-dest:
+        enabled: true
+        type: emptyDir
+        advancedMounts:
+          homebridge:
+            copy-startup:
+              - path: /homebridge
+            app:
+              - path: /homebridge
