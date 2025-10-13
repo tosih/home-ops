@@ -99,7 +99,7 @@ spec:
         type: persistentVolumeClaim
         existingClaim: homebridge-config
         globalMounts:
-          - path: /var/lib/homebridge
+          - path: /homebridge
       startup-script:
         enabled: true
         type: configMap
