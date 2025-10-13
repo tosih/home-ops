@@ -107,8 +107,12 @@ spec:
         enabled: true
         type: persistentVolumeClaim
         existingClaim: homebridge-config
-        globalMounts:
-          - path: /var/lib/homebridge
+        advancedMounts:
+          homebridge:
+            copy-startup:
+              - path: /var/lib/homebridge
+            app:
+              - path: /var/lib/homebridge
       startup-sh-source:
         enabled: true
         type: configMap
