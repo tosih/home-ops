@@ -13,4 +13,5 @@ resources:
   - ./helm-release.yaml
   - ./oci-repository.yaml
   - ./pvc.yaml
+  - ./ml-pvc.yaml
   - ./secret.sops.yaml
