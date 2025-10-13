@@ -28,15 +28,6 @@ spec:
         pod:
           hostNetwork: true
           dnsPolicy: ClusterFirstWithHostNet
-        initContainers:
-          copy-startup:
-            image:
-              repository: busybox
-              tag: latest
-            command:
-              - /bin/sh
-              - -c
-              - "cp /tmp/startup.sh /homebridge/startup.sh && chmod +x /homebridge/startup.sh"
         containers:
           app:
             image:
@@ -93,42 +84,21 @@ spec:
           - backendRefs:
               - identifier: app
                 port: *port
-    configMaps:
-      startup:
-        data:
-          startup.sh: |-
-            #!/bin/sh
-            npm install --save homebridge-dummy@latest
-            npm install --save homebridge-eufy-security@latest
-            npm install --save homebridge-rachio-irrigation@latest
-            npm install --save -g homebridge-camera-ui@latest
     persistence:
       config:
         enabled: true
         type: persistentVolumeClaim
         existingClaim: homebridge-config
-        advancedMounts:
-          homebridge:
-            copy-startup:
-              - path: /var/lib/homebridge
-            app:
-              - path: /var/lib/homebridge
-      startup-sh-source:
+        globalMounts:
+          - path: /var/lib/homebridge
+      startup:
         enabled: true
-        type: configMap
-        name: homebridge
-        advancedMounts:
-          homebridge:
-            copy-startup:
-              - path: /tmp/startup.sh
-                subPath: startup.sh
-                readOnly: true
-      startup-sh-dest:
-        enabled: true
-        type: emptyDir
-        advancedMounts:
-          homebridge:
-            copy-startup:
-              - path: /homebridge
-            app:
-              - path: /homebridge
+        type: file
+        mode: "0755"
+        path: /homebridge/startup.sh
+        content: |
+          #!/bin/sh
+          npm install --save homebridge-dummy@latest
+          npm install --save homebridge-eufy-security@latest
+          npm install --save homebridge-rachio-irrigation@latest
+          npm install --save -g homebridge-camera-ui@latest
