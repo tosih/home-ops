@@ -104,7 +104,7 @@ spec:
       startup-sh:
         enabled: true
         type: configMap
-        name: homebridge-startup
+        name: homebridge
         advancedMounts:
           homebridge:
             app:
