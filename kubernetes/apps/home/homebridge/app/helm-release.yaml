@@ -42,7 +42,7 @@ spec:
                   command:
                     - /bin/sh
                     - -c
-                    - "cd /homebridge && sh /homebridge/startup.sh"
+                    - "cd /var/lib/homebridge && sh /var/lib/homebridge/startup.sh"
             probes:
               liveness:
                 enabled: true
@@ -105,7 +105,7 @@ spec:
         type: persistentVolumeClaim
         existingClaim: homebridge-config
         globalMounts:
-          - path: /homebridge
+          - path: /var/lib/homebridge
       startup-sh:
         enabled: true
         type: configMap
@@ -113,6 +113,6 @@ spec:
         advancedMounts:
           homebridge:
             app:
-              - path: /homebridge/startup.sh
+              - path: /var/lib/homebridge/startup.sh
                 subPath: startup.sh
                 readOnly: true
