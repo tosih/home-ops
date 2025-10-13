@@ -36,13 +36,7 @@ spec:
             env:
               TZ: America/Los_Angeles
               ENABLE_AVAHI: "1"
-            lifecycle:
-              postStart:
-                exec:
-                  command:
-                    - /bin/sh
-                    - -c
-                    - "cd /var/lib/homebridge && sh /var/lib/homebridge/startup.sh"
+
             probes:
               liveness:
                 enabled: true
@@ -113,6 +107,6 @@ spec:
         advancedMounts:
           homebridge:
             app:
-              - path: /var/lib/homebridge/startup.sh
+              - path: /homebridge/startup.sh
                 subPath: startup.sh
-                readOnly: true
+                readOnly: false
