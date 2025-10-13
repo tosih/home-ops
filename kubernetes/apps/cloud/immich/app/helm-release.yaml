@@ -27,8 +27,6 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           enableServiceLinks: false
-          nodeSelector:
-            kubernetes.io/hostname: s01
 
         containers:
           main:
@@ -68,8 +66,6 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           enableServiceLinks: false
-          nodeSelector:
-            kubernetes.io/hostname: s01
 
         containers:
           main:
