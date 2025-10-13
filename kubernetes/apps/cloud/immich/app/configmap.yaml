@@ -5,12 +5,12 @@ metadata:
   name: immich-configmap
 data:
   # URLS
-  IMMICH_WEB_URL: http://immich-web.default:3000
-  IMMICH_SERVER_URL: http://immich-server.default:3001
+  IMMICH_WEB_URL: http://immich-web.cloud:3000
+  IMMICH_SERVER_URL: http://immich-server.cloud:3001
   PUBLIC_IMMICH_SERVER_URL: https://photos.tosih.org
-  IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning.default:3004
+  IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning.cloud:3004
   # REDIS
-  REDIS_HOSTNAME: "immich-valkey.databases"
+  REDIS_HOSTNAME: "immich-valkey.cloud"
   REDIS_PORT: "6379"
   # General
   NODE_ENV: "production"
