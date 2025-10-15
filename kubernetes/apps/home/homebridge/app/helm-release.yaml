@@ -87,6 +87,7 @@ spec:
     configMaps:
       startup:
         enabled: true
+        nameOverride: homebridge-startup-script
         data:
           startup.sh: |
             #!/bin/sh
@@ -104,7 +105,7 @@ spec:
       startup-script:
         enabled: true
         type: configMap
-        name: homebridge-startup
+        name: homebridge-startup-script
         defaultMode: 0755
         globalMounts:
           - path: /homebridge/startup.sh
