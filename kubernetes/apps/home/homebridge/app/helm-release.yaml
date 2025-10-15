@@ -85,9 +85,8 @@ spec:
               - identifier: app
                 port: *port
     configMaps:
-      startup:
+      startup-script:
         enabled: true
-        nameOverride: homebridge-startup-script
         data:
           startup.sh: |
             #!/bin/sh
@@ -102,10 +101,10 @@ spec:
         existingClaim: homebridge-config
         globalMounts:
           - path: /homebridge
-      startup-script:
+      startup:
         enabled: true
         type: configMap
-        name: homebridge-startup-script
+        name: startup-script
         defaultMode: 0755
         globalMounts:
           - path: /homebridge/startup.sh
