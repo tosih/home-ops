@@ -84,17 +84,6 @@ spec:
           - backendRefs:
               - identifier: app
                 port: *port
-    configMaps:
-      startup:
-        enabled: true
-        suffix: startup
-        data:
-          startup.sh: |
-            #!/bin/sh
-            npm install --save homebridge-dummy@latest
-            npm install --save homebridge-eufy-security@latest
-            npm install --save homebridge-rachio-irrigation@latest
-            npm install --save -g homebridge-camera-ui@latest
     persistence:
       config:
         enabled: true
@@ -102,11 +91,3 @@ spec:
         existingClaim: homebridge-config
         globalMounts:
           - path: /homebridge
-      startup:
-        enabled: true
-        type: configMap
-        name: homebridge-startup
-        defaultMode: 0755
-        globalMounts:
-          - path: /homebridge/startup.sh
-            subPath: startup.sh
