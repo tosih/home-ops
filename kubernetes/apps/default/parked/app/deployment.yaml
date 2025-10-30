@@ -20,9 +20,9 @@ spec:
     spec:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 1001
-        runAsGroup: 1001
-        fsGroup: 1001
+        runAsUser: 101
+        runAsGroup: 101
+        fsGroup: 101
       containers:
         - name: parked
           image: ghcr.io/tosih/parked:master
