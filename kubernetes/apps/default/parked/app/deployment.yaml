@@ -20,16 +20,16 @@ spec:
     spec:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 65534
-        runAsGroup: 65534
-        fsGroup: 65534
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
       containers:
         - name: parked
           image: ghcr.io/tosih/parked:master
           imagePullPolicy: Always
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
               protocol: TCP
           livenessProbe:
             httpGet:
@@ -49,12 +49,26 @@ spec:
             failureThreshold: 3
           securityContext:
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop: ["ALL"]
+          volumeMounts:
+            - name: nginx-cache
+              mountPath: /tmp/nginx/cache
+            - name: nginx-run
+              mountPath: /tmp/nginx/run
+            - name: nginx-body
+              mountPath: /tmp/nginx/body
           resources:
             requests:
               cpu: 10m
               memory: 32Mi
             limits:
               memory: 64Mi
+      volumes:
+        - name: nginx-cache
+          emptyDir: {}
+        - name: nginx-run
+          emptyDir: {}
+        - name: nginx-body
+          emptyDir: {}
