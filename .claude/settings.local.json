@@ -22,7 +22,10 @@
       "WebFetch(domain:rook.io)",
       "WebFetch(domain:github.com)",
       "WebSearch",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(docker manifest inspect:*)",
+      "Bash(docker pull:*)",
+      "Bash(docker inspect:*)"
     ],
     "deny": [],
     "ask": []
