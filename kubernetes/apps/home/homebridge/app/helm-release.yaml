@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: homebridge/homebridge
-              tag: "2025-10-19"
+              tag: "2025-10-29"
             env:
               TZ: America/Los_Angeles
               ENABLE_AVAHI: "1"

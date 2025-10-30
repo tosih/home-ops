@@ -92,7 +92,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ahinko/valkey
-              tag: 9.0.0
+              tag: 8.1.4
 
     service:
       server:
