@@ -91,7 +91,7 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/valkey/valkey
+              repository: valkey/valkey
               tag: 9.0.0
 
     service:
