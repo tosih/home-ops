@@ -1,0 +1,43 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: rook-ceph-operator
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: rook-ceph
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+      remediateLastFailure: true # remediate the last failure, when no retries remain
+  uninstall:
+    keepHistory: false
+  values:
+    crds:
+      enabled: true
+
+    csi:
+      cephFSKernelMountOptions: ms_mode=prefer-crc
+
+      enableLiveness: true
+      serviceMonitor:
+        enabled: true
+
+    image:
+      repository: ghcr.io/rook/ceph
+    monitoring:
+      enabled: true
+
+    resources:
+      requests:
+        memory: 128Mi # unchangable
+        cpu: 100m # unchangable
+      limits: {}
