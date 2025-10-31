@@ -76,7 +76,7 @@ spec:
         hostnames: ["pid.tosih.org"]
         parentRefs:
           - name: internal
-            namespace: networking
+            namespace: kube-system
             sectionName: https
     persistence:
       config:
