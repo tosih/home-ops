@@ -6,9 +6,13 @@ metadata:
   name: descheduler
 spec:
   interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: descheduler
+  chart:
+    spec:
+      chart: descheduler
+      version: 0.34.0
+      sourceRef:
+        kind: HelmRepository
+        name: descheduler
   install:
     remediation:
       retries: -1
