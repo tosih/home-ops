@@ -121,7 +121,7 @@ spec:
             memory: "128Mi"
           requests:
             cpu: "50m"
-            memory: "50Mi"
+            memory: "32Mi"
 
     cephFileSystems: []
 
