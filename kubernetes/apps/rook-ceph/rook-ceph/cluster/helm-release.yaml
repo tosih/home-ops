@@ -103,7 +103,7 @@ spec:
             memory: "60Mi"
           requests:
             cpu: "30m"
-            memory: "60Mi"
+            memory: "32Mi"
         logcollector:
           limits:
             memory: "1Gi"
