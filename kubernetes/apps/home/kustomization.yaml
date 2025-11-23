@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: home
 resources:
   # - ./eufy-security-ws/ks.yaml
-  - ./home-assistant/ks.yaml
+  # - ./home-assistant/ks.yaml  # Disabled for reinstall
   - ./homebridge/ks.yaml
   # - ./scrypted/ks.yaml  # Disabled
 components:
