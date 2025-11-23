@@ -84,13 +84,13 @@ spec:
           limits:
             memory: "1Gi"
           requests:
-            cpu: "50m"
-            memory: "256Mi"
+            cpu: "100m"
+            memory: "512Mi"
         osd:
           limits:
             memory: "2Gi"
           requests:
-            cpu: "50m"
+            cpu: "100m"
             memory: "512Mi"
         mgr-sidecar:
           limits:
