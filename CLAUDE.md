@@ -212,3 +212,63 @@ The `task configure` command validates:
 - All sensitive values in `cluster.yaml` should be replaced with SOPS-encrypted secrets after initial setup
 - The `github-deploy.key.pub` public key must be added to GitHub deploy keys for private repos
 - Cloudflare tunnel credentials are stored in `cloudflare-tunnel.json` (not committed in template)
+
+## Safety Guidelines for Destructive Operations
+
+**CRITICAL**: The following rules MUST be followed when performing any destructive operations:
+
+### Required Approval Before Executing
+
+**ALWAYS** get explicit user approval before:
+- Deleting Kubernetes resources (pods, deployments, statefulsets, etc.)
+- Deleting multiple resources simultaneously
+- Running `talosctl reset` or any node reset commands
+- Modifying or deleting storage resources (PVs, PVCs, Ceph OSDs, etc.)
+- Scaling down critical applications
+- Applying resource changes that require pod restarts
+- Running any command that could cause service disruption
+
+### Incremental Changes Only
+
+When making changes to distributed systems:
+- **ONE resource at a time**: Never delete/restart multiple pods/nodes simultaneously
+- **Verify health between changes**: Check cluster/application health after each change
+- **Wait for stabilization**: Allow time for systems to recover before next change
+- **Monitor impact**: Check metrics and logs after each step
+
+### Specific Guidelines
+
+**Ceph/Rook Operations:**
+- Never delete more than one OSD at a time
+- Wait for PGs to become clean before proceeding to next OSD
+- Check `ceph status` between each change
+- Allow Rook operator to handle updates automatically when possible
+
+**Node Operations:**
+- Only operate on one worker node at a time
+- Never use `talosctl reset` on multiple nodes simultaneously
+- Always use `--graceful` and check what will be affected
+
+**Pod/Deployment Changes:**
+- Delete one pod and verify it comes back healthy before proceeding
+- Use `kubectl rollout restart` instead of deleting deployments when possible
+- Check pod events and logs after changes
+
+### What Requires Explicit Approval
+
+The following actions should NEVER be executed without explicit user approval:
+1. Any `kubectl delete` command affecting multiple resources
+2. Any `talosctl reset` or node wipe commands
+3. Deleting storage resources (OSDs, PVs, PVCs)
+4. Scaling down to 0 replicas
+5. Batch operations on critical infrastructure (multiple nodes/pods)
+
+### Safe Alternatives
+
+Instead of destructive actions, prefer:
+- `kubectl rollout restart deployment` over deleting pods
+- Waiting for Flux/operators to handle updates automatically
+- Making configuration changes and letting GitOps handle rollout
+- Using `kubectl patch` for targeted updates
+
+**Remember**: This is a production homelab cluster with data. Caution and patience are always better than speed.
