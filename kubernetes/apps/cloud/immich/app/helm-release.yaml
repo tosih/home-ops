@@ -22,7 +22,7 @@ spec:
   values:
     controllers:
       server:
-        replicas: 0
+        replicas: 1
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
@@ -62,7 +62,7 @@ spec:
                 memory: 2Gi
 
       machine-learning:
-        replicas: 0
+        replicas: 1
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
@@ -90,7 +90,7 @@ spec:
                 memory: 3949M
 
       valkey:
-        replicas: 0
+        replicas: 1
         containers:
           app:
             image:
