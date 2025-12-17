@@ -77,7 +77,7 @@ spec:
           gethomepage.dev/app: pocket-id
         hostnames: ["pid.tosih.org"]
         parentRefs:
-          - name: internal
+          - name: external
             namespace: kube-system
             sectionName: https
     persistence:

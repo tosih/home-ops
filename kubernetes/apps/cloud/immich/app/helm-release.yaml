@@ -53,6 +53,8 @@ spec:
             envFrom:
               - configMapRef:
                   name: immich-configmap
+              - secretRef:
+                  name: immich-oidc-secret
 
             resources:
               requests:
