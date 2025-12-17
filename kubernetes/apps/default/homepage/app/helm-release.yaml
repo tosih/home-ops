@@ -40,13 +40,9 @@ spec:
               - -c
               - |
                 echo "=== Initializing config directory ==="
-                if [ ! -f /app/config/settings.yaml ]; then
-                  echo "Copying config files..."
-                  cp -v /app/config-source/* /app/config/
-                  echo "Config files copied"
-                else
-                  echo "Config already exists, skipping copy"
-                fi
+                echo "Syncing config files from ConfigMap..."
+                cp -vf /app/config-source/* /app/config/
+                echo "Config files synced"
                 
                 echo "Creating logs directory..."
                 mkdir -p /app/config/logs
