@@ -210,6 +210,6 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: rook-ceph-mgr-dashboard
+              - name: rook-ceph-dashboard-lb
                 namespace: rook-ceph
-                port: 7000
+                port: 80
