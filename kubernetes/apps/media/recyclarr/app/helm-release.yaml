@@ -46,7 +46,7 @@ spec:
               TZ: America/Chicago
               # These need to be set after initial deployment of sonarr/radarr
               # Get API keys from their respective UIs
-              SONARR_API_KEY: ""
+              SONARR_API_KEY: "52acb577a59f488586dcdf9f02245a8f"
               RADARR_API_KEY: ""
 
             resources:
