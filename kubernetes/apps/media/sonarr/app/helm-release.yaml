@@ -36,7 +36,7 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/sonarr-develop
+              repository: ghcr.io/home-operations/sonarr-develop
               tag: 4.0.11.2680
             env:
               TZ: America/Chicago
