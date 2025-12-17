@@ -1,0 +1,13 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: media
+resources:
+  - ./media-nfs-pv.yaml
+  - ./prowlarr/ks.yaml
+  - ./sonarr/ks.yaml
+  - ./radarr/ks.yaml
+  - ./qbittorrent/ks.yaml
+  - ./nzbget/ks.yaml
+components:
+  - ../../components/common
