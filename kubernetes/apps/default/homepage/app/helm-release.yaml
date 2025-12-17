@@ -65,8 +65,7 @@ spec:
       automountServiceAccountToken: true
 
     serviceAccount:
-      homepage:
-        name: homepage
+      homepage: {}
 
     service:
       app:
