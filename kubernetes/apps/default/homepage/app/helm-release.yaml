@@ -223,7 +223,7 @@ spec:
                     description: Usenet downloader
                     namespace: media
                     app: nzbget
-                - Beets:
+                - Betanin:
                     icon: mdi-music-box-multiple
                     href: https://beets.tosih.org
                     description: Music library manager
