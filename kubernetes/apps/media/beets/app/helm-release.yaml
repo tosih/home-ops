@@ -40,7 +40,6 @@ spec:
               tag: 2.3.1
             env:
               TZ: America/Chicago
-              BEETS_CONFIG: /config/config.yaml
 
             probes:
               liveness:
@@ -65,7 +64,7 @@ spec:
         controller: beets
         ports:
           http:
-            port: &port 8337
+            port: &port 8080
 
     route:
       app:
