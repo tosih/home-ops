@@ -30,6 +30,29 @@ spec:
             runAsNonRoot: true
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
+        initContainers:
+          init-config:
+            image:
+              repository: ghcr.io/gethomepage/homepage
+              tag: v1.3.2
+            command:
+              - /bin/sh
+              - -c
+              - |
+                echo "=== Initializing config directory ==="
+                if [ ! -f /app/config/settings.yaml ]; then
+                  echo "Copying config files..."
+                  cp -v /app/config-source/* /app/config/
+                  echo "Config files copied"
+                else
+                  echo "Config already exists, skipping copy"
+                fi
+                
+                echo "Creating logs directory..."
+                mkdir -p /app/config/logs
+                
+                echo "=== Final check ==="
+                ls -la /app/config/
         containers:
           app:
             image:
@@ -87,22 +110,18 @@ spec:
                 port: *port
 
     persistence:
-      config:
+      data:
+        type: persistentVolumeClaim
+        existingClaim: homepage-config
+        globalMounts:
+          - path: /app/config
+      config-source:
         type: configMap
         name: homepage
-        globalMounts:
-          - subPath: bookmarks.yaml
-            path: /app/config/bookmarks.yaml
-          - subPath: docker.yaml
-            path: /app/config/docker.yaml
-          - subPath: kubernetes.yaml
-            path: /app/config/kubernetes.yaml
-          - subPath: services.yaml
-            path: /app/config/services.yaml
-          - subPath: settings.yaml
-            path: /app/config/settings.yaml
-          - subPath: widgets.yaml
-            path: /app/config/widgets.yaml
+        advancedMounts:
+          homepage:
+            init-config:
+              - path: /app/config-source
 
     configMaps:
       config:
@@ -110,9 +129,27 @@ spec:
         data:
           bookmarks.yaml: |
             - Developer:
-                - Github:
+                - Github Repo:
                     - icon: si-github
                       href: https://github.com/tosih/home-ops
+                      description: Home operations repository
+                - Kubernetes Docs:
+                    - icon: si-kubernetes
+                      href: https://kubernetes.io/docs/
+                      description: Kubernetes documentation
+                - Flux Docs:
+                    - icon: mdi-git-commit
+                      href: https://fluxcd.io/flux/
+                      description: Flux CD documentation
+            - Community:
+                - Home Operations Discord:
+                    - icon: si-discord
+                      href: https://discord.gg/home-operations
+                      description: Community support
+                - r/selfhosted:
+                    - icon: si-reddit
+                      href: https://reddit.com/r/selfhosted
+                      description: Self-hosting community
           docker.yaml: ""
           kubernetes.yaml: |
             mode: cluster
@@ -122,16 +159,105 @@ spec:
                     icon: sh-ceph.svg
                     href: https://rook.tosih.org
                     description: Distributed storage
+                    namespace: rook-ceph
+                    app: rook-ceph-tools
+            
+            - Home Automation:
+                - Home Assistant:
+                    icon: home-assistant.svg
+                    href: https://home.tosih.org
+                    description: Smart home automation
+                    namespace: home
+                    app: home-assistant
+                - Homebridge:
+                    icon: homebridge.svg
+                    href: https://homebridge.tosih.org
+                    description: HomeKit bridge
+                    namespace: home
+                    app: homebridge
+                - Scrypted:
+                    icon: scrypted.svg
+                    href: https://scrypted.tosih.org
+                    description: Video integration platform
+                    namespace: home
+                    app: scrypted
+            
+            - Media:
+                - Plex:
+                    icon: plex.svg
+                    href: https://plex.tosih.org
+                    description: Media server
+                    namespace: media
+                    app: plex
+                - Jellyseerr:
+                    icon: jellyseerr.svg
+                    href: https://requests.tosih.org
+                    description: Media requests
+                    namespace: media
+                    app: jellyseerr
+                - Sonarr:
+                    icon: sonarr.svg
+                    href: https://sonarr.tosih.org
+                    description: TV shows management
+                    namespace: media
+                    app: sonarr
+                - Radarr:
+                    icon: radarr.svg
+                    href: https://radarr.tosih.org
+                    description: Movies management
+                    namespace: media
+                    app: radarr
+                - Prowlarr:
+                    icon: prowlarr.svg
+                    href: https://prowlarr.tosih.org
+                    description: Indexer manager
+                    namespace: media
+                    app: prowlarr
+                - qBittorrent:
+                    icon: qbittorrent.svg
+                    href: https://qbittorrent.tosih.org
+                    description: Torrent client
+                    namespace: media
+                    app: qbittorrent
+                - NZBGet:
+                    icon: nzbget.svg
+                    href: https://nzbget.tosih.org
+                    description: Usenet downloader
+                    namespace: media
+                    app: nzbget
+                - Beets:
+                    icon: mdi-music-box-multiple
+                    href: https://beets.tosih.org
+                    description: Music library manager
+                    namespace: media
+                    app: beets
+            
+            - Apps:
+                - Immich:
+                    icon: immich.svg
+                    href: https://photos.tosih.org
+                    description: Photo management
+                    namespace: cloud
+                    app: immich
+            
+            - Security:
+                - Pocket ID:
+                    icon: mdi-shield-account
+                    href: https://pid.tosih.org
+                    description: Authentication provider
+                    namespace: security
+                    app: pocket-id
           settings.yaml: |
-            title: Dashboard
+            title: Home Dashboard
             favicon: https://raw.githubusercontent.com/gethomepage/homepage/main/public/favicon.ico
             theme: dark
             color: slate
             headerStyle: clean
+            target: _blank
             layout:
               Infrastructure:
                 style: row
-                columns: 4
+                columns: 2
               Home Automation:
                 style: row
                 columns: 3
@@ -140,13 +266,10 @@ spec:
                 columns: 4
               Apps:
                 style: row
-                columns: 3
+                columns: 2
               Security:
                 style: row
                 columns: 2
-            providers:
-              longhorn:
-                url: https://longhorn.tosih.org
           widgets.yaml: |
             - kubernetes:
                 cluster:
