@@ -61,6 +61,8 @@ spec:
             env:
               TZ: America/Chicago
               HOMEPAGE_ALLOWED_HOSTS: "dashboard.tosih.org"
+              PUID: "568"
+              PGID: "568"
             probes:
               liveness:
                 enabled: true
