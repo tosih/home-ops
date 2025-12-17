@@ -73,6 +73,13 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: TV show management
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: sh-sonarr.svg
+          gethomepage.dev/name: Sonarr
+          gethomepage.dev/app: sonarr
         hostnames: ["sonarr.tosih.org"]
         parentRefs:
           - name: internal

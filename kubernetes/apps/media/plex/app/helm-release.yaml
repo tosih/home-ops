@@ -73,6 +73,13 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Media streaming server
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: sh-plex.svg
+          gethomepage.dev/name: Plex
+          gethomepage.dev/app: plex
         hostnames: ["plex.tosih.org"]
         parentRefs:
           - name: internal

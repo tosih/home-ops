@@ -73,6 +73,13 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Movie management
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: sh-radarr.svg
+          gethomepage.dev/name: Radarr
+          gethomepage.dev/app: radarr
         hostnames: ["radarr.tosih.org"]
         parentRefs:
           - name: internal

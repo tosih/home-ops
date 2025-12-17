@@ -1,0 +1,150 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: homepage
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: homepage
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      homepage:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/gethomepage/homepage
+              tag: v1.3.2
+            env:
+              TZ: America/Chicago
+              HOMEPAGE_ALLOWED_HOSTS: "dashboard.tosih.org"
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 256Mi
+
+    serviceAccount:
+      create: false
+      name: homepage
+
+    service:
+      app:
+        controller: homepage
+        ports:
+          http:
+            port: &port 3000
+
+    route:
+      app:
+        hostnames: ["dashboard.tosih.org"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+
+    persistence:
+      config:
+        type: configMap
+        name: homepage-config
+        globalMounts:
+          - subPath: bookmarks.yaml
+            path: /app/config/bookmarks.yaml
+          - subPath: docker.yaml
+            path: /app/config/docker.yaml
+          - subPath: kubernetes.yaml
+            path: /app/config/kubernetes.yaml
+          - subPath: services.yaml
+            path: /app/config/services.yaml
+          - subPath: settings.yaml
+            path: /app/config/settings.yaml
+          - subPath: widgets.yaml
+            path: /app/config/widgets.yaml
+
+    configMaps:
+      config:
+        enabled: true
+        data:
+          bookmarks.yaml: |
+            - Developer:
+                - Github:
+                    - icon: si-github
+                      href: https://github.com/tosih/home-ops
+          docker.yaml: ""
+          kubernetes.yaml: |
+            mode: cluster
+          services.yaml: |
+            - Infrastructure:
+                - Rook-Ceph:
+                    icon: sh-ceph.svg
+                    href: https://rook.tosih.org
+                    description: Distributed storage
+          settings.yaml: |
+            title: Dashboard
+            favicon: https://raw.githubusercontent.com/gethomepage/homepage/main/public/favicon.ico
+            theme: dark
+            color: slate
+            headerStyle: clean
+            layout:
+              Infrastructure:
+                style: row
+                columns: 4
+              Home Automation:
+                style: row
+                columns: 3
+              Media:
+                style: row
+                columns: 4
+              Apps:
+                style: row
+                columns: 3
+              Security:
+                style: row
+                columns: 2
+            providers:
+              longhorn:
+                url: https://longhorn.tosih.org
+          widgets.yaml: |
+            - kubernetes:
+                cluster:
+                  show: true
+                  cpu: true
+                  memory: true
+                  showLabel: true
+                  label: "cluster"
+                nodes:
+                  show: true
+                  cpu: true
+                  memory: true
+                  showLabel: true
+            - search:
+                provider: google
+                target: _blank

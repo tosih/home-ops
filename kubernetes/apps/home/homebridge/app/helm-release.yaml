@@ -75,6 +75,13 @@ spec:
     route:
       app:
         enabled: true
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: HomeKit bridge
+          gethomepage.dev/group: Home Automation
+          gethomepage.dev/icon: sh-homebridge.svg
+          gethomepage.dev/name: Homebridge
+          gethomepage.dev/app: homebridge
         parentRefs:
           - name: external
             namespace: kube-system

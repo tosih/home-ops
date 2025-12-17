@@ -70,6 +70,13 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Usenet downloader
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: sh-nzbget.svg
+          gethomepage.dev/name: NZBGet
+          gethomepage.dev/app: nzbget
         hostnames: ["nzbget.tosih.org"]
         parentRefs:
           - name: internal

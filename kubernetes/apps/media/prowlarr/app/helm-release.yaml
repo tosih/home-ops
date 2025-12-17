@@ -73,6 +73,13 @@ spec:
 
     route:
       app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Indexer management
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: sh-prowlarr.svg
+          gethomepage.dev/name: Prowlarr
+          gethomepage.dev/app: prowlarr
         hostnames: ["prowlarr.tosih.org"]
         parentRefs:
           - name: internal
