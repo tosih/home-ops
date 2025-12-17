@@ -5,3 +5,4 @@ resources:
   - ./helm-release.yaml
   - ./oci-repository.yaml
   - ./configmap.yaml
+  - ./secret.sops.yaml
