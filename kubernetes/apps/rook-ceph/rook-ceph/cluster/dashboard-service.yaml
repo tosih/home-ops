@@ -4,10 +4,10 @@ kind: Service
 metadata:
   name: rook-ceph-dashboard-lb
   namespace: rook-ceph
-spec:
-  type: LoadBalancer
   annotations:
     lbipam.cilium.io/ips: 10.0.50.105
+spec:
+  type: LoadBalancer
   ports:
     - name: http
       port: 80
