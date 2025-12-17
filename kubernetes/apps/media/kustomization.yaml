@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: media
 resources:
   - ./media-nfs-pv.yaml
+  - ./beets/ks.yaml
   - ./prowlarr/ks.yaml
   - ./sonarr/ks.yaml
   - ./radarr/ks.yaml
