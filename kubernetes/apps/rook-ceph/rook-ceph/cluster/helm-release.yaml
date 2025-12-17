@@ -21,7 +21,7 @@ spec:
     keepHistory: false
   values:
     toolbox:
-      enabled: false
+      enabled: true
 
     monitoring:
       enabled: true
