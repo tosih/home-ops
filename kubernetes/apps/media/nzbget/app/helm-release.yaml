@@ -36,11 +36,12 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/nzbgetcom/nzbget
-              tag: v25.4
+              repository: ghcr.io/home-operations/nzbget
+              tag: 24.6
             env:
               TZ: America/Chicago
-              NZBGET_PORT: &port 6789
+              NZBGET__MAIN_DIR: /config
+              NZBGET__CONTROL_PORT: &port 6789
 
             probes:
               liveness:
