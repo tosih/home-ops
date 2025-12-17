@@ -155,7 +155,7 @@ spec:
             - Infrastructure:
                 - Rook-Ceph:
                     icon: sh-ceph.svg
-                    href: https://rook.tosih.org
+                    href: http://10.0.50.105
                     description: Distributed storage
                     namespace: rook-ceph
                     app: rook-ceph-tools
