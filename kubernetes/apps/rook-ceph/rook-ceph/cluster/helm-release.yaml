@@ -179,9 +179,9 @@ spec:
             resources:
               requests:
                 cpu: 100m
-                memory: 512Mi
+                memory: 256Mi
               limits:
-                memory: 2Gi
+                memory: 1Gi
             instances: 2
             priorityClassName: system-cluster-critical
           healthCheck:
