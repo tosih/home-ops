@@ -23,6 +23,13 @@ spec:
       homepage:
         annotations:
           reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
         containers:
           app:
             image:
@@ -47,10 +54,19 @@ spec:
                 memory: 128Mi
               limits:
                 memory: 256Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+
+    defaultPodOptions:
+      automountServiceAccountToken: true
 
     serviceAccount:
-      create: false
-      name: homepage
+      homepage:
+        name: homepage
 
     service:
       app:
