@@ -1,0 +1,113 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: plex
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      plex:
+        replicas: 1
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-operations/plex
+              tag: 1.42.2.10156
+            env:
+              TZ: America/Chicago
+              PLEX_ADVERTISE_URL: "https://plex.tosih.org:443"
+              PLEX_NO_AUTH_NETWORKS: "10.0.0.0/8"
+
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1Gi
+              limits:
+                memory: 8Gi
+
+    service:
+      app:
+        controller: plex
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 10.0.50.104
+        ports:
+          http:
+            port: 32400
+
+    route:
+      app:
+        hostnames: ["plex.tosih.org"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 32400
+
+    persistence:
+      config:
+        enabled: true
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        storageClass: ceph-block
+        size: 50Gi
+        advancedMounts:
+          plex:
+            app:
+              - path: /config
+
+      media:
+        enabled: true
+        type: persistentVolumeClaim
+        existingClaim: media-nfs
+        advancedMounts:
+          plex:
+            app:
+              - path: /media
+
+      transcode:
+        enabled: true
+        type: emptyDir
+        advancedMounts:
+          plex:
+            app:
+              - path: /transcode

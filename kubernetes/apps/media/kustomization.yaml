@@ -5,6 +5,7 @@ namespace: media
 resources:
   - ./media-nfs-pv.yaml
   - ./beets/ks.yaml
+  - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./sonarr/ks.yaml
   - ./radarr/ks.yaml
