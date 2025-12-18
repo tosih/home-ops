@@ -33,6 +33,22 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
 
+        initContainers:
+          init-config:
+            image:
+              repository: busybox
+              tag: latest
+            command:
+              - sh
+              - -c
+              - |
+                if [ ! -f /config/configuration.yaml ]; then
+                  cp /tmp/config/configuration.yaml /config/configuration.yaml
+                  echo "Copied configuration.yaml to /config"
+                else
+                  echo "configuration.yaml already exists, skipping copy"
+                fi
+
         containers:
           app:
             image:
@@ -126,7 +142,9 @@ spec:
         name: home-assistant-config
         advancedMounts:
           home-assistant:
+            init-config:
+              - path: /tmp/config
+                readOnly: true
             app:
-              - path: /config/configuration.yaml
-                subPath: configuration.yaml
+              - path: /tmp/config-reference
                 readOnly: true
