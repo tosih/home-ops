@@ -42,11 +42,19 @@ spec:
               - sh
               - -c
               - |
-                if [ ! -f /config/configuration.yaml ]; then
-                  cp /tmp/config/configuration.yaml /config/configuration.yaml
-                  echo "Copied configuration.yaml to /config"
+                # Check if http config already exists in configuration.yaml
+                if [ -f /config/configuration.yaml ] && grep -q "use_x_forwarded_for" /config/configuration.yaml; then
+                  echo "HTTP configuration already present in configuration.yaml"
                 else
-                  echo "configuration.yaml already exists, skipping copy"
+                  echo "Adding HTTP configuration to configuration.yaml"
+                  if [ ! -f /config/configuration.yaml ]; then
+                    # File doesn't exist, create it with our config
+                    cp /tmp/config/configuration.yaml /config/configuration.yaml
+                  else
+                    # File exists, append our http config
+                    cat /tmp/config/configuration.yaml >> /config/configuration.yaml
+                  fi
+                  echo "HTTP configuration added"
                 fi
 
         containers:
