@@ -99,7 +99,7 @@ spec:
 
     persistence:
       config:
-        name: "home-assistant-config"
+        nameOverride: "home-assistant-config"
         enabled: true
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
