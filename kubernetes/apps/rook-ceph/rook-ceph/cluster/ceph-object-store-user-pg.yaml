@@ -1,9 +1,0 @@
----
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/ceph.rook.io/cephobjectstoreuser_v1.json
-apiVersion: ceph.rook.io/v1
-kind: CephObjectStoreUser
-metadata:
-  name: postgres-user
-spec:
-  store: ceph-objectstore
-  displayName: Postgres User
