@@ -13,7 +13,7 @@ spec:
     remediation:
       retries: 3
   upgrade:
-    cleanupOnFail: true
+    cleanupOnFail: false
     remediation:
       retries: 3
   uninstall:
@@ -83,7 +83,7 @@ spec:
       app:
         type: LoadBalancer
         annotations:
-          lbipam.cilium.io/ips: 10.0.50.100
+          lbipam.cilium.io/ips: 10.0.50.106
         ports:
           sonos:
             enabled: true
