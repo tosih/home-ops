@@ -39,7 +39,7 @@ spec:
               repository: ghcr.io/home-operations/sonarr
               tag: 4.0.16.2943
             env:
-              TZ: America/Chicago
+              TZ: America/Los_Angeles
               SONARR__APP__INSTANCENAME: Sonarr
               SONARR__AUTH__METHOD: External
               SONARR__AUTH__REQUIRED: DisabledForLocalAddresses

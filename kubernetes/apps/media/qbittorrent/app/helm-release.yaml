@@ -39,7 +39,7 @@ spec:
               repository: ghcr.io/home-operations/qbittorrent
               tag: 5.1.4
             env:
-              TZ: America/Chicago
+              TZ: America/Los_Angeles
               QBITTORRENT__PORT: &port 8080
               QBITTORRENT__BT_PORT: &bt-port 50413
 

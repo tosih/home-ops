@@ -55,7 +55,7 @@ spec:
               repository: ghcr.io/gethomepage/homepage
               tag: v1.8.0
             env:
-              TZ: America/Chicago
+              TZ: America/Los_Angeles
               HOMEPAGE_ALLOWED_HOSTS: "dashboard.tosih.org"
               PUID: "568"
               PGID: "568"

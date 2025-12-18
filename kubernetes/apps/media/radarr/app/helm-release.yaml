@@ -39,7 +39,7 @@ spec:
               repository: ghcr.io/home-operations/radarr
               tag: 6.1.0.10309
             env:
-              TZ: America/Chicago
+              TZ: America/Los_Angeles
               RADARR__APP__INSTANCENAME: Radarr
               RADARR__AUTH__METHOD: External
               RADARR__AUTH__REQUIRED: DisabledForLocalAddresses

@@ -39,7 +39,7 @@ spec:
               repository: ghcr.io/home-operations/plex
               tag: 1.42.2.10156
             env:
-              TZ: America/Chicago
+              TZ: America/Los_Angeles
               PLEX_ADVERTISE_URL: "https://plex.tosih.org:443"
               PLEX_NO_AUTH_NETWORKS: "10.0.0.0/8"
 

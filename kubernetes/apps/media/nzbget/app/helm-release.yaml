@@ -39,7 +39,7 @@ spec:
               repository: ghcr.io/home-operations/nzbget
               tag: 25.4
             env:
-              TZ: America/Chicago
+              TZ: America/Los_Angeles
               NZBGET__MAIN_DIR: /config
               NZBGET__CONTROL_PORT: &port 6789
 

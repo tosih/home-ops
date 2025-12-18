@@ -39,7 +39,7 @@ spec:
               repository: docker.io/fallenbagel/jellyseerr
               tag: 2.7.3
             env:
-              TZ: America/Chicago
+              TZ: America/Los_Angeles
               LOG_LEVEL: info
 
             probes:
