@@ -99,11 +99,12 @@ spec:
 
     persistence:
       config:
+        name: "home-assistant-config"
         enabled: true
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
-        storageClass: zfs-nfs
-        size: 1Gi
+        storageClass: ceph-block
+        size: 5Gi
         advancedMounts:
           home-assistant:
             app:
