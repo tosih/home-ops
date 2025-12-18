@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: authelia
+spec:
+  interval: 1h
+  url: oci://ghcr.io/authelia/charts/authelia
+  ref:
+    tag: 0.10.49
