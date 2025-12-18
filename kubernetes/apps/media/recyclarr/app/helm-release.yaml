@@ -58,11 +58,11 @@ spec:
     persistence:
       config:
         enabled: true
-        type: configMap
-        name: recyclarr-config
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        storageClass: ceph-block
+        size: 1Gi
         advancedMounts:
           recyclarr:
             app:
-              - path: /config/recyclarr.yml
-                subPath: recyclarr.yml
-                readOnly: true
+              - path: /config

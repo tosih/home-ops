@@ -114,9 +114,7 @@ spec:
       downloads:
         enabled: true
         type: persistentVolumeClaim
-        accessMode: ReadWriteOnce
-        storageClass: ceph-block
-        size: 100Gi
+        existingClaim: shared-downloads
         advancedMounts:
           radarr:
             app:
