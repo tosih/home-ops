@@ -49,10 +49,10 @@ spec:
                   echo "Adding HTTP configuration to configuration.yaml"
                   if [ ! -f /config/configuration.yaml ]; then
                     # File doesn't exist, create it with our config
-                    cp /tmp/config/configuration.yaml /config/configuration.yaml
+                    cp /tmp/http-config/configuration.yaml /config/configuration.yaml
                   else
                     # File exists, append our http config
-                    cat /tmp/config/configuration.yaml >> /config/configuration.yaml
+                    cat /tmp/http-config/configuration.yaml >> /config/configuration.yaml
                   fi
                   echo "HTTP configuration added"
                 fi
@@ -133,6 +133,8 @@ spec:
         size: 5Gi
         advancedMounts:
           home-assistant:
+            init-config:
+              - path: /config
             app:
               - path: /config
 
@@ -151,8 +153,5 @@ spec:
         advancedMounts:
           home-assistant:
             init-config:
-              - path: /tmp/config
-                readOnly: true
-            app:
-              - path: /tmp/config-reference
+              - path: /tmp/http-config
                 readOnly: true
