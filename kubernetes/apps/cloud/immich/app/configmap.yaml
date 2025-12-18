@@ -10,7 +10,7 @@ data:
   PUBLIC_IMMICH_SERVER_URL: https://photos.tosih.org
   IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning.cloud:3003
   # REDIS
-  REDIS_HOSTNAME: "immich-valkey.cloud"
+  REDIS_HOSTNAME: "dragonfly.databases.svc.cluster.local"
   REDIS_PORT: "6379"
   # General
   NODE_ENV: "production"
