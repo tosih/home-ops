@@ -23,8 +23,6 @@ data:
     whitelist_domains = [".tosih.org"]
     
     # Skip email verification check
-    insecure_oidc_skip_verify_nonce = false
-    skip_oidc_discovery = false
     insecure_oidc_allow_unverified_email = true
     
     # Cookie settings
