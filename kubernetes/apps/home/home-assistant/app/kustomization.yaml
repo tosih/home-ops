@@ -5,4 +5,7 @@ resources:
   - ./configmap.yaml
   - ./database.yaml
   - ./helm-release.yaml
+  - ./httproute.yaml
   - ./oci-repository.yaml
+  - ./oidc-secret.yaml
+  - ./oauth2-proxy.yaml

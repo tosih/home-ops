@@ -97,32 +97,13 @@ spec:
             enabled: true
             port: 1400
           http:
-            port: &port 8123
+            port: 8123
             primary: true
             appProtocol: kubernetes.io/wss
           govee:
             enabled: true
             port: 4003
             protocol: UDP
-
-    route:
-      app:
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Smart home and automations
-          gethomepage.dev/group: Home Automation
-          gethomepage.dev/icon: sh-home-assistant.svg
-          gethomepage.dev/name: Home Assistant
-          gethomepage.dev/app: home-assistant
-        hostnames: ["home.tosih.org"]
-        parentRefs:
-          - name: external
-            namespace: kube-system
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
 
     persistence:
       config:
