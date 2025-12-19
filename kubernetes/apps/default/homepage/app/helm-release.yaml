@@ -173,12 +173,6 @@ spec:
                     description: HomeKit bridge
                     namespace: home
                     app: homebridge
-                - Scrypted:
-                    icon: scrypted.svg
-                    href: https://scrypted.tosih.org
-                    description: Video integration platform
-                    namespace: home
-                    app: scrypted
             
             - Media:
                 - Plex:
