@@ -39,7 +39,7 @@ spec:
               AUTHELIA_THEME: dark
               AUTHELIA_LOG_LEVEL: info
               AUTHELIA_LOG_FORMAT: json
-              AUTHELIA_DEFAULT_REDIRECTION_URL: https://tosih.org
+              X_AUTHELIA_CONFIG: /config/configuration.yml
               
             envFrom:
               - secretRef:
