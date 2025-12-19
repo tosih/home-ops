@@ -178,11 +178,16 @@ Configure your home DNS server to forward `*.yourdomain.com` to the k8s-gateway 
 
 ### Storage Providers
 
-| Provider | Type | Use Case |
-|----------|------|----------|
-| ZFS Provisioner | Local | Local persistent volumes on ZFS pools |
-| emptyDir | Ephemeral | Temporary pod storage |
-| hostPath | Node-local | Node-specific persistent data |
+| Provider | Type | StorageClass | Use Case |
+|----------|------|--------------|----------|
+| Rook-Ceph Block | RBD | `ceph-block` (default) | High-performance block storage for databases |
+| Rook-Ceph Filesystem | CephFS | `ceph-filesystem` | Shared filesystem storage (ReadWriteMany) |
+| Rook-Ceph Object | S3 | `ceph-bucket` | Object storage buckets |
+| ZFS NFS | NFS | `zfs-nfs` | NFS-backed persistent volumes |
+| Local HostPath | Node-local | `local-hostpath` | Node-specific persistent data |
+| emptyDir | Ephemeral | N/A | Temporary pod storage |
+
+**Current Usage:** 19 PVCs across applications, 3 PostgreSQL databases
 
 ## Security
 
@@ -210,8 +215,11 @@ graph LR
 
 - **Talos**: API-only access (no SSH)
 - **Kubernetes**: RBAC enabled
-- **Secrets**: SOPS encrypted in Git
-- **External Access**: Cloudflare Tunnel with authentication
+- **Secrets**: SOPS encrypted in Git + External Secrets from 1Password
+- **Authentication**: Pocket ID OIDC provider for SSO
+- **Gateways**: 
+  - External (10.0.50.102) - Public apps with authentication
+  - Internal (10.0.50.101) - Home network only (network-protected)
 
 ## Update Strategy
 
@@ -249,6 +257,39 @@ graph LR
 - **Pod anti-affinity** for critical apps
 - **PodDisruptionBudgets** for graceful updates
 
+## Deployed Applications
+
+### Production Workloads
+
+| Application | Namespace | Gateway | Purpose |
+|------------|-----------|---------|---------|
+| Pocket ID | security | external | OIDC identity provider |
+| Immich | cloud | external | Photo & video backup (OIDC-enabled) |
+| Home Assistant | home | internal | Home automation |
+| Homebridge | home | internal | HomeKit bridge |
+| Plex | media | internal | Media streaming |
+| Jellyseerr | media | internal | Media requests |
+| Sonarr | media | internal | TV automation |
+| Radarr | media | internal | Movie automation |
+| Prowlarr | media | internal | Indexer management |
+| qBittorrent | media | internal | Torrent client |
+| NZBGet | media | internal | Usenet downloader |
+| Homepage | default | internal | Dashboard |
+| Rook-Ceph Dashboard | rook-ceph | internal | Storage management |
+
+**Total:** 16+ applications across 6 namespaces
+
+### Infrastructure Services
+
+- **Flux** - GitOps continuous delivery
+- **Cilium** - CNI and Gateway API
+- **Rook-Ceph** - Distributed storage (operator + cluster)
+- **CloudNativePG** - PostgreSQL operator (3 databases)
+- **External Secrets** - 1Password integration
+- **Cert-Manager** - TLS certificate management
+- **k8s-gateway** - Internal DNS resolution
+- **Cloudflare Tunnel** - Secure external access
+
 ## Monitoring Points
 
 Recommended monitoring (not included by default):
@@ -257,6 +298,7 @@ Recommended monitoring (not included by default):
 - **Cilium**: Network flows via Hubble
 - **Flux**: Reconciliation status
 - **Application**: Custom metrics via ServiceMonitor
+- **Ceph**: Storage health and capacity
 
 ## Disaster Recovery
 

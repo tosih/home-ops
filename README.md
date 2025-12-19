@@ -10,12 +10,14 @@ Complete guides for deployment, operations, and maintenance are available in the
 
 ## ✨ Highlights
 
-- **OS**: [Talos Linux](https://www.talos.dev/) - Immutable Kubernetes OS
+- **OS**: [Talos Linux](https://www.talos.dev/) v1.11.1 - Immutable Kubernetes OS
+- **Kubernetes**: v1.34.1 - Latest stable version
 - **GitOps**: [Flux](https://fluxcd.io/) - Continuous delivery from Git
-- **CNI**: [Cilium](https://cilium.io/) - eBPF-based networking
-- **Storage**: [Rook-Ceph](https://rook.io/) - Distributed storage
-- **Ingress**: Gateway API with Cloudflare Tunnel
-- **Secrets**: SOPS with age encryption
+- **CNI**: [Cilium](https://cilium.io/) - eBPF-based networking with Gateway API
+- **Storage**: [Rook-Ceph](https://rook.io/) - Distributed block and filesystem storage
+- **Ingress**: Cilium Gateway API (internal & external gateways)
+- **Secrets**: SOPS with age encryption + External Secrets with 1Password
+- **Authentication**: [Pocket ID](https://github.com/stonith404/pocket-id) - OIDC provider for SSO
 
 ## 🚀 Quick Start
 
@@ -38,11 +40,35 @@ See the [Getting Started](https://tosih.github.io/home-ops/getting-started/initi
 
 ## 🏗️ Infrastructure
 
-| Component | Count | Specs |
-|-----------|-------|-------|
-| Control Plane | 2 | 4 CPU, 16GB RAM |
-| Workers | 3 | 4 CPU, 16GB RAM |
-| Storage | 300GB | Ceph distributed storage |
+| Component | Count | Details |
+|-----------|-------|---------|
+| Control Plane | 2 | Talos v1.11.1, Kubernetes v1.34.1 |
+| Workers | 3 | High availability workload distribution |
+| Storage | Multiple | Rook-Ceph (block, filesystem), ZFS NFS |
+| Applications | 16+ | Media automation, photos, home automation |
+
+## 🚀 Deployed Applications
+
+### Media & Entertainment
+- **[Plex](https://plex.tosih.org)** - Media streaming server
+- **[Jellyseerr](https://requests.tosih.org)** - Media request management
+- **[Sonarr](https://sonarr.tosih.org)** - TV show automation
+- **[Radarr](https://radarr.tosih.org)** - Movie automation
+- **[Prowlarr](https://prowlarr.tosih.org)** - Indexer management
+- **[qBittorrent](https://qbittorrent.tosih.org)** - Torrent client
+- **[NZBGet](https://nzbget.tosih.org)** - Usenet downloader
+
+### Cloud Services
+- **[Immich](https://photos.tosih.org)** - Self-hosted photo and video backup with OIDC
+
+### Home Automation
+- **[Home Assistant](https://home.tosih.org)** - Home automation platform
+- **[Homebridge](https://homebridge.tosih.org)** - HomeKit bridge
+
+### Security & Infrastructure
+- **[Pocket ID](https://pid.tosih.org)** - OIDC identity provider (SSO)
+- **[Homepage](https://dashboard.tosih.org)** - Application dashboard
+- **[Rook-Ceph Dashboard](https://rook.tosih.org)** - Storage cluster management
 
 ## 📚 Key Documentation
 

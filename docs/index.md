@@ -36,20 +36,24 @@ This is a home Kubernetes cluster built with:
 
 ### Infrastructure
 
-- **Control Plane Nodes:** 2 nodes (control0, control1)
+- **Control Plane Nodes:** 2 nodes (control0, control1) - Talos v1.11.1
 - **Worker Nodes:** 3 nodes (worker0, worker1, worker2)
-- **Network:** 10.0.0.0/16 (nodes on 10.0.50.0/24)
-- **CNI:** Cilium with Gateway API
-- **Storage:** Local ZFS storage provisioner
+- **Kubernetes Version:** v1.34.1
+- **Network:** Pod CIDR 10.42.0.0/16, Service CIDR 10.43.0.0/16
+- **CNI:** Cilium with Gateway API (internal & external gateways)
+- **Storage:** Rook-Ceph (block, filesystem), ZFS NFS provisioner
+- **DNS:** k8s-gateway for internal DNS resolution
 
 ### Key Features
 
-- ✅ **GitOps-driven** - All configuration stored in Git
-- ✅ **Highly Available** - Multi-node control plane
-- ✅ **Encrypted Secrets** - SOPS with age encryption
-- ✅ **External Access** - Cloudflare Tunnel integration
-- ✅ **Persistent Storage** - Local ZFS storage
+- ✅ **GitOps-driven** - All configuration stored in Git, managed by Flux
+- ✅ **Highly Available** - Multi-node control plane with VIP
+- ✅ **Encrypted Secrets** - SOPS with age + External Secrets with 1Password
+- ✅ **Dual Gateway** - Internal (home network) & External (internet) access
+- ✅ **Distributed Storage** - Rook-Ceph cluster with block and filesystem support
 - ✅ **Automated Updates** - Renovate for dependency management
+- ✅ **SSO Authentication** - Pocket ID OIDC provider for unified login
+- ✅ **Template-Driven** - Configuration generation via makejinja
 
 ## Contributing
 
