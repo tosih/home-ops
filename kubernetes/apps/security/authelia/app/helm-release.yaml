@@ -94,3 +94,6 @@ spec:
           - path: /config/configuration.yml
             subPath: configuration.yml
             readOnly: true
+          - path: /config/users_database.yml
+            subPath: users_database.yml
+            readOnly: false
