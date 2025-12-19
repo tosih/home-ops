@@ -44,18 +44,26 @@ Save this value - you'll need it in step 3.
 
 ### 3. Store Credentials in 1Password
 
-Store the OAuth credentials in your 1Password vault:
+Store the OAuth credentials in your 1Password vault using **separate items**:
 
 1. Open 1Password
-2. Create a new item with the following structure:
-   - **Title:** `home-assistant-oidc`
-   - **Type:** API Credential or Secure Note
-   - **Fields:**
-     - `client_id`: [Paste the Client ID from Pocket-ID]
-     - `client_secret`: [Paste the Client Secret from Pocket-ID]
-     - `cookie_secret`: [Paste the cookie secret you generated in step 1]
+2. Create **three separate items** in the format expected by the 1Password SDK provider:
 
-3. Save the item in the same vault referenced by your `1password-sdk` ClusterSecretStore
+   **Item 1:**
+   - **Title:** `home-assistant/oidc_client_id`
+   - **Value/Password:** [Paste the Client ID from Pocket-ID]
+
+   **Item 2:**
+   - **Title:** `home-assistant/oidc_client_secret`
+   - **Value/Password:** [Paste the Client Secret from Pocket-ID]
+
+   **Item 3:**
+   - **Title:** `home-assistant/oidc_cookie_secret`
+   - **Value/Password:** [Paste the cookie secret you generated in step 1]
+
+3. Save all items in the same vault referenced by your `1password-sdk` ClusterSecretStore
+
+**Note:** The 1Password SDK provider uses the item title/name as the reference key, so the exact naming matters!
 
 ### 4. Deploy the Configuration
 
