@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: docker.io/fallenbagel/jellyseerr
-              tag: 2.7.3
+              tag: preview-OIDC
             env:
               TZ: America/Los_Angeles
               LOG_LEVEL: info
