@@ -82,7 +82,7 @@ data:
       admin:
         disabled: false
         displayname: "Admin User"
-        password: "$argon2id$v=19$m=65536,t=3,p=4$8SCxHT2hiYsOzzzCcUC5xw$D3+PQsitea44l0Ei2oFiJYs5r9KR5uIjp7+zU3ZBbAk"
+        password: "$argon2id$v=19$m=65536,t=3,p=4$2/ocjZey2aYJhjsVl1fxjw$u5igGAJkMRHPFcooR927NRhQMWIzDfyc51tZqJK6qyE"
         email: admin@tosih.org
         groups:
           - admins
