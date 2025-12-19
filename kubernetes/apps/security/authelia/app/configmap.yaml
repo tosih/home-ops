@@ -49,12 +49,7 @@ data:
         database_index: 0
     
     storage:
-      encryption_key_secret_name: AUTHELIA_STORAGE_ENCRYPTION_KEY
       postgres:
-        address: AUTHELIA_STORAGE_POSTGRES_ADDRESS
-        database: AUTHELIA_STORAGE_POSTGRES_DATABASE
-        username: AUTHELIA_STORAGE_POSTGRES_USERNAME
-        password_secret_name: AUTHELIA_STORAGE_POSTGRES_PASSWORD
         schema: public
         timeout: 5s
     
@@ -85,13 +80,11 @@ data:
     
     identity_providers:
       oidc:
-        hmac_secret_secret_name: AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET
-        jwks:
-          - key_secret_name: AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY
-        access_token_lifespan: 1h
-        authorize_code_lifespan: 1m
-        id_token_lifespan: 1h
-        refresh_token_lifespan: 90m
+        lifespans:
+          access_token: 1h
+          authorize_code: 1m
+          id_token: 1h
+          refresh_token: 90m
         enforce_pkce: public_clients_only
         cors:
           endpoints:
@@ -101,3 +94,7 @@ data:
             - introspection
           allowed_origins_from_client_redirect_uris: true
         clients: []
+    
+    identity_validation:
+      reset_password:
+        jwt_lifespan: 5m
