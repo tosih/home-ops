@@ -26,6 +26,19 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         
+        initContainers:
+          init-config:
+            image:
+              repository: ghcr.io/authelia/authelia
+              tag: 4.39.13
+            command:
+              - sh
+              - -c
+              - |
+                echo '---' > /config/users_database.yml
+                echo 'users: {}' >> /config/users_database.yml
+                chmod 600 /config/users_database.yml
+        
         containers:
           app:
             image:
@@ -40,7 +53,7 @@ spec:
               AUTHELIA_LOG_LEVEL: info
               AUTHELIA_LOG_FORMAT: json
               X_AUTHELIA_CONFIG: /config/configuration.yml
-              
+            
             envFrom:
               - secretRef:
                   name: authelia-secret
@@ -90,10 +103,13 @@ spec:
       config:
         type: configMap
         name: authelia-config
+        advancedMounts:
+          main:
+            app:
+              - path: /config/configuration.yml
+                subPath: configuration.yml
+                readOnly: true
+      data:
+        type: emptyDir
         globalMounts:
-          - path: /config/configuration.yml
-            subPath: configuration.yml
-            readOnly: true
-          - path: /config/users_database.yml
-            subPath: users_database.yml
-            readOnly: false
+          - path: /config
