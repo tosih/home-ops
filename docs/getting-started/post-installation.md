@@ -255,7 +255,8 @@ vim talos/talenv.yaml
 task talos:upgrade-node IP=10.0.50.10
 ```
 
-See [Worker Upgrade Procedure](../operations/worker-upgrade-procedure.md) for safe rolling upgrades.
+!!! tip "Safe Rolling Upgrades"
+    Always upgrade one node at a time and verify cluster health between upgrades. For worker nodes, ensure workloads are rescheduled properly before proceeding to the next node.
 
 ### Upgrade Kubernetes
 

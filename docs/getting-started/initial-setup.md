@@ -3,7 +3,7 @@
 This guide walks through deploying the cluster from scratch.
 
 !!! warning "Starting from scratch"
-    This guide assumes you're deploying a new cluster. If you already have a running cluster and want to make changes, see the [Operations](../operations/worker-upgrade-procedure.md) guides instead.
+    This guide assumes you're deploying a new cluster. If you already have a running cluster and want to make changes, see the post-installation guide for upgrade procedures.
 
 ## Stage 1: Repository Setup
 

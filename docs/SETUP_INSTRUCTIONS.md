@@ -148,11 +148,11 @@ docs/
 ├── getting-started/
 │   ├── overview.md                   # Cluster overview
 │   ├── prerequisites.md              # Required tools/accounts
-│   └── initial-setup.md              # Deployment guide
-├── operations/
-│   └── worker-upgrade-procedure.md   # Safe upgrade process
+│   ├── initial-setup.md              # Deployment guide
+│   └── post-installation.md          # Post-install tasks and upgrades
 └── reference/
     ├── architecture.md               # System architecture
+    ├── authentication.md             # OIDC/SSO configuration
     └── tools.md                      # Tool reference
 ```
 

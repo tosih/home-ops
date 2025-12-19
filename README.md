@@ -74,8 +74,8 @@ See the [Getting Started](https://tosih.github.io/home-ops/getting-started/initi
 
 - **[Prerequisites](https://tosih.github.io/home-ops/getting-started/prerequisites/)** - Required tools and accounts
 - **[Architecture](https://tosih.github.io/home-ops/reference/architecture/)** - System design and structure
-- **[Operations](https://tosih.github.io/home-ops/operations/worker-upgrade-procedure/)** - Maintenance procedures
-- **[Storage](https://tosih.github.io/home-ops/storage/rook-ceph-setup/)** - Persistent storage setup
+- **[Authentication](https://tosih.github.io/home-ops/reference/authentication/)** - OIDC and SSO setup
+- **[Post Installation](https://tosih.github.io/home-ops/getting-started/post-installation/)** - Maintenance and upgrades
 
 ## 🔧 Built With
 
