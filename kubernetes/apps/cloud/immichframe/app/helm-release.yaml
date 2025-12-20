@@ -30,17 +30,14 @@ spec:
         containers:
           main:
             image:
-              repository: ghcr.io/3rob3/immichframe
-              tag: latest
+              repository: ghcr.io/immichframe/immichframe
+              tag: v1.0.30.0
             env:
               TZ: America/Los_Angeles
               IMMICH_URL: http://immich-server.cloud.svc.cluster.local:2283
-              # Set these in the secret
-              # IMMICH_API_KEY: ""
-              # REFRESH_INTERVAL: "60"
-              # PHOTO_PRELOAD: "4"
-              # KIOSK_MODE: "true"
             envFrom:
+              - configMapRef:
+                  name: immichframe-config
               - secretRef:
                   name: immichframe-secret
             resources:

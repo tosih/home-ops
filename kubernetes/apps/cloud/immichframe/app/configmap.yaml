@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: immichframe-config
+data:
+  REFRESH_INTERVAL: "60"
+  PHOTO_PRELOAD: "4"
+  KIOSK_MODE: "true"
