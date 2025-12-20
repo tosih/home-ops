@@ -33,8 +33,6 @@ spec:
               repository: ghcr.io/immichframe/immichframe
               tag: v1.0.30.0
             envFrom:
-              - configMapRef:
-                  name: immichframe-config
               - secretRef:
                   name: immichframe-secret
             volumeMounts:
