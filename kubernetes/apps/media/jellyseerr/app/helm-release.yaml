@@ -41,6 +41,32 @@ spec:
             env:
               TZ: America/Los_Angeles
               LOG_LEVEL: info
+              DB_TYPE: postgres
+              DB_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-jellyseerr-user
+                    key: POSTGRES_HOST
+              DB_PORT:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-jellyseerr-user
+                    key: POSTGRES_PORT
+              DB_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-jellyseerr-user
+                    key: POSTGRES_USER
+              DB_PASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-jellyseerr-user
+                    key: POSTGRES_PASSWORD
+              DB_NAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-jellyseerr-user
+                    key: POSTGRES_DB
 
             probes:
               liveness:

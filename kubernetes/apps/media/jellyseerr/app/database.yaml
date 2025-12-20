@@ -1,0 +1,16 @@
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: Postgres
+metadata:
+  name: jellyseerr-db
+spec:
+  database: jellyseerr
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: PostgresUser
+metadata:
+  name: jellyseerr-user
+spec:
+  database: jellyseerr
+  secretName: database-jellyseerr-user
+  privileges: OWNER
