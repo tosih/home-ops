@@ -32,20 +32,31 @@ spec:
             image:
               repository: ghcr.io/immichframe/immichframe
               tag: v1.0.30.0
-            env:
-              TZ: America/Los_Angeles
-              ImmichServerUrl: http://immich-server.cloud.svc.cluster.local:2283
             envFrom:
               - configMapRef:
                   name: immichframe-config
               - secretRef:
                   name: immichframe-secret
+            volumeMounts:
+              - name: settings
+                mountPath: /app/data/Settings.json
+                subPath: Settings.json
+                readOnly: true
             resources:
               requests:
                 cpu: 10m
                 memory: 128Mi
               limits:
                 memory: 512Mi
+
+    persistence:
+      settings:
+        type: configMap
+        name: immichframe-settings
+        globalMounts:
+          - path: /app/data/Settings.json
+            subPath: Settings.json
+            readOnly: true
 
     service:
       immichframe:
