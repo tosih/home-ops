@@ -52,7 +52,7 @@ spec:
         controller: immichframe
         ports:
           http:
-            port: &port 3000
+            port: &port 8080
 
     route:
       immichframe:
