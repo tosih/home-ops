@@ -45,27 +45,27 @@ spec:
               DB_HOST:
                 valueFrom:
                   secretKeyRef:
-                    name: database-jellyseerr-user
+                    name: database-jellyseerr-user-jellyseerr-user
                     key: POSTGRES_HOST
               DB_PORT:
                 valueFrom:
                   secretKeyRef:
-                    name: database-jellyseerr-user
+                    name: database-jellyseerr-user-jellyseerr-user
                     key: POSTGRES_PORT
               DB_USER:
                 valueFrom:
                   secretKeyRef:
-                    name: database-jellyseerr-user
+                    name: database-jellyseerr-user-jellyseerr-user
                     key: POSTGRES_USER
               DB_PASS:
                 valueFrom:
                   secretKeyRef:
-                    name: database-jellyseerr-user
+                    name: database-jellyseerr-user-jellyseerr-user
                     key: POSTGRES_PASSWORD
               DB_NAME:
                 valueFrom:
                   secretKeyRef:
-                    name: database-jellyseerr-user
+                    name: database-jellyseerr-user-jellyseerr-user
                     key: POSTGRES_DB
 
             probes:

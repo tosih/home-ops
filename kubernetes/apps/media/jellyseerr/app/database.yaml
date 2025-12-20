@@ -2,7 +2,7 @@
 apiVersion: db.movetokube.com/v1alpha1
 kind: Postgres
 metadata:
-  name: jellyseerr-db
+  name: jellyseerr
   namespace: media
 spec:
   database: jellyseerr
@@ -13,7 +13,7 @@ metadata:
   name: jellyseerr-user
   namespace: media
 spec:
-  role: jellyseerr-db
+  role: jellyseerr
   database: jellyseerr
   secretName: database-jellyseerr-user
   privileges: OWNER
