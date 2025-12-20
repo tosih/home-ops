@@ -9,7 +9,6 @@ labels:
 resources:
   - ./configmap.yaml
   - ./database.yaml
-  # - ./external-secret.yaml
   - ./helm-release.yaml
   - ./oci-repository.yaml
   - ./oidc-secret.yaml
