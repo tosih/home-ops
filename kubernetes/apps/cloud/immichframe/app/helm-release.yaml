@@ -39,8 +39,8 @@ spec:
                   name: immichframe-secret
             volumeMounts:
               - name: settings
-                mountPath: /app/data/Settings.json
-                subPath: Settings.json
+                mountPath: /app/data/Settings.yaml
+                subPath: Settings.yaml
                 readOnly: true
             resources:
               requests:
@@ -54,8 +54,8 @@ spec:
         type: configMap
         name: immichframe-settings
         globalMounts:
-          - path: /app/data/Settings.json
-            subPath: Settings.json
+          - path: /app/data/Settings.yaml
+            subPath: Settings.yaml
             readOnly: true
 
     service:
