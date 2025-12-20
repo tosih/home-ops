@@ -1,0 +1,76 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: immichframe
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      immichframe:
+        replicas: 1
+        strategy: RollingUpdate
+        pod:
+          enableServiceLinks: false
+
+        containers:
+          main:
+            image:
+              repository: ghcr.io/3rob3/immichframe
+              tag: latest
+            env:
+              TZ: America/Los_Angeles
+              IMMICH_URL: http://immich-server.cloud.svc.cluster.local:2283
+              # Set these in the secret
+              # IMMICH_API_KEY: ""
+              # REFRESH_INTERVAL: "60"
+              # PHOTO_PRELOAD: "4"
+              # KIOSK_MODE: "true"
+            envFrom:
+              - secretRef:
+                  name: immichframe-secret
+            resources:
+              requests:
+                cpu: 10m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+
+    service:
+      immichframe:
+        controller: immichframe
+        ports:
+          http:
+            port: &port 3000
+
+    route:
+      immichframe:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Immich Photo Frame
+          gethomepage.dev/group: Apps
+          gethomepage.dev/icon: sh-immich.svg
+          gethomepage.dev/name: Immich Frame
+        hostnames: ["frame.tosih.org"]
+        parentRefs:
+          - name: external
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: immichframe
+                port: *port
