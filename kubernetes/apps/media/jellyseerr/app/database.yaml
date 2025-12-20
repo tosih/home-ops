@@ -11,7 +11,7 @@ kind: PostgresUser
 metadata:
   name: jellyseerr-user
 spec:
-  role: jellyseerr
+  role: jellyseerr-db
   database: jellyseerr
   secretName: database-jellyseerr-user
   privileges: OWNER
