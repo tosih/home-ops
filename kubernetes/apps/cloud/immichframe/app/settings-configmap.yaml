@@ -5,10 +5,9 @@ metadata:
   name: immichframe-settings
 data:
   Settings.yaml: |
-    ImmichServerUrl: "http://immich-server.cloud.svc.cluster.local:2283"
     Interval: 10
     TransitionDuration: 2
-    ImageZoom: true
+    ImageZoom: false
     ImagePan: false
     Layout: "splitview"
     DownloadImages: false
