@@ -35,11 +35,6 @@ spec:
             envFrom:
               - secretRef:
                   name: immichframe-secret
-            volumeMounts:
-              - name: settings
-                mountPath: /app/data/Settings.yaml
-                subPath: Settings.yaml
-                readOnly: true
             resources:
               requests:
                 cpu: 10m
