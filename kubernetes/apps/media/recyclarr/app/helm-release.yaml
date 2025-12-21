@@ -66,3 +66,13 @@ spec:
           recyclarr:
             app:
               - path: /config
+      config-file:
+        enabled: true
+        type: configMap
+        name: recyclarr-config
+        advancedMounts:
+          recyclarr:
+            app:
+              - path: /config/recyclarr.yml
+                subPath: recyclarr.yml
+                readOnly: true
