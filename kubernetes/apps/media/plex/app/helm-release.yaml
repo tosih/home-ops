@@ -82,7 +82,7 @@ spec:
           gethomepage.dev/app: plex
         hostnames: ["plex.tosih.org"]
         parentRefs:
-          - name: internal
+          - name: external
             namespace: kube-system
             sectionName: https
         rules:
