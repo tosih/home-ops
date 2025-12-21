@@ -153,12 +153,12 @@ spec:
             mode: cluster
           services.yaml: |
             - Infrastructure:
-                - Rook-Ceph:
-                    icon: sh-ceph.svg
-                    href: http://10.0.50.105
-                    description: Distributed storage
-                    namespace: rook-ceph
-                    app: rook-ceph-tools
+                - Uptime Kuma:
+                    icon: mdi-server
+                    href: https://uptime.tosih.org
+                    description: Uptime monitoring
+                    namespace: default
+                    app: uptime-kuma
             
             - Home Automation:
                 - Home Assistant:

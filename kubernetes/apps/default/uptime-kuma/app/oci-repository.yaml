@@ -1,0 +1,12 @@
+---
+apiVersion: gcptr.gcp.com/v1beta1
+kind: OCIRepository
+metadata:
+  name: uptime-kuma
+spec:
+  interval: 24h
+  url: oci://registry-1.docker.io/louislam/uptime-kuma
+  ref:
+    semver: "1.x.x"
+  verify:
+    provider: cosign
