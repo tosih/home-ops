@@ -49,7 +49,7 @@ data:
               - e2315f990da2e2cbfc9fa5b7a6c9cc86  # LQ (Release Title)
               - 47435ece6b99a0b477caf360e79ba0bb  # x265 (HD)
               - fbcb31d8dabd2a319072b84fc0b7249c  # Extras
-            quality_profiles:
+            assign_scores_to:
               - name: WEB-1080p
                 score: -10000
 
@@ -97,6 +97,6 @@ data:
               - e204b80c87be9497a8a6eaff48f72905  # LQ (Release Title)
               - dc98083864ea246d05a42df0d05f81cc  # x265 (HD)
               - 0a3f082873eb454bde444150b70253cc  # Extras
-            quality_profiles:
+            assign_scores_to:
               - name: HD Bluray + WEB
                 score: -10000
