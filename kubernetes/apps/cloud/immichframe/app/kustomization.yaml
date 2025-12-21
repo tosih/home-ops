@@ -7,6 +7,7 @@ labels:
       app.kubernetes.io/instance: immichframe
       app.kubernetes.io/part-of: immichframe
 resources:
+  - ./configmap.yaml
   - ./settings-configmap.yaml
   - ./external-secret.yaml
   - ./helm-release.yaml
