@@ -6,4 +6,5 @@ metadata:
 data:
   # Minimal environment variables - advanced config in Settings.yaml
   TZ: "America/Los_Angeles"
+  ImmichServerUrl: http://immich-server.cloud.svc.cluster.local:2283
   # Settings.yaml will be mounted for advanced configuration

@@ -36,7 +36,5 @@ data:
     WeatherIconUrl: "https://openweathermap.org/img/wn/{IconId}.png"
     UnitSystem: "imperial"
     Language: "en"
-    Accounts:
-    - ImmichServerUrl: http://immich-server.cloud.svc.cluster.local:2283
-      Albums:
-        - 4ec01b17-b6fb-4360-b83b-aa90f3c792bb
+    Albums:
+      - 4ec01b17-b6fb-4360-b83b-aa90f3c792bb
