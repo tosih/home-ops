@@ -34,7 +34,7 @@ spec:
           main:
             image:
               repository: louislam/uptime-kuma
-              tag: 1.23.15-alpine
+              tag: 1.23.17-alpine
             env:
               TZ: America/Los_Angeles
               UPTIME_KUMA_PORT: "3001"
