@@ -26,6 +26,12 @@ spec:
             image:
               repository: adguard/adguardhome
               tag: v0.107.54
+            args:
+              - --config
+              - /opt/adguardhome/conf/AdGuardHome.yaml
+              - --work-dir
+              - /opt/adguardhome/work
+              - --no-check-update
             probes:
               liveness:
                 enabled: true
@@ -69,6 +75,8 @@ spec:
         accessMode: ReadWriteOnce
         size: 1Gi
         retain: true
+        globalMounts:
+          - path: /opt/adguardhome/conf
       data:
         enabled: true
         type: persistentVolumeClaim
@@ -76,3 +84,5 @@ spec:
         accessMode: ReadWriteOnce
         size: 5Gi
         retain: true
+        globalMounts:
+          - path: /opt/adguardhome/work
