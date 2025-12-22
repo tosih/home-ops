@@ -12,7 +12,10 @@
   dependencyDashboard: true,
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   schedule: ["every weekend"],
-  ignorePaths: ["**/*.sops.*"],
+  ignorePaths: [
+    "**/*.sops.*"
+    "**/kubernetes/apps/kubernetes-zfs-provisioner/**",
+  ],
   flux: {
     managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/"],
   },
