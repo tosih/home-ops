@@ -215,7 +215,7 @@ spec:
                 memory: 256Mi
               limits:
                 memory: 1Gi
-            instances: 2
+            instances: 1
             priorityClassName: system-cluster-critical
           healthCheck:
             bucket:

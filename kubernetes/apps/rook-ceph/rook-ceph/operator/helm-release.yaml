@@ -31,6 +31,9 @@ spec:
       serviceMonitor:
         enabled: true
 
+      # Reduce CSI controller replicas from 2 to 1
+      provisionerReplicas: 1
+
       # Reduced CSI resource requests based on actual usage (20-100Mi actual)
       csiRBDPluginResource: |
         - name: driver-registrar

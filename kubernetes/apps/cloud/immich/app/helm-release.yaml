@@ -61,7 +61,7 @@ spec:
                 cpu: 100m
                 memory: 512Mi
               limits:
-                memory: 2Gi
+                memory: 1536Mi
 
       machine-learning:
         replicas: 1
@@ -87,9 +87,9 @@ spec:
             resources:
               requests:
                 cpu: 100m
-                memory: 274M
+                memory: 256Mi
               limits:
-                memory: 3949M
+                memory: 2Gi
 
     service:
       server:
