@@ -13,23 +13,23 @@
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   schedule: ["every weekend"],
   ignorePaths: [
-    "**/*.sops.*"
+    "**/*.sops.*",
     "**/kubernetes/apps/kubernetes-zfs-provisioner/**",
   ],
   flux: {
-    managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/"],
+    fileMatch: ["(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"],
   },
   helmfile: {
-    managerFilePatterns: [
-      "/(^|/)helmfile\\.ya?ml(?:\\.gotmpl)?(?:\\.j2)?$/",
-      "/(^|/)helmfile\\.d/.+\\.ya?ml(?:\\.gotmpl)?(?:\\.j2)?$/",
+    fileMatch: [
+      "(^|/)helmfile\\.ya?ml(\\.gotmpl)?(\\.j2)?$",
+      "(^|/)helmfile\\.d/.+\\.ya?ml(\\.gotmpl)?(\\.j2)?$",
     ],
   },
   kubernetes: {
-    managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/"],
+    fileMatch: ["(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"],
   },
   kustomize: {
-    managerFilePatterns: ["/^kustomization\\.ya?ml(?:\\.j2)?$/"],
+    fileMatch: ["^kustomization\\.ya?ml(\\.j2)?$"],
   },
   packageRules: [
     {
@@ -43,10 +43,7 @@
       groupName: "flux-operator",
       matchDatasources: ["docker"],
       matchPackageNames: ["/flux-operator/", "/flux-instance/"],
-      group: {
-        commitMessageTopic: "{{{groupName}}} group",
-      },
-      minimumGroupSize: 2,
+      commitMessageTopic: "{{{groupName}}} group",
     },
     {
       description: "Auto-merge GitHub Actions",
@@ -145,10 +142,10 @@
     {
       description: "Process annotated dependencies",
       customType: "regex",
-      managerFilePatterns: [
-        "/(^|/).+\\.env(?:\\.j2)?$/",
-        "/(^|/).+\\.sh(?:\\.j2)?$/",
-        "/(^|/).+\\.ya?ml(?:\\.j2)?$/",
+      fileMatch: [
+        "(^|/).+\\.env(\\.j2)?$",
+        "(^|/).+\\.sh(\\.j2)?$",
+        "(^|/).+\\.ya?ml(\\.j2)?$",
       ],
       matchStrings: [
         // # renovate: datasource=github-releases depName=k3s-io/k3s
