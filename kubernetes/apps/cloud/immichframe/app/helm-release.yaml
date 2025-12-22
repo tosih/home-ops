@@ -70,7 +70,7 @@ spec:
           gethomepage.dev/name: Immich Frame
         hostnames: ["frame.tosih.org"]
         parentRefs:
-          - name: external
+          - name: internal
             namespace: kube-system
             sectionName: https
         rules:
