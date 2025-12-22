@@ -83,7 +83,7 @@ spec:
           gethomepage.dev/name: Homebridge
           gethomepage.dev/app: homebridge
         parentRefs:
-          - name: external
+          - name: internal
             namespace: kube-system
             sectionName: https
         hostnames: ["homebridge.tosih.org"]
