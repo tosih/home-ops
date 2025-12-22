@@ -1,0 +1,93 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app syncthing
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    fullnameOverride: *app
+    controllers:
+      syncthing:
+        containers:
+          app:
+            image:
+              repository: syncthing/syncthing
+              tag: 1.29.1
+            env:
+              PUID: "1000"
+              PGID: "1000"
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+    service:
+      app:
+        controller: syncthing
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: "10.0.50.108"
+        ports:
+          http:
+            port: 8384
+      transfers:
+        controller: syncthing
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: "10.0.50.109"
+        ports:
+          transfers:
+            enabled: true
+            port: 22000
+            protocol: TCP
+          discovery:
+            enabled: true
+            port: 21027
+            protocol: UDP
+    persistence:
+      config:
+        enabled: true
+        type: persistentVolumeClaim
+        storageClass: ceph-block
+        accessMode: ReadWriteOnce
+        size: 5Gi
+        retain: true
+        globalMounts:
+          - path: /var/syncthing
+      data:
+        enabled: true
+        type: persistentVolumeClaim
+        storageClass: ceph-block
+        accessMode: ReadWriteOnce
+        size: 100Gi
+        retain: true
+        globalMounts:
+          - path: /data
+    route:
+      syncthing:
+        hostnames: ["sync.tosih.org"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: syncthing-app
+                port: 8384
