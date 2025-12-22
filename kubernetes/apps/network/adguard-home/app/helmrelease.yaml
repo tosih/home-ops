@@ -35,13 +35,37 @@ spec:
             probes:
               liveness:
                 enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
               readiness:
                 enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
               startup:
                 enabled: true
+                custom: true
                 spec:
-                  failureThreshold: 30
+                  httpGet:
+                    path: /
+                    port: 80
+                  initialDelaySeconds: 0
                   periodSeconds: 5
+                  timeoutSeconds: 1
+                  failureThreshold: 30
     service:
       app:
         controller: adguard-home
@@ -50,7 +74,7 @@ spec:
           lbipam.cilium.io/ips: "10.0.50.105"
         ports:
           http:
-            port: 3000
+            port: 80
       dns:
         controller: adguard-home
         type: LoadBalancer
