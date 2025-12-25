@@ -41,19 +41,8 @@ spec:
           memory: 128Mi
       service:
         type: ClusterIP
-        port: &port 80
+        port: 80
       ingress:
         enabled: false
     vpa:
       enabled: true
-    route:
-      main:
-        hostnames: ["goldilocks.tosih.org"]
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
-        rules:
-          - backendRefs:
-              - name: goldilocks-dashboard
-                port: *port
