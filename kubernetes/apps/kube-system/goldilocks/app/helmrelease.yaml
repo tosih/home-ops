@@ -26,17 +26,17 @@ spec:
       enabled: true
       resources:
         requests:
-          cpu: 25m
-          memory: 64Mi
+          cpu: 511m
+          memory: 100Mi
         limits:
-          memory: 128Mi
+          memory: 256Mi
     dashboard:
       enabled: true
       replicaCount: 1
       resources:
         requests:
-          cpu: 25m
-          memory: 64Mi
+          cpu: 15m
+          memory: 100Mi
         limits:
           memory: 128Mi
       service:

@@ -22,8 +22,8 @@ spec:
           divisor: 1Mi
   resources:
     requests:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 35m
+      memory: 100Mi
     limits:
       memory: 512Mi
   serviceSpec:

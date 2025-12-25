@@ -58,8 +58,8 @@ spec:
 
             resources:
               requests:
-                cpu: 100m
-                memory: 512Mi
+                cpu: 15m
+                memory: 933Mi
               limits:
                 memory: 1536Mi
 
@@ -86,8 +86,8 @@ spec:
               IMMICH_MEDIA_LOCATION: *mediaLocation
             resources:
               requests:
-                cpu: 100m
-                memory: 256Mi
+                cpu: 15m
+                memory: 283Mi
               limits:
                 memory: 2Gi
 

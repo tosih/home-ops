@@ -62,10 +62,10 @@ spec:
                 enabled: false
             resources:
               requests:
-                cpu: 10m
-                memory: 512Mi
+                cpu: 78m
+                memory: 991Mi
               limits:
-                memory: 1Gi
+                memory: 2Gi
     service:
       app:
         controller: homebridge
