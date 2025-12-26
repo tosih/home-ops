@@ -6,4 +6,5 @@ namespace: cloud
 resources:
   - ./oci-repository.yaml
   - ./helm-release.yaml
+  - ./envoy-config.yaml
   - ./service-patch.yaml
