@@ -6,3 +6,4 @@ namespace: cloud
 resources:
   - ./oci-repository.yaml
   - ./helm-release.yaml
+  - ./grpcroute.yaml

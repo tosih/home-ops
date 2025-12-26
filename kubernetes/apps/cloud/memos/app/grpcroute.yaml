@@ -1,0 +1,36 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: GRPCRoute
+metadata:
+  name: memos-grpc
+  namespace: cloud
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Note-taking service
+    gethomepage.dev/group: Apps
+    gethomepage.dev/icon: mdi-note-text
+    gethomepage.dev/name: Memos
+    gethomepage.dev/app: memos
+spec:
+  hostnames:
+    - memos.tosih.org
+  parentRefs:
+    - name: internal
+      namespace: kube-system
+      sectionName: https
+  rules:
+    - matches:
+        - method:
+            service: memos.api.v1.AuthService
+      backendRefs:
+        - name: memos
+          port: 10001
+    - matches:
+        - method:
+            service: memos.api.v1.WorkspaceService
+      backendRefs:
+        - name: memos
+          port: 10001
+    - backendRefs:
+        - name: memos
+          port: 10001
