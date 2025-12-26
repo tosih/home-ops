@@ -82,6 +82,7 @@ spec:
         ports:
           http:
             port: *port
+            appProtocol: h2c
 
     route:
       app:
@@ -101,6 +102,7 @@ spec:
           - backendRefs:
               - identifier: app
                 port: *port
+                appProtocol: h2c
 
     persistence:
       data:
