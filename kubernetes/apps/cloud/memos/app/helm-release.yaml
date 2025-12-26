@@ -43,32 +43,21 @@ spec:
             env:
               TZ: America/Los_Angeles
               MEMOS_MODE: prod
-              MEMOS_PORT: 5230
+              MEMOS_PORT: &memosPort 5230
               MEMOS_METRIC: "false"
               MEMOS_INSTANCE_URL: https://memos.tosih.org
-          
-          nginx-proxy:
-            image:
-              repository: docker.io/library/nginx
-              tag: 1.27-alpine
-            ports:
-              - name: http
-                containerPort: &port 8080
-            env:
-              - name: NGINX_ENTRYPOINT_QUIET_LOGS
-                value: "1"
 
             probes:
               liveness:
                 enabled: true
                 type: HTTP
                 path: /healthz
-                port: *port
+                port: *memosPort
               readiness:
                 enabled: true
                 type: HTTP
                 path: /healthz
-                port: *port
+                port: *memosPort
               startup:
                 enabled: true
                 spec:
@@ -92,15 +81,21 @@ spec:
     service:
       app:
         controller: memos
-        annotations:
-          service.cilium.io/lb-l7-protocol: "http"
+        type: ClusterIP
+        clusterIP: None
         ports:
+          grpc:
+            port: 10001
+            targetPort: *memosPort
+            protocol: TCP
+            appProtocol: kubernetes.io/h2c
           http:
-            port: *port
-            appProtocol: http/1.1
+            port: 10002
+            targetPort: *memosPort
+            protocol: TCP
 
     route:
-      app:
+      grpc:
         annotations:
           gethomepage.dev/enabled: "true"
           gethomepage.dev/description: Note-taking service
@@ -114,9 +109,23 @@ spec:
             namespace: kube-system
             sectionName: https
         rules:
+          - matches:
+              - path:
+                  type: RegularExpression
+                  value: "/grpc.*"
+            backendRefs:
+              - identifier: app
+                port: 10001
+          - matches:
+              - path:
+                  type: RegularExpression
+                  value: "/memos.api.v1.*"
+            backendRefs:
+              - identifier: app
+                port: 10001
           - backendRefs:
               - identifier: app
-                port: *port
+                port: 10002
 
     persistence:
       data:
@@ -124,51 +133,5 @@ spec:
         accessMode: ReadWriteOnce
         storageClass: ceph-block
         size: 5Gi
-        advancedMounts:
-          memos:
-            app:
-              - path: /var/opt/memos
-      
-      nginx-config:
-        type: configMap
-        name: memos-nginx-config
-        advancedMounts:
-          memos:
-            nginx-proxy:
-              - path: /etc/nginx/nginx.conf
-                subPath: nginx.conf
-                readOnly: true
-    
-    configMaps:
-      nginx-config:
-        enabled: true
-        data:
-          nginx.conf: |
-            user nginx;
-            worker_processes auto;
-            error_log /dev/stderr warn;
-            pid /var/run/nginx.pid;
-            
-            events {
-                worker_connections 1024;
-            }
-            
-            http {
-                access_log /dev/stdout;
-                
-                server {
-                    listen 8080 default_server;
-                    listen [::]:8080 default_server;
-                    
-                    location / {
-                        proxy_pass http://localhost:5230;
-                        proxy_http_version 1.1;
-                        proxy_set_header Host $host;
-                        proxy_set_header X-Real-IP $remote_addr;
-                        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                        proxy_set_header X-Forwarded-Proto $scheme;
-                        proxy_set_header Upgrade $http_upgrade;
-                        proxy_set_header Connection "upgrade";
-                    }
-                }
-            }
+        globalMounts:
+          - path: /var/opt/memos
