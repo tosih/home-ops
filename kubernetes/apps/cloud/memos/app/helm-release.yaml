@@ -110,6 +110,13 @@ spec:
         rules:
           - matches:
               - path:
+                  type: PathPrefix
+                  value: "/api/"
+            backendRefs:
+              - identifier: app
+                port: 10001
+          - matches:
+              - path:
                   type: RegularExpression
                   value: "/grpc.*"
             backendRefs:
