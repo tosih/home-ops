@@ -50,7 +50,7 @@ spec:
               MEMOS_DSN:
                 valueFrom:
                   secretKeyRef:
-                    name: database-memos-user
+                    name: database-memos-user-memos-user
                     key: POSTGRES_URL
 
             probes:
