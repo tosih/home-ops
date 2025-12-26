@@ -45,6 +45,7 @@ spec:
               MEMOS_MODE: prod
               MEMOS_PORT: &port 5230
               MEMOS_METRIC: "false"
+              MEMOS_INSTANCE_URL: https://memos.tosih.org
 
             probes:
               liveness:
