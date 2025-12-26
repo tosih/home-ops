@@ -39,11 +39,12 @@ spec:
           app:
             image:
               repository: ghcr.io/usememos/memos
-              tag: 0.24.2
+              tag: 0.22.5
             env:
               TZ: America/Los_Angeles
               MEMOS_MODE: prod
               MEMOS_PORT: &port 5230
+              MEMOS_METRIC: "false"
 
             probes:
               liveness:
@@ -82,7 +83,6 @@ spec:
         ports:
           http:
             port: *port
-            appProtocol: h2c
 
     route:
       app:
@@ -102,7 +102,6 @@ spec:
           - backendRefs:
               - identifier: app
                 port: *port
-                appProtocol: h2c
 
     persistence:
       data:
