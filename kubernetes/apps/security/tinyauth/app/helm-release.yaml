@@ -81,6 +81,16 @@ spec:
           http:
             port: *port
 
+    persistence:
+      data:
+        type: emptyDir
+        globalMounts:
+          - path: /data
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+
     route:
       main:
         hostnames: ["uptime.tosih.org"]
