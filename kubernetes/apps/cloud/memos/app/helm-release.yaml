@@ -80,9 +80,12 @@ spec:
     service:
       app:
         controller: memos
+        annotations:
+          service.cilium.io/lb-l7-protocol: "http"
         ports:
           http:
             port: *port
+            appProtocol: http/1.1
 
     route:
       app:
