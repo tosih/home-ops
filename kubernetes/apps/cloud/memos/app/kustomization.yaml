@@ -6,4 +6,3 @@ namespace: cloud
 resources:
   - ./oci-repository.yaml
   - ./helm-release.yaml
-  - ./service-patch.yaml
