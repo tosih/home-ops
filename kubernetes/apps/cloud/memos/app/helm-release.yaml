@@ -82,7 +82,6 @@ spec:
       app:
         controller: memos
         type: ClusterIP
-        clusterIP: None
         ports:
           grpc:
             port: 10001
