@@ -87,7 +87,6 @@ spec:
             port: 10001
             targetPort: *memosPort
             protocol: TCP
-            appProtocol: kubernetes.io/h2c
           http:
             port: 10002
             targetPort: *memosPort
