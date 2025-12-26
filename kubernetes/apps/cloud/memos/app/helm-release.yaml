@@ -46,6 +46,12 @@ spec:
               MEMOS_PORT: &memosPort 5230
               MEMOS_METRIC: "false"
               MEMOS_INSTANCE_URL: https://memos.tosih.org
+              MEMOS_DRIVER: postgres
+              MEMOS_DSN:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-memos-user
+                    key: POSTGRES_URL
 
             probes:
               liveness:

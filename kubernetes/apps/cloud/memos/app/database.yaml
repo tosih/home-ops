@@ -1,0 +1,19 @@
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: Postgres
+metadata:
+  name: memos
+  namespace: cloud
+spec:
+  database: memos
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: PostgresUser
+metadata:
+  name: memos-user
+  namespace: cloud
+spec:
+  role: memos
+  database: memos
+  secretName: database-memos-user
+  privileges: OWNER
