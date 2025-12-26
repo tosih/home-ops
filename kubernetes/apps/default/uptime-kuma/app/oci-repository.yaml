@@ -5,8 +5,6 @@ metadata:
   name: uptime-kuma
 spec:
   interval: 24h
-  url: oci://registry-1.docker.io/louislam/uptime-kuma
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
   ref:
-    semver: "1.x.x"
-  verify:
-    provider: cosign
+    semver: "4.x.x"
