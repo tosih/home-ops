@@ -22,3 +22,15 @@ spec:
     requests:
       storage: 25Gi
   storageClassName: zfs-nfs
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: romm-config
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ceph-block

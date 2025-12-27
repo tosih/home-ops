@@ -157,6 +157,7 @@ spec:
           - path: /media
             readOnly: false
       config:
-        type: emptyDir
+        type: persistentVolumeClaim
+        existingClaim: romm-config
         globalMounts:
           - path: /romm/config
