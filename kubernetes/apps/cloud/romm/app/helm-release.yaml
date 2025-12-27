@@ -70,6 +70,16 @@ spec:
                   secretKeyRef:
                     name: romm-secret
                     key: STEAMGRIDDB_API_KEY
+              SCREENSCRAPER_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: romm-secret
+                    key: SCREENSCRAPER_USER
+              SCREENSCRAPER_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: romm-secret
+                    key: SCREENSCRAPER_PASSWORD
               ENABLE_EXPERIMENTAL_REDIS: "true"
               ROMM_AUTH_ENABLED: "true"
               ROMM_AUTH_SECRET_KEY:
