@@ -38,7 +38,7 @@ spec:
           main:
             image:
               repository: rommapp/romm
-              tag: 3.5.1
+              tag: 3.10.3
             env:
               TZ: America/New_York
               ROMM_DB_DRIVER: postgresql
