@@ -156,3 +156,7 @@ spec:
         globalMounts:
           - path: /media
             readOnly: false
+      config:
+        type: emptyDir
+        globalMounts:
+          - path: /romm/config
