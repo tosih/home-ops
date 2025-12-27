@@ -42,9 +42,17 @@ spec:
             env:
               TZ: America/New_York
               ROMM_DB_DRIVER: postgresql
-              DB_HOST: romm-db
+              DB_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-romm-user-romm-user
+                    key: HOST
               DB_PORT: 5432
-              DB_NAME: romm
+              DB_NAME:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-romm-user-romm-user
+                    key: DATABASE_NAME
               DB_USER:
                 valueFrom:
                   secretKeyRef:
