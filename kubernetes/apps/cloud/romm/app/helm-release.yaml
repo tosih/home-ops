@@ -48,12 +48,12 @@ spec:
               DB_USER:
                 valueFrom:
                   secretKeyRef:
-                    name: database-romm-user
+                    name: database-romm-user-romm-user
                     key: ROLE
               DB_PASSWD:
                 valueFrom:
                   secretKeyRef:
-                    name: database-romm-user
+                    name: database-romm-user-romm-user
                     key: PASSWORD
               REDIS_HOST: dragonfly.databases.svc.cluster.local
               REDIS_PORT: 6379
