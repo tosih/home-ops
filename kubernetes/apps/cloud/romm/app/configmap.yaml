@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: romm-configmap
+data:
+  # OIDC Configuration
+  OIDC_ENABLED: "true"
+  OIDC_ISSUER: "https://pid.tosih.org"
+  OIDC_AUTHORIZATION_ENDPOINT: "https://pid.tosih.org/authorize"
+  OIDC_TOKEN_ENDPOINT: "https://pid.tosih.org/token"
+  OIDC_USERINFO_ENDPOINT: "https://pid.tosih.org/userinfo"
+  OIDC_SCOPES: "openid profile email"

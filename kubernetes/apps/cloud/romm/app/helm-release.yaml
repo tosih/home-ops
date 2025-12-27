@@ -1,0 +1,158 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: romm
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      romm:
+        replicas: 1
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          enableServiceLinks: false
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            runAsNonRoot: true
+
+        containers:
+          main:
+            image:
+              repository: rommapp/romm
+              tag: 3.5.1
+            env:
+              TZ: America/New_York
+              ROMM_DB_DRIVER: postgresql
+              DB_HOST: postgres17-rw.databases.svc.cluster.local
+              DB_PORT: 5432
+              DB_NAME: romm
+              DB_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: romm-secret
+                    key: DB_USERNAME
+              DB_PASSWD:
+                valueFrom:
+                  secretKeyRef:
+                    name: romm-secret
+                    key: DB_PASSWORD
+              REDIS_HOST: dragonfly.databases.svc.cluster.local
+              REDIS_PORT: 6379
+              STEAMGRIDDB_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: romm-secret
+                    key: STEAMGRIDDB_API_KEY
+              ENABLE_EXPERIMENTAL_REDIS: "true"
+              ROMM_AUTH_ENABLED: "true"
+              ROMM_AUTH_SECRET_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: romm-secret
+                    key: ROMM_AUTH_SECRET_KEY
+            envFrom:
+              - configMapRef:
+                  name: romm-configmap
+              - secretRef:
+                  name: romm-oidc-secret
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 8080
+                  initialDelaySeconds: 30
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 8080
+                  initialDelaySeconds: 15
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 8080
+                  initialDelaySeconds: 10
+                  periodSeconds: 5
+                  timeoutSeconds: 5
+                  failureThreshold: 30
+            resources:
+              requests:
+                cpu: 10m
+                memory: 256Mi
+              limits:
+                memory: 512Mi
+
+    service:
+      romm:
+        controller: romm
+        ports:
+          http:
+            port: &port 8080
+
+    route:
+      romm:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: ROM Manager
+          gethomepage.dev/group: Apps
+          gethomepage.dev/icon: mdi-gamepad-variant
+          gethomepage.dev/name: RomM
+        hostnames: ["romm.tosih.org"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - port: *port
+
+    persistence:
+      library:
+        type: persistentVolumeClaim
+        existingClaim: romm-library
+        globalMounts:
+          - path: /romm/library
+      resources:
+        type: persistentVolumeClaim
+        existingClaim: romm-resources
+        globalMounts:
+          - path: /romm/resources
+      media:
+        type: persistentVolumeClaim
+        existingClaim: media-nfs
+        globalMounts:
+          - path: /media
+            readOnly: false
