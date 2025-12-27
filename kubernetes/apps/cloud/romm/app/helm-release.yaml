@@ -42,19 +42,19 @@ spec:
             env:
               TZ: America/New_York
               ROMM_DB_DRIVER: postgresql
-              DB_HOST: postgres17-rw.databases.svc.cluster.local
+              DB_HOST: romm-db
               DB_PORT: 5432
               DB_NAME: romm
               DB_USER:
                 valueFrom:
                   secretKeyRef:
-                    name: romm-secret
-                    key: DB_USERNAME
+                    name: database-romm-user
+                    key: ROLE
               DB_PASSWD:
                 valueFrom:
                   secretKeyRef:
-                    name: romm-secret
-                    key: DB_PASSWORD
+                    name: database-romm-user
+                    key: PASSWORD
               REDIS_HOST: dragonfly.databases.svc.cluster.local
               REDIS_PORT: 6379
               STEAMGRIDDB_API_KEY:

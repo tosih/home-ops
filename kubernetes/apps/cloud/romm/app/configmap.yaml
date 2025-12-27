@@ -6,8 +6,6 @@ metadata:
 data:
   # OIDC Configuration
   OIDC_ENABLED: "true"
-  OIDC_ISSUER: "https://pid.tosih.org"
-  OIDC_AUTHORIZATION_ENDPOINT: "https://pid.tosih.org/authorize"
-  OIDC_TOKEN_ENDPOINT: "https://pid.tosih.org/token"
-  OIDC_USERINFO_ENDPOINT: "https://pid.tosih.org/userinfo"
-  OIDC_SCOPES: "openid profile email"
+  OIDC_PROVIDER: "pocketid"
+  OIDC_REDIRECT_URI: "https://romm.tosih.org/api/oauth/openid"
+  OIDC_SERVER_APPLICATION_URL: "https://pid.tosih.org"

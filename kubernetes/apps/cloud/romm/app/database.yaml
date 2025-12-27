@@ -3,5 +3,17 @@ apiVersion: db.movetokube.com/v1alpha1
 kind: Postgres
 metadata:
   name: romm-db
+  namespace: cloud
 spec:
   database: romm
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: PostgresUser
+metadata:
+  name: romm-user
+  namespace: cloud
+spec:
+  role: romm
+  database: romm
+  secretName: database-romm-user
+  privileges: OWNER
