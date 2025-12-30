@@ -47,6 +47,24 @@ spec:
               LD_REQUEST_TIMEOUT: "60"
               LD_ENABLE_SNAPSHOTS: "True"
               LD_CSRF_TRUSTED_ORIGINS: https://bookmarks.tosih.org
+              LD_ENABLE_OIDC: "True"
+              OIDC_OP_AUTHORIZATION_ENDPOINT: https://pid.tosih.org/authorize
+              OIDC_OP_TOKEN_ENDPOINT: https://pid.tosih.org/api/oidc/token
+              OIDC_OP_USER_ENDPOINT: https://pid.tosih.org/api/oidc/userinfo
+              OIDC_OP_JWKS_ENDPOINT: https://pid.tosih.org/.well-known/jwks.json
+              OIDC_RP_SIGN_ALGO: RS256
+              OIDC_USE_PKCE: "True"
+              OIDC_RP_SCOPES: "openid email profile"
+              OIDC_RP_CLIENT_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: linkding-oidc-secret
+                    key: OIDC_RP_CLIENT_ID
+              OIDC_RP_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: linkding-oidc-secret
+                    key: OIDC_RP_CLIENT_SECRET
               LD_DB_ENGINE: postgres
               LD_DB_DATABASE:
                 valueFrom:
