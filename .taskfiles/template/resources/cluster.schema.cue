@@ -26,6 +26,11 @@ import (
 	cilium_bgp_router_asn?: string & !=""
 	cilium_bgp_node_asn?: string & !=""
 	cilium_loadbalancer_mode?: *"dsr" | "snat"
+	oidc_issuer_url?: string & !=""
+	oidc_client_id?: string & !=""
+	oidc_username_claim?: *"sub" | string & !=""
+	oidc_groups_claim?: *"groups" | string & !=""
+	oidc_groups_prefix?: *"oidc:" | string & !=""
 }
 
 #Config
