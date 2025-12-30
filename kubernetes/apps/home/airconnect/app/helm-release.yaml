@@ -35,9 +35,8 @@ spec:
               tag: latest
             env:
               TZ: America/Los_Angeles
-            args:
-              - -l
-              - "1000:2000"
+              AIRUPNP_VAR: "-l 1000:2000"
+              AIRCAST_VAR: "-l 1000:2000"
             resources:
               requests:
                 cpu: 10m
