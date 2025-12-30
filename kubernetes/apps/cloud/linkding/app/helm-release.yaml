@@ -52,27 +52,27 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: database-linkding-user-linkding-user
-                    key: POSTGRES_DB
+                    key: DATABASE_NAME
               LD_DB_USER:
                 valueFrom:
                   secretKeyRef:
                     name: database-linkding-user-linkding-user
-                    key: POSTGRES_USER
+                    key: LOGIN
               LD_DB_PASSWORD:
                 valueFrom:
                   secretKeyRef:
                     name: database-linkding-user-linkding-user
-                    key: POSTGRES_PASSWORD
+                    key: PASSWORD
               LD_DB_HOST:
                 valueFrom:
                   secretKeyRef:
                     name: database-linkding-user-linkding-user
-                    key: POSTGRES_HOST
+                    key: HOST
               LD_DB_PORT:
                 valueFrom:
                   secretKeyRef:
                     name: database-linkding-user-linkding-user
-                    key: POSTGRES_PORT
+                    key: PORT
 
             probes:
               liveness:
