@@ -6,9 +6,13 @@ metadata:
   name: volsync
 spec:
   interval: 1h
-  chartRef:
-    kind: OCIRepository
-    name: volsync
+  chart:
+    spec:
+      chart: volsync
+      sourceRef:
+        kind: HelmRepository
+        name: volsync
+      version: ">=0.10.0"
   install:
     remediation:
       retries: 3
