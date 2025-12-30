@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./postgres-cluster.yaml
   - ./loadbalancer.yaml
+  - ./scheduled-backup.yaml

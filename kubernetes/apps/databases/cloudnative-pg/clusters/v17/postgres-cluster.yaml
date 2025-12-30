@@ -54,12 +54,4 @@ spec:
         compression: gzip
         jobs: 4
     retentionPolicy: "30d"
-    
-  # Scheduled backups
-  scheduledBackups:
-    - name: daily-backup
-      schedule: "0 2 * * *"  # 2 AM daily
-      backupOwnerReference: self
-      cluster:
-        name: postgres17
-      target: primary
+    target: prefer-standby
