@@ -6,5 +6,5 @@ metadata:
   name: volsync
 spec:
   interval: 15m
-  type: oci
-  url: oci://quay.io/backube
+  type: default
+  url: https://backube.github.io/helm-charts/
