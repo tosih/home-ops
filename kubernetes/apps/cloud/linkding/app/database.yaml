@@ -1,0 +1,9 @@
+---
+apiVersion: pg.ahinko.com/v1alpha1
+kind: Database
+metadata:
+  name: linkding
+spec:
+  dbName: linkding
+  username: linkding-user
+  cluster: postgres17

@@ -1,0 +1,45 @@
+---
+# Volsync ReplicationSource for backing up Memos PVC
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: memos-backup
+  namespace: cloud
+spec:
+  # The PVC to backup
+  sourcePVC: memos
+  
+  # Backup trigger schedule (daily at 3 AM)
+  trigger:
+    schedule: "0 3 * * *"
+  
+  # Use Restic for backups
+  restic:
+    # Reference to the secret containing repo and credentials
+    repository: memos-restic-secret
+    
+    # Retention policy
+    retain:
+      hourly: 6      # Keep 6 hourly backups
+      daily: 7       # Keep 7 daily backups
+      weekly: 4      # Keep 4 weekly backups
+      monthly: 6     # Keep 6 monthly backups
+      yearly: 1      # Keep 1 yearly backup
+    
+    # Copy method - use Snapshot for efficiency
+    copyMethod: Snapshot
+    
+    # Storage class for snapshots
+    storageClassName: ceph-block
+    
+    # Volume snapshot class (if using CSI snapshots)
+    volumeSnapshotClassName: csi-ceph-blockpool
+    
+    # Prune policy - clean up old backups
+    pruneIntervalDays: 7
+    
+    # Cache settings for improved performance
+    cacheCapacity: 1Gi
+    cacheStorageClassName: ceph-block
+    cacheAccessModes:
+      - ReadWriteOnce

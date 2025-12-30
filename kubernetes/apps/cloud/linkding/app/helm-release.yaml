@@ -1,0 +1,144 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: linkding
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      linkding:
+        replicas: 1
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          securityContext:
+            runAsUser: 33
+            runAsGroup: 33
+            runAsNonRoot: true
+            fsGroup: 33
+            fsGroupChangePolicy: OnRootMismatch
+
+        containers:
+          app:
+            image:
+              repository: sissbruecker/linkding
+              tag: 1.38.0
+            env:
+              TZ: America/Los_Angeles
+              LD_ENABLE_AUTH_PROXY: "False"
+              LD_DISABLE_URL_VALIDATION: "False"
+              LD_REQUEST_TIMEOUT: "60"
+              LD_ENABLE_SNAPSHOTS: "True"
+              LD_CSRF_TRUSTED_ORIGINS: https://bookmarks.tosih.org
+              LD_DB_ENGINE: postgres
+              LD_DB_DATABASE:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-linkding-user-linkding-user
+                    key: POSTGRES_DB
+              LD_DB_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-linkding-user-linkding-user
+                    key: POSTGRES_USER
+              LD_DB_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-linkding-user-linkding-user
+                    key: POSTGRES_PASSWORD
+              LD_DB_HOST:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-linkding-user-linkding-user
+                    key: POSTGRES_HOST
+              LD_DB_PORT:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-linkding-user-linkding-user
+                    key: POSTGRES_PORT
+
+            probes:
+              liveness:
+                enabled: true
+                type: HTTP
+                path: /health
+                port: 9090
+              readiness:
+                enabled: true
+                type: HTTP
+                path: /health
+                port: 9090
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+
+            resources:
+              requests:
+                cpu: 15m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+
+    service:
+      app:
+        controller: linkding
+        type: ClusterIP
+        ports:
+          http:
+            port: 9090
+            targetPort: 9090
+            protocol: TCP
+
+    route:
+      http:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Bookmark manager
+          gethomepage.dev/group: Apps
+          gethomepage.dev/icon: linkding
+          gethomepage.dev/name: Linkding
+          gethomepage.dev/app: linkding
+        hostnames: ["bookmarks.tosih.org"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 9090
+
+    persistence:
+      data:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        storageClass: ceph-block
+        size: 5Gi
+        globalMounts:
+          - path: /etc/linkding/data

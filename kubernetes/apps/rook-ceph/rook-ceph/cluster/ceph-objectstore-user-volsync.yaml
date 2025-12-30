@@ -1,0 +1,12 @@
+---
+apiVersion: ceph.rook.io/v1
+kind: CephObjectStoreUser
+metadata:
+  name: volsync-backup
+  namespace: rook-ceph
+spec:
+  store: ceph-objectstore
+  displayName: "Volsync Backup User"
+  capabilities:
+    user: "*"
+    bucket: "*"
