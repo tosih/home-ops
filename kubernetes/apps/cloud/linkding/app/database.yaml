@@ -1,9 +1,19 @@
 ---
-apiVersion: pg.ahinko.com/v1alpha1
-kind: Database
+apiVersion: db.movetokube.com/v1alpha1
+kind: Postgres
 metadata:
   name: linkding
+  namespace: cloud
 spec:
-  dbName: linkding
-  username: linkding-user
-  cluster: postgres17
+  database: linkding
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: PostgresUser
+metadata:
+  name: linkding-user
+  namespace: cloud
+spec:
+  role: linkding
+  database: linkding
+  secretName: database-linkding-user
+  privileges: OWNER
