@@ -26,8 +26,9 @@ The cluster consists of:
 
 ### Storage
 
-| Component | Purpose |
-|-----------|---------|
+| Component | Purpose | Version |
+|-----------|---------|---------|
+| Rook-Ceph | Distributed storage (block, filesystem, object) | Latest |
 | ZFS Provisioner | Local ZFS storage | Latest |
 
 ### Networking
@@ -41,11 +42,12 @@ The cluster consists of:
 
 ### Security
 
-| Component | Purpose |
-|-----------|---------|
-| SOPS | Secret encryption | v3.10.2 |
-| age | Encryption keys | v1.2.1 |
-| External Secrets | Secret management | Latest |
+| Component | Purpose | Version |
+|-----------|---------|---------|
+| SOPS | Secret encryption | Latest |
+| age | Encryption keys | Latest |
+| External Secrets | 1Password integration | Latest |
+| Pocket ID | OIDC identity provider | Latest |
 
 ## Design Principles
 

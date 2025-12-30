@@ -41,7 +41,7 @@ This is a home Kubernetes cluster built with:
 - **Kubernetes Version:** v1.34.1
 - **Network:** Pod CIDR 10.42.0.0/16, Service CIDR 10.43.0.0/16
 - **CNI:** Cilium with Gateway API (internal & external gateways)
-- **Storage:** Rook-Ceph (block, filesystem), ZFS NFS provisioner
+- **Storage:** Rook-Ceph (block, filesystem, object), ZFS NFS provisioner
 - **DNS:** k8s-gateway for internal DNS resolution
 
 ### Key Features

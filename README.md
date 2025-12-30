@@ -11,7 +11,7 @@ Complete guides for deployment, operations, and maintenance are available in the
 ## ✨ Highlights
 
 - **OS**: [Talos Linux](https://www.talos.dev/) v1.11.1 - Immutable Kubernetes OS
-- **Kubernetes**: v1.34.1 - Latest stable version
+- **Kubernetes**: v1.34.1 - Container orchestration platform
 - **GitOps**: [Flux](https://fluxcd.io/) - Continuous delivery from Git
 - **CNI**: [Cilium](https://cilium.io/) - eBPF-based networking with Gateway API
 - **Storage**: [Rook-Ceph](https://rook.io/) - Distributed block and filesystem storage
@@ -44,8 +44,8 @@ See the [Getting Started](https://tosih.github.io/home-ops/getting-started/initi
 |-----------|-------|---------|
 | Control Plane | 2 | Talos v1.11.1, Kubernetes v1.34.1 |
 | Workers | 3 | High availability workload distribution |
-| Storage | Multiple | Rook-Ceph (block, filesystem), ZFS NFS |
-| Applications | 16+ | Media automation, photos, home automation |
+| Storage | Multiple | Rook-Ceph (block, filesystem, object), ZFS NFS |
+| Applications | 35+ | Media automation, photos, home automation, cloud services |
 
 ## 🚀 Deployed Applications
 
@@ -60,15 +60,25 @@ See the [Getting Started](https://tosih.github.io/home-ops/getting-started/initi
 
 ### Cloud Services
 - **[Immich](https://photos.tosih.org)** - Self-hosted photo and video backup with OIDC
+- **[ImmichFrame](https://frame.tosih.org)** - Digital photo frame for Immich
+- **[Linkding](https://bookmarks.tosih.org)** - Bookmark manager
+- **[Memos](https://memos.tosih.org)** - Note-taking service
+- **[Romm](https://romm.tosih.org)** - ROM manager for retro gaming
+- **[Syncthing](https://sync.tosih.org)** - Continuous file synchronization
 
 ### Home Automation
 - **[Home Assistant](https://home.tosih.org)** - Home automation platform
 - **[Homebridge](https://homebridge.tosih.org)** - HomeKit bridge
 
-### Security & Infrastructure
-- **[Pocket ID](https://pid.tosih.org)** - OIDC identity provider (SSO)
+### Infrastructure & Monitoring
 - **[Homepage](https://dashboard.tosih.org)** - Application dashboard
+- **[Uptime Kuma](https://uptime.tosih.org)** - Uptime monitoring
+- **[AdGuard Home](https://dns.tosih.org)** - Network-wide ad blocking and DNS
 - **[Rook-Ceph Dashboard](https://rook.tosih.org)** - Storage cluster management
+
+### Security & Authentication
+- **[Pocket ID](https://pid.tosih.org)** - OIDC identity provider (SSO)
+- **[TinyAuth](https://auth.tosih.org)** - Lightweight authentication service
 
 ## 📚 Key Documentation
 

@@ -186,9 +186,9 @@ git push
 
 ## Optional Enhancements
 
-### Storage Solutions
+### Additional Storage Solutions
 
-If you need persistent storage beyond Ceph, consider:
+This cluster already uses **Rook-Ceph** for distributed storage and **ZFS provisioner** for local storage. If you need additional storage options, consider:
 
 - **[Longhorn](https://longhorn.io/)** - Cloud-native distributed storage
 - **[OpenEBS](https://openebs.io/)** - Container-native storage
@@ -204,14 +204,18 @@ Instead of k8s_gateway, you can use external-dns with:
 - **[AdGuard Home](https://github.com/muhlba91/external-dns-provider-adguard)**
 - **[Bind](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/rfc2136.md)**
 
-### Secret Management Alternatives
+### Secret Management
 
-While SOPS works well, consider [External Secrets](https://external-secrets.io/) for:
+This cluster already uses both **SOPS** (for Git-stored secrets) and **External Secrets** (for 1Password integration):
 
-- Centralized secret storage
-- Integration with cloud providers (AWS Secrets Manager, etc.)
-- Self-hosted Vault support
-- Easier secret rotation
+- **SOPS** - Encrypts secrets in Git with age encryption
+- **External Secrets Operator** - Syncs secrets from 1Password to Kubernetes
+
+This dual approach provides:
+- Git-based secrets for cluster configuration (encrypted with SOPS)
+- Centralized secret storage in 1Password for application credentials
+- Easy secret rotation via 1Password
+- Secure storage without committing plaintext to Git
 
 ### Monitoring & Observability
 

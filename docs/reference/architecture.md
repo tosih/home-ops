@@ -187,7 +187,14 @@ Configure your home DNS server to forward `*.yourdomain.com` to the k8s-gateway 
 | Local HostPath | Node-local | `local-hostpath` | Node-specific persistent data |
 | emptyDir | Ephemeral | N/A | Temporary pod storage |
 
-**Current Usage:** 19 PVCs across applications, 3 PostgreSQL databases
+### Database Services
+
+| Service | Type | Purpose |
+|---------|------|---------|
+| CloudNativePG | PostgreSQL Operator | Manages PostgreSQL clusters for applications |
+| Dragonfly Operator | Redis Alternative | High-performance in-memory datastore |
+| External Postgres Operator | External DB Management | Manages external PostgreSQL instances |
+| VerneMQ | MQTT Broker | Message broker for IoT devices (Home Assistant)
 
 ## Security
 
@@ -263,32 +270,58 @@ graph LR
 
 | Application | Namespace | Gateway | Purpose |
 |------------|-----------|---------|---------|
-| Pocket ID | security | external | OIDC identity provider |
+| **Cloud Services** | | | |
 | Immich | cloud | external | Photo & video backup (OIDC-enabled) |
-| Home Assistant | home | internal | Home automation |
-| Homebridge | home | internal | HomeKit bridge |
+| ImmichFrame | cloud | internal | Digital photo frame for Immich |
+| Linkding | cloud | internal | Bookmark manager |
+| Memos | cloud | internal | Note-taking service |
+| Romm | cloud | internal | ROM manager for retro gaming |
+| Syncthing | cloud | internal | File synchronization |
+| **Media Automation** | | | |
 | Plex | media | internal | Media streaming |
 | Jellyseerr | media | internal | Media requests |
 | Sonarr | media | internal | TV automation |
 | Radarr | media | internal | Movie automation |
 | Prowlarr | media | internal | Indexer management |
+| Recyclarr | media | internal | TRaSH guide automation |
 | qBittorrent | media | internal | Torrent client |
 | NZBGet | media | internal | Usenet downloader |
+| **Home Automation** | | | |
+| Home Assistant | home | internal | Home automation |
+| Homebridge | home | internal | HomeKit bridge |
+| **Infrastructure** | | | |
 | Homepage | default | internal | Dashboard |
+| Uptime Kuma | default | internal | Uptime monitoring |
+| AdGuard Home | network | internal | DNS & ad blocking |
 | Rook-Ceph Dashboard | rook-ceph | internal | Storage management |
+| **Security** | | | |
+| Pocket ID | security | external | OIDC identity provider |
+| TinyAuth | security | internal | Lightweight authentication |
 
-**Total:** 16+ applications across 6 namespaces
+**Total:** 35+ applications across 9 namespaces
 
 ### Infrastructure Services
 
-- **Flux** - GitOps continuous delivery
+- **Flux** - GitOps continuous delivery (flux-operator, flux-instance)
 - **Cilium** - CNI and Gateway API
 - **Rook-Ceph** - Distributed storage (operator + cluster)
 - **CloudNativePG** - PostgreSQL operator (3 databases)
+- **Dragonfly Operator** - Redis-compatible in-memory datastore
+- **External Postgres Operator** - External PostgreSQL management
+- **VerneMQ** - MQTT message broker for IoT
 - **External Secrets** - 1Password integration
 - **Cert-Manager** - TLS certificate management
 - **k8s-gateway** - Internal DNS resolution
-- **Cloudflare Tunnel** - Secure external access
+- **Cloudflare Tunnel** - Secure external access via Cloudflare
+- **Cloudflare DNS** - DNS record management
+- **CoreDNS** - Cluster DNS service
+- **Reloader** - Auto-reload on ConfigMap/Secret changes
+- **Spegel** - Distributed container image cache
+- **Metrics Server** - Resource metrics API
+- **Descheduler** - Pod rescheduling optimization
+- **Goldilocks** - Resource recommendation engine
+- **VolSync** - Persistent volume replication and backup
+- **ZFS Provisioner** - Local ZFS storage provisioning
 
 ## Monitoring Points
 
