@@ -13,6 +13,15 @@ data:
     # Database location
     library: /config/musiclibrary.db
     
+    # MusicBrainz autotagger configuration
+    musicbrainz:
+      enabled: yes
+      host: musicbrainz.org
+      https: yes
+      ratelimit: 1
+      ratelimit_interval: 1.0
+      searchlimit: 5
+    
     # Import settings
     import:
       move: yes                 # Move files to organized structure
@@ -30,6 +39,7 @@ data:
     
     # Plugins for better organization
     plugins:
+      - mbcollection  # MusicBrainz collection integration
       - fetchart      # Download album art
       - embedart      # Embed art in FLAC files
       - duplicates    # Find duplicate files
