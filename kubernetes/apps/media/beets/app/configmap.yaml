@@ -39,7 +39,6 @@ data:
     
     # Plugins for better organization
     plugins:
-      - mbcollection  # MusicBrainz collection integration
       - fetchart      # Download album art
       - embedart      # Embed art in FLAC files
       - duplicates    # Find duplicate files
