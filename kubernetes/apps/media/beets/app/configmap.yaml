@@ -40,6 +40,7 @@ data:
     
     # Plugins for better organization
     plugins:
+      - copyartifacts # Copy .cue, .log, artwork, and other extras
       - fetchart      # Download album art
       - embedart      # Embed art in FLAC files
       - duplicates    # Find duplicate files
@@ -87,3 +88,8 @@ data:
     # UI colors
     ui:
       color: yes
+    
+    # Copy artifacts plugin - preserve .cue, .log, artwork, etc.
+    copyartifacts:
+      extensions: .cue .log .jpg .jpeg .png .txt .nfo .pdf .m3u .accurip
+      print_ignored: yes
