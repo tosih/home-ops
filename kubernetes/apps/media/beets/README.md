@@ -6,7 +6,7 @@ Beets organizes your FLAC music library with perfect metadata and a consistent s
 
 - **Storage:** Shares the same `media-nfs` PVC as Plex
 - **Source:** `/media` (your existing FLAC library)
-- **Destination:** `/media/music` (organized library)
+- **Destination:** `/media/music-library` (organized library)
 - **Web UI:** https://beets.tosih.org
 
 ## Initial Import
@@ -33,7 +33,7 @@ beet import /media/flac
 # 1. Scan each album
 # 2. Match against MusicBrainz
 # 3. Ask for confirmation (or auto-import if confident)
-# 4. Organize to /media/music with perfect structure
+# 4. Organize to /media/music-library with perfect structure
 ```
 
 ## Ongoing Usage
@@ -88,7 +88,7 @@ beet web
 Beets organizes files like this:
 
 ```
-/media/music/
+/media/music-library/
 ├── Artist Name/
 │   ├── Album Name (2023)/
 │   │   ├── 01 Track Name.flac
@@ -108,7 +108,7 @@ After Beets organizes your library:
 
 1. **Add Music Library in Plex:**
    - Type: Music
-   - Folder: `/media/music`
+   - Folder: `/media/music-library`
    - Scanner: Plex Music
    - Agent: Plex Music
    - ✅ Enable "Use embedded tags"
@@ -125,7 +125,7 @@ The Beets config is in the ConfigMap at:
 `kubernetes/apps/media/beets/app/configmap.yaml`
 
 Key settings:
-- **Destination:** `/media/music`
+- **Destination:** `/media/music-library`
 - **Move files:** Yes (organizes from source to destination)
 - **Write tags:** Yes (embeds metadata in FLAC files)
 - **Plugins:** fetchart, embedart, duplicates, replaygain, lastgenre

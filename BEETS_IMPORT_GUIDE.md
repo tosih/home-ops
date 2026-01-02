@@ -120,7 +120,7 @@ kubectl exec -it -n media deployment/beets -- bash
 beet import "/media/Music/What.CD/The Shins - Wincing The Night Away"
 
 # Check the result
-ls -la /media/music/
+ls -la /media/music-library/
 ```
 
 ### Phase 2: Small Batch (Today)
@@ -199,7 +199,7 @@ Artist - Album (2020)
 kubectl exec -n media deployment/beets -- bash
 
 # Check organized library
-ls -la /media/music/
+ls -la /media/music-library/
 
 # Get stats
 beet stats
@@ -216,7 +216,7 @@ beet stats
 
 1. **Plex Settings** → **Libraries** → **Music**
 2. **Edit Library** or **Add Library**:
-   - Folder: `/media/music`
+   - Folder: `/media/music-library`
    - Scanner: Plex Music
    - Agent: Plex Music
    - ✅ Use embedded tags
@@ -231,7 +231,7 @@ After verifying the organized library works in Plex:
 /media/Music/What.CD
 
 # Beets MOVED them to:
-/media/music/Artist/Album/Tracks.flac
+/media/music-library/Artist/Album/Tracks.flac
 
 # The What.CD folder should now be empty or nearly empty
 # (Some files may remain if they couldn't be matched)
@@ -244,7 +244,7 @@ After verifying the organized library works in Plex:
 beet ls -a singleton:true
 
 # These are stored in:
-/media/music/Non-Album/
+/media/music-library/Non-Album/
 
 # You can:
 # - Manually import them later
@@ -324,12 +324,12 @@ beet fetchart
 ## Next Steps
 
 1. **Run test import** on one album
-2. **Verify** the organized output in `/media/music`
+2. **Verify** the organized output in `/media/music-library`
 3. **Start small batch** (50-100 albums)
 4. **Check in Plex** to make sure it looks good
 5. **Start full import** in screen session
 6. **Wait 12-48 hours** for completion
-7. **Update Plex** to use `/media/music`
+7. **Update Plex** to use `/media/music-library`
 8. **Enjoy** your perfectly organized library!
 
 ---

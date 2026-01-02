@@ -8,7 +8,8 @@ data:
     # Beets configuration for organizing FLAC library
     
     # Where the organized music library will live
-    directory: /media/music
+    # Separate from source /media/Music to avoid confusion
+    directory: /media/music-library
     
     # Database location
     library: /config/musiclibrary.db
