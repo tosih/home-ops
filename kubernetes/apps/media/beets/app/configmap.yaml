@@ -25,12 +25,14 @@ data:
     
     # Import settings
     import:
-      move: yes                 # Move files to organized structure
+      copy: yes                 # Copy files (preserves originals with .cue, .log, etc.)
       write: yes                # Write tags to files (important for Plex!)
       incremental: yes          # Skip already-imported files
       quiet_fallback: skip      # Skip if no good match
       timid: no                 # Don't ask for confirmation on good matches
       log: /config/beet.log
+      # Using 'copy' instead of 'move' preserves all extras in source folder
+      # This doubles disk usage but ensures nothing is lost from What.CD rips
     
     # Plex-friendly folder structure
     paths:
@@ -40,7 +42,6 @@ data:
     
     # Plugins for better organization
     plugins:
-      - copyartifacts # Copy .cue, .log, artwork, and other extras
       - fetchart      # Download album art
       - embedart      # Embed art in FLAC files
       - duplicates    # Find duplicate files
@@ -89,7 +90,11 @@ data:
     ui:
       color: yes
     
-    # Copy artifacts plugin - preserve .cue, .log, artwork, etc.
-    copyartifacts:
-      extensions: .cue .log .jpg .jpeg .png .txt .nfo .pdf .m3u .accurip
-      print_ignored: yes
+    # Note: Extra files (.cue, .log, artwork folders, etc.) handling
+    # Unfortunately, the LinuxServer Beets image doesn't include the copyartifacts plugin.
+    # Options:
+    # 1. Manually copy extras after import: rsync -av --include="*.cue" --include="*.log" etc.
+    # 2. Use 'copy' instead of 'move' in import settings (keeps originals)
+    # 3. Build custom Beets image with copyartifacts plugin
+    # 
+    # For now, recommend using copy mode to preserve originals, then clean up manually later.
