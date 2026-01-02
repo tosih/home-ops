@@ -7,6 +7,7 @@ components:
 resources:
   - ./media-nfs-pv.yaml
   - ./downloads-pvc.yaml
+  - ./beets/ks.yaml
   - ./jellyseerr/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml

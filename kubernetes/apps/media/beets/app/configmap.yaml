@@ -1,0 +1,79 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: beets-config
+data:
+  config.yaml: |
+    # Beets configuration for organizing FLAC library
+    
+    # Where the organized music library will live
+    directory: /media/music
+    
+    # Database location
+    library: /config/musiclibrary.db
+    
+    # Import settings
+    import:
+      move: yes                 # Move files to organized structure
+      write: yes                # Write tags to files (important for Plex!)
+      incremental: yes          # Skip already-imported files
+      quiet_fallback: skip      # Skip if no good match
+      timid: no                 # Don't ask for confirmation on good matches
+      log: /config/beet.log
+    
+    # Plex-friendly folder structure
+    paths:
+      default: $albumartist/$album%aunique{}/$track $title
+      singleton: Non-Album/$artist - $title
+      comp: Compilations/$album%aunique{}/$track $title
+    
+    # Plugins for better organization
+    plugins:
+      - fetchart      # Download album art
+      - embedart      # Embed art in FLAC files
+      - duplicates    # Find duplicate files
+      - replaygain    # Volume normalization
+      - lastgenre     # Fetch accurate genres
+      - the           # Handle "The" in artist names
+      - inline        # Custom fields
+      - web           # Enable web UI on port 8337
+    
+    # High-quality album art
+    fetchart:
+      auto: yes
+      cautious: yes
+      minwidth: 1000
+      maxwidth: 0
+      enforce_ratio: no
+    
+    # Embed art in files
+    embedart:
+      auto: yes
+      maxwidth: 0
+    
+    # ReplayGain for volume normalization
+    replaygain:
+      auto: yes
+      backend: ffmpeg
+      overwrite: no
+    
+    # Genre fetching
+    lastgenre:
+      auto: yes
+      source: album
+    
+    # Web UI configuration
+    web:
+      host: 0.0.0.0
+      port: 8337
+    
+    # Handle "The" in artist names properly
+    the:
+      a: yes
+      the: yes
+      format: '{0}, {1}'
+    
+    # UI colors
+    ui:
+      color: yes

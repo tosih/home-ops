@@ -1,0 +1,138 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: beets
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      beets:
+        type: deployment
+        strategy: Recreate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+        
+        containers:
+          app:
+            image:
+              repository: lscr.io/linuxserver/beets
+              tag: latest
+            env:
+              TZ: America/Los_Angeles
+              PUID: "568"
+              PGID: "568"
+            
+            probes:
+              liveness:
+                enabled: true
+                type: HTTP
+                path: /
+                port: &port 8337
+                spec:
+                  initialDelaySeconds: 30
+                  periodSeconds: 10
+                  timeoutSeconds: 2
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                type: HTTP
+                path: /
+                port: *port
+                spec:
+                  initialDelaySeconds: 30
+                  periodSeconds: 10
+                  timeoutSeconds: 2
+                  failureThreshold: 3
+              startup:
+                enabled: true
+                type: HTTP
+                path: /
+                port: *port
+                spec:
+                  initialDelaySeconds: 0
+                  periodSeconds: 5
+                  timeoutSeconds: 2
+                  failureThreshold: 30
+            
+            resources:
+              requests:
+                cpu: 50m
+                memory: 256Mi
+              limits:
+                memory: 1Gi
+    
+    service:
+      app:
+        controller: beets
+        ports:
+          http:
+            port: *port
+    
+    route:
+      app:
+        enabled: true
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Music library organizer
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: beets.svg
+          gethomepage.dev/name: Beets
+          gethomepage.dev/app: beets
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        hostnames: ["beets.tosih.org"]
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+    
+    persistence:
+      # Beets config and database
+      config:
+        enabled: true
+        type: persistentVolumeClaim
+        existingClaim: beets-config
+        globalMounts:
+          - path: /config
+      
+      # Beets configuration file
+      beets-config:
+        enabled: true
+        type: configMap
+        name: beets-config
+        globalMounts:
+          - path: /config/config.yaml
+            subPath: config.yaml
+            readOnly: true
+      
+      # Shared media NFS mount (same as Plex)
+      media:
+        enabled: true
+        type: persistentVolumeClaim
+        existingClaim: media-nfs
+        globalMounts:
+          - path: /media

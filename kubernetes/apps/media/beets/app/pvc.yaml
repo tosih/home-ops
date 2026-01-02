@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: beets-config
+  namespace: media
+  labels:
+    app.kubernetes.io/instance: beets
+    app.kubernetes.io/name: beets
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ceph-block
