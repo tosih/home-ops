@@ -35,6 +35,9 @@ spec:
               tag: latest
             env:
               TZ: America/Los_Angeles
+              # To exclude devices, add -x <device_name> to the variables below
+              # Example: AIRUPNP_VAR: "-l 1000:2000 -x LG -x Samsung"
+              # Multiple -x flags can be used to exclude multiple devices
               AIRUPNP_VAR: "-l 1000:2000"
               AIRCAST_VAR: "-l 1000:2000"
             resources:
