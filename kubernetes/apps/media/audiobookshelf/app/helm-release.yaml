@@ -36,8 +36,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/advplyr/audiobookshelf
-              tag: 2.18.3
+              repository: advplyr/audiobookshelf
+              tag: latest
             env:
               TZ: America/Los_Angeles
               AUDIOBOOKSHELF_UID: "568"
