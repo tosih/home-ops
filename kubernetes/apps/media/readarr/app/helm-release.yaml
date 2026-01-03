@@ -1,0 +1,121 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: readarr
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      readarr:
+        replicas: 1
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/onedr0p/readarr-develop
+              tag: 0.4.8.2680
+            env:
+              TZ: America/Los_Angeles
+              READARR__APP__INSTANCENAME: Readarr
+              READARR__AUTH__METHOD: External
+              READARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              READARR__LOG__LEVEL: info
+              READARR__SERVER__PORT: &port 8787
+
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+
+            resources:
+              requests:
+                cpu: 15m
+                memory: 237Mi
+              limits:
+                memory: 512Mi
+
+    service:
+      app:
+        controller: readarr
+        ports:
+          http:
+            port: *port
+
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: Ebook & audiobook management
+          gethomepage.dev/group: Media
+          gethomepage.dev/icon: sh-readarr.svg
+          gethomepage.dev/name: Readarr
+          gethomepage.dev/app: readarr
+        hostnames: ["readarr.tosih.org"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+
+    persistence:
+      config:
+        enabled: true
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        storageClass: ceph-block
+        size: 5Gi
+        advancedMounts:
+          readarr:
+            app:
+              - path: /config
+
+      media:
+        enabled: true
+        type: persistentVolumeClaim
+        existingClaim: media-nfs
+        advancedMounts:
+          readarr:
+            app:
+              - path: /media
+
+      downloads:
+        enabled: true
+        type: persistentVolumeClaim
+        existingClaim: downloads
+        advancedMounts:
+          readarr:
+            app:
+              - path: /downloads
