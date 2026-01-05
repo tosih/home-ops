@@ -30,6 +30,7 @@ data:
       incremental: yes          # Skip already-imported files
       quiet_fallback: skip      # Skip if no good match
       timid: no                 # Don't ask for confirmation on good matches
+      none_rec_action: skip     # Skip albums with no strong recommendation
       log: /config/beet.log
       # Using 'copy' instead of 'move' preserves all extras in source folder
       # This doubles disk usage but ensures nothing is lost from What.CD rips
