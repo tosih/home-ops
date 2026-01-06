@@ -39,7 +39,7 @@ spec:
           app:
             image:
               repository: sissbruecker/linkding
-              tag: 1.38.0
+              tag: 1.45.0
             env:
               TZ: America/Los_Angeles
               LD_ENABLE_AUTH_PROXY: "False"
