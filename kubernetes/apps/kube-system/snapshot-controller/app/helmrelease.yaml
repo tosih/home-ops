@@ -1,0 +1,51 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: snapshot-controller
+  namespace: kube-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: snapshot-controller
+      version: 3.0.6
+      sourceRef:
+        kind: OCIRepository
+        name: snapshot-controller
+        namespace: kube-system
+      interval: 12h
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    replicaCount: 2
+    
+    controller:
+      volumeSnapshotClasses:
+        []  # Let Rook-Ceph manage VolumeSnapshotClasses
+      
+      serviceMonitor:
+        create: true
+      
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          memory: 128Mi
+    
+    webhooks:
+      enabled: true
+      
+      resources:
+        requests:
+          cpu: 10m
+          memory: 32Mi
+        limits:
+          memory: 64Mi
