@@ -12,35 +12,35 @@ spec:
       chart: snapshot-controller
       version: 3.0.6
       sourceRef:
-        kind: OCIRepository
-        name: snapshot-controller
+        kind: HelmRepository
+        name: piraeus
         namespace: kube-system
       interval: 12h
   install:
+    crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
+    crds: CreateReplace
     cleanupOnFail: true
     remediation:
       retries: 3
   values:
     replicaCount: 2
     
-    controller:
-      volumeSnapshotClasses:
-        []  # Let Rook-Ceph manage VolumeSnapshotClasses
-      
-      serviceMonitor:
-        create: true
-      
-      resources:
-        requests:
-          cpu: 10m
-          memory: 64Mi
-        limits:
-          memory: 128Mi
+    volumeSnapshotClasses: []  # Let Rook-Ceph manage VolumeSnapshotClasses
     
-    webhooks:
+    serviceMonitor:
+      create: true
+    
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
+      limits:
+        memory: 128Mi
+    
+    webhook:
       enabled: true
       
       resources:
