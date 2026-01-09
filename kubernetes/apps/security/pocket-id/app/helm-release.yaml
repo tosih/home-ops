@@ -84,9 +84,7 @@ spec:
       config:
         enabled: true
         type: persistentVolumeClaim
-        accessMode: ReadWriteOnce
-        storageClass: zfs-nfs
-        size: 1Gi
+        existingClaim: pocket-id-ceph
         globalMounts:
           - path: /app/data
       var:
