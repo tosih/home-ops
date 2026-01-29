@@ -159,7 +159,25 @@ spec:
                     description: Uptime monitoring
                     namespace: default
                     app: uptime-kuma
-            
+                - AdGuard Home:
+                    icon: adguard-home.svg
+                    href: https://adguard.tosih.org
+                    description: Network-wide ad blocking
+                    namespace: network
+                    app: adguard-home
+                - Rook-Ceph:
+                    icon: mdi-database-cluster
+                    href: https://rook.tosih.org
+                    description: Storage cluster dashboard
+                    namespace: rook-ceph
+                    app: rook-ceph-cluster
+                - Goldilocks:
+                    icon: mdi-scale-balance
+                    href: https://goldilocks.tosih.org
+                    description: Resource recommendations
+                    namespace: kube-system
+                    app: goldilocks
+
             - Home Automation:
                 - Home Assistant:
                     icon: home-assistant.svg
@@ -173,7 +191,7 @@ spec:
                     description: HomeKit bridge
                     namespace: home
                     app: homebridge
-            
+
             - Media:
                 - Plex:
                     icon: plex.svg
@@ -199,12 +217,24 @@ spec:
                     description: Movies management
                     namespace: media
                     app: radarr
+                - Readarr:
+                    icon: readarr.svg
+                    href: https://readarr.tosih.org
+                    description: Books management
+                    namespace: media
+                    app: readarr
                 - Prowlarr:
                     icon: prowlarr.svg
                     href: https://prowlarr.tosih.org
                     description: Indexer manager
                     namespace: media
                     app: prowlarr
+                - Audiobookshelf:
+                    icon: audiobookshelf.svg
+                    href: https://audiobooks.tosih.org
+                    description: Audiobook & podcast server
+                    namespace: media
+                    app: audiobookshelf
                 - qBittorrent:
                     icon: qbittorrent.svg
                     href: https://qbittorrent.tosih.org
@@ -217,21 +247,51 @@ spec:
                     description: Usenet downloader
                     namespace: media
                     app: nzbget
-                - Betanin:
+                - Beets:
                     icon: mdi-music-box-multiple
                     href: https://beets.tosih.org
                     description: Music library manager
                     namespace: media
                     app: beets
-            
-            - Apps:
+
+            - Cloud Apps:
                 - Immich:
                     icon: immich.svg
                     href: https://photos.tosih.org
                     description: Photo management
                     namespace: cloud
                     app: immich
-            
+                - Immichframe:
+                    icon: immich.svg
+                    href: https://frame.tosih.org
+                    description: Digital photo frame
+                    namespace: cloud
+                    app: immichframe
+                - Linkding:
+                    icon: linkding.svg
+                    href: https://bookmarks.tosih.org
+                    description: Bookmark manager
+                    namespace: cloud
+                    app: linkding
+                - Memos:
+                    icon: mdi-note-text
+                    href: https://memos.tosih.org
+                    description: Note-taking service
+                    namespace: cloud
+                    app: memos
+                - ROMM:
+                    icon: mdi-gamepad-variant
+                    href: https://romm.tosih.org
+                    description: ROM manager
+                    namespace: cloud
+                    app: romm
+                - Syncthing:
+                    icon: syncthing.svg
+                    href: https://sync.tosih.org
+                    description: File synchronization
+                    namespace: cloud
+                    app: syncthing
+
             - Security:
                 - Pocket ID:
                     icon: mdi-shield-account
@@ -249,19 +309,19 @@ spec:
             layout:
               Infrastructure:
                 style: row
-                columns: 2
+                columns: 4
               Home Automation:
                 style: row
-                columns: 3
+                columns: 2
               Media:
                 style: row
                 columns: 4
-              Apps:
+              Cloud Apps:
                 style: row
-                columns: 2
+                columns: 3
               Security:
                 style: row
-                columns: 2
+                columns: 1
           widgets.yaml: |
             - kubernetes:
                 cluster:
