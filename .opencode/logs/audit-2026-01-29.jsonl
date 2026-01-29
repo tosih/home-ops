@@ -216,3 +216,8 @@
 {"timestamp":"2026-01-29T08:20:15.757Z","event":"bash","command":"rm -rf kubernetes/apps/kube-system/goldilocks"}
 {"timestamp":"2026-01-29T08:27:22.254Z","event":"edit","file":"/Users/sohailahmed/Developer/home-ops/kubernetes/apps/kube-system/kustomization.yaml","oldLength":264,"newLength":239}
 {"timestamp":"2026-01-29T08:28:37.930Z","event":"bash","command":"git add . && git status"}
+{"timestamp":"2026-01-29T08:40:14.878Z","event":"bash","command":"git commit -m \"remove linkding and goldilocks applications\""}
+{"timestamp":"2026-01-29T08:40:21.122Z","event":"bash","command":"git push"}
+{"timestamp":"2026-01-29T08:42:12.080Z","event":"bash","command":"git pull --rebase"}
+{"timestamp":"2026-01-29T08:42:54.517Z","event":"bash","command":"git status"}
+{"timestamp":"2026-01-29T08:44:26.579Z","event":"bash","command":"git add . && git pull --rebase"}
