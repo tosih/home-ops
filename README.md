@@ -1,6 +1,6 @@
 # ⛵ Home-Ops Kubernetes Cluster
 
-A production-grade home Kubernetes cluster running on Talos Linux with GitOps management via Flux.
+Home Kubernetes cluster running on Talos Linux with GitOps management via Flux.
 
 ## 📖 Documentation
 
