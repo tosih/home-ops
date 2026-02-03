@@ -34,24 +34,3 @@ spec:
     parameters:
       max_connections: "300"
       shared_buffers: 512MB
-
-  # S3 backup configuration to Rook-Ceph object storage
-  backup:
-    barmanObjectStore:
-      destinationPath: s3://postgres-backups/
-      endpointURL: http://rook-ceph-rgw-ceph-objectstore.rook-ceph.svc:80
-      s3Credentials:
-        accessKeyId:
-          name: postgres-s3-backup
-          key: ACCESS_KEY_ID
-        secretAccessKey:
-          name: postgres-s3-backup
-          key: ACCESS_SECRET_KEY
-      wal:
-        compression: gzip
-        maxParallel: 4
-      data:
-        compression: gzip
-        jobs: 4
-    retentionPolicy: "30d"
-    target: prefer-standby
