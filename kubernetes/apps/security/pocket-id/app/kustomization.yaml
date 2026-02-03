@@ -8,4 +8,3 @@ resources:
   - ./oci-repository.yaml
   - ./oidc-clusterrolebinding.yaml
   - ./pvc.yaml
-  - ../backup

@@ -4,5 +4,3 @@ kind: Kustomization
 resources:
   - ./oci-repository.yaml
   - ./helm-release.yaml
-  - ./ceph-objectstore-user-volsync.yaml
-  - ./objectbucketclaim-volsync.yaml
