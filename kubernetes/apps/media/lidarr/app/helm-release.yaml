@@ -36,8 +36,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/lidarr
-              tag: 2.9.0.4439
+              repository: ghcr.io/home-operations/lidarr
+              tag: 2.7.1.4417
             env:
               TZ: America/Los_Angeles
               LIDARR__APP__INSTANCENAME: Lidarr
