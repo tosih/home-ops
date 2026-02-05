@@ -10,6 +10,7 @@ resources:
   - ./audiobookshelf/ks.yaml
   - ./beets/ks.yaml
   - ./jellyseerr/ks.yaml
+  - ./lidarr/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
