@@ -32,6 +32,7 @@ spec:
             runAsNonRoot: true
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups: [44, 104]
 
         containers:
           app:
@@ -42,6 +43,8 @@ spec:
               TZ: America/Los_Angeles
               PLEX_ADVERTISE_URL: "https://plex.tosih.org:443"
               PLEX_NO_AUTH_NETWORKS: "10.0.0.0/8"
+              LIBVA_DRIVER_NAME: radeonsi
+              LIBVA_DRI3_DISABLE: "1"
 
             probes:
               liveness:
@@ -118,3 +121,13 @@ spec:
           plex:
             app:
               - path: /transcode
+
+      dri:
+        enabled: true
+        type: hostPath
+        hostPath: /dev/dri
+        hostPathType: Directory
+        advancedMounts:
+          plex:
+            app:
+              - path: /dev/dri
