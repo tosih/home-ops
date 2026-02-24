@@ -21,11 +21,12 @@ spec:
   values:
     controllers:
       beets:
-        type: deployment
-        strategy: Recreate
-        annotations:
-          reloader.stakater.com/auto: "true"
-        
+        type: cronjob
+        cronjob:
+          schedule: "0 2 * * *"  # Daily at 2 AM
+          successfulJobsHistory: 3
+          failedJobsHistory: 3
+
         pod:
           securityContext:
             runAsUser: 1000
@@ -33,106 +34,80 @@ spec:
             runAsNonRoot: true
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
-        
+
         containers:
           app:
             image:
               repository: lscr.io/linuxserver/beets
               tag: latest
+            command:
+              - /bin/bash
+              - -c
+              - |
+                set -e
+                echo "========================================="
+                echo "Starting Beets import at $(date)"
+                echo "Source: /media/Music/What.CD"
+                echo "Destination: /media/music-library"
+                echo "Mode: Quiet (-q)"
+                echo "========================================="
+                echo ""
+
+                # Run the import
+                beet import -q /media/Music/What.CD 2>&1 | tee /config/import-job.log
+
+                echo ""
+                echo "========================================="
+                echo "Import completed at $(date)"
+                echo "========================================="
+                echo ""
+                echo "Library Statistics:"
+                beet stats
+
+                echo ""
+                echo "Log saved to: /config/import-job.log"
+
             env:
               TZ: America/Los_Angeles
               PUID: "1000"
               PGID: "1000"
-            
-            probes:
-              liveness:
-                enabled: true
-                type: HTTP
-                path: /
-                port: &port 8337
-                spec:
-                  initialDelaySeconds: 30
-                  periodSeconds: 10
-                  timeoutSeconds: 2
-                  failureThreshold: 3
-              readiness:
-                enabled: true
-                type: HTTP
-                path: /
-                port: *port
-                spec:
-                  initialDelaySeconds: 30
-                  periodSeconds: 10
-                  timeoutSeconds: 2
-                  failureThreshold: 3
-              startup:
-                enabled: true
-                type: HTTP
-                path: /
-                port: *port
-                spec:
-                  initialDelaySeconds: 0
-                  periodSeconds: 5
-                  timeoutSeconds: 2
-                  failureThreshold: 30
-            
+
             resources:
               requests:
-                cpu: 50m
-                memory: 256Mi
+                cpu: 100m
+                memory: 512Mi
               limits:
-                memory: 1Gi
-    
-    service:
-      app:
-        controller: beets
-        ports:
-          http:
-            port: *port
-    
-    route:
-      app:
-        enabled: true
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Music library organizer
-          gethomepage.dev/group: Media
-          gethomepage.dev/icon: beets.svg
-          gethomepage.dev/name: Beets
-          gethomepage.dev/app: beets
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
-        hostnames: ["beets.tosih.org"]
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: *port
-    
+                memory: 2Gi
+
     persistence:
       # Beets config and database
       config:
         enabled: true
         type: persistentVolumeClaim
         existingClaim: beets-config
-        globalMounts:
-          - path: /config
-      
+        advancedMounts:
+          beets:
+            app:
+              - path: /config
+
       # Beets configuration file
       beets-config:
         enabled: true
         type: configMap
         name: beets-config
-        globalMounts:
-          - path: /config/config.yaml
-            subPath: config.yaml
-            readOnly: true
-      
+        advancedMounts:
+          beets:
+            app:
+              - path: /config/config.yaml
+                subPath: config.yaml
+                readOnly: true
+
       # Shared media NFS mount (same as Plex)
       media:
         enabled: true
         type: persistentVolumeClaim
         existingClaim: media-nfs
-        globalMounts:
-          - path: /media
+        advancedMounts:
+          beets:
+            app:
+              - path: /media
