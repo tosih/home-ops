@@ -7,3 +7,4 @@ resources:
   - ./oci-repository.yaml
   - ./helm-release.yaml
   - ./database.yaml
+  - ./secret.sops.yaml
