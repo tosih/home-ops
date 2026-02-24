@@ -49,36 +49,64 @@ See the [Getting Started](https://tosih.github.io/home-ops/getting-started/initi
 
 ## 🚀 Deployed Applications
 
-### Media & Entertainment
-- **[Plex](https://plex.tosih.org)** - Media streaming server
-- **[Jellyseerr](https://requests.tosih.org)** - Media request management
-- **[Sonarr](https://sonarr.tosih.org)** - TV show automation
-- **[Radarr](https://radarr.tosih.org)** - Movie automation
-- **[Prowlarr](https://prowlarr.tosih.org)** - Indexer management
-- **[qBittorrent](https://qbittorrent.tosih.org)** - Torrent client
-- **[NZBGet](https://nzbget.tosih.org)** - Usenet downloader
+| Application | Namespace | Purpose | URL |
+|------------|-----------|---------|-----|
+| **Media & Entertainment** | | | |
+| Plex | media | Media streaming server | [plex.tosih.org](https://plex.tosih.org) |
+| Jellyseerr | media | Media request management | [requests.tosih.org](https://requests.tosih.org) |
+| Sonarr | media | TV show automation | [sonarr.tosih.org](https://sonarr.tosih.org) |
+| Radarr | media | Movie automation | [radarr.tosih.org](https://radarr.tosih.org) |
+| Lidarr | media | Music automation | [lidarr.tosih.org](https://lidarr.tosih.org) |
+| Readarr | media | eBook & audiobook automation | [readarr.tosih.org](https://readarr.tosih.org) |
+| Prowlarr | media | Indexer management | [prowlarr.tosih.org](https://prowlarr.tosih.org) |
+| Recyclarr | media | TRaSH guide automation | - |
+| qBittorrent | media | Torrent download client | [qbittorrent.tosih.org](https://qbittorrent.tosih.org) |
+| NZBGet | media | Usenet download client | [nzbget.tosih.org](https://nzbget.tosih.org) |
+| Audiobookshelf | media | Audiobook & podcast server | [audiobooks.tosih.org](https://audiobooks.tosih.org) |
+| Beets | media | Music library manager | - |
+| **Cloud Services** | | | |
+| Immich | cloud | Photo & video backup (OIDC) | [photos.tosih.org](https://photos.tosih.org) |
+| ImmichFrame | cloud | Digital photo frame for Immich | [frame.tosih.org](https://frame.tosih.org) |
+| Memos | cloud | Note-taking service | [memos.tosih.org](https://memos.tosih.org) |
+| Romm | cloud | ROM manager for retro gaming | [romm.tosih.org](https://romm.tosih.org) |
+| Syncthing | cloud | Continuous file synchronization | [sync.tosih.org](https://sync.tosih.org) |
+| **Home Automation** | | | |
+| Home Assistant | home | Home automation platform | [home.tosih.org](https://home.tosih.org) |
+| Homebridge | home | HomeKit bridge | [homebridge.tosih.org](https://homebridge.tosih.org) |
+| AirConnect | home | AirPlay to UPnP/Sonos bridge | - |
+| Eufy Security WS | home | Eufy camera integration | - |
+| **Infrastructure** | | | |
+| Homepage | default | Application dashboard | [dashboard.tosih.org](https://dashboard.tosih.org) |
+| Uptime Kuma | default | Uptime monitoring | [uptime.tosih.org](https://uptime.tosih.org) |
+| Echo | default | HTTP echo server | - |
+| **Network Services** | | | |
+| AdGuard Home | network | DNS server & ad blocking | [dns.tosih.org](https://dns.tosih.org) |
+| k8s-gateway | network | Internal DNS for *.tosih.org | 10.0.50.100 |
+| Cloudflare Tunnel | network | Secure external access | - |
+| Cloudflare DNS | network | DNS record automation | - |
+| **Security & Authentication** | | | |
+| Pocket ID | security | OIDC identity provider (SSO) | [pid.tosih.org](https://pid.tosih.org) |
+| External Secrets | security | 1Password secret integration | - |
+| OnePassword Connect | security | 1Password API server | - |
+| **Storage & Databases** | | | |
+| Rook-Ceph | rook-ceph | Distributed storage (block, filesystem, object) | [rook.tosih.org](https://rook.tosih.org) |
+| ZFS Provisioner | kubernetes-zfs-provisioner | Local ZFS storage provisioning | - |
+| CloudNativePG | databases | PostgreSQL operator | - |
+| Dragonfly | databases | Redis-compatible in-memory store | - |
+| External Postgres Operator | databases | External DB management | - |
+| VerneMQ | databases | MQTT message broker | - |
+| **Platform Services** | | | |
+| Flux | flux-system | GitOps continuous delivery | - |
+| Cilium | kube-system | CNI & Gateway API | - |
+| Cert-Manager | cert-manager | TLS certificate management | - |
+| CoreDNS | kube-system | Cluster DNS service | - |
+| Metrics Server | kube-system | Resource metrics API | - |
+| Reloader | kube-system | Auto-reload on config changes | - |
+| Spegel | kube-system | Distributed image cache | - |
+| Descheduler | kube-system | Pod rescheduling optimization | - |
+| Snapshot Controller | kube-system | Volume snapshot support | - |
 
-### Cloud Services
-- **[Immich](https://photos.tosih.org)** - Self-hosted photo and video backup with OIDC
-- **[ImmichFrame](https://frame.tosih.org)** - Digital photo frame for Immich
-- **[Linkding](https://bookmarks.tosih.org)** - Bookmark manager
-- **[Memos](https://memos.tosih.org)** - Note-taking service
-- **[Romm](https://romm.tosih.org)** - ROM manager for retro gaming
-- **[Syncthing](https://sync.tosih.org)** - Continuous file synchronization
-
-### Home Automation
-- **[Home Assistant](https://home.tosih.org)** - Home automation platform
-- **[Homebridge](https://homebridge.tosih.org)** - HomeKit bridge
-
-### Infrastructure & Monitoring
-- **[Homepage](https://dashboard.tosih.org)** - Application dashboard
-- **[Uptime Kuma](https://uptime.tosih.org)** - Uptime monitoring
-- **[AdGuard Home](https://dns.tosih.org)** - Network-wide ad blocking and DNS
-- **[Rook-Ceph Dashboard](https://rook.tosih.org)** - Storage cluster management
-
-### Security & Authentication
-- **[Pocket ID](https://pid.tosih.org)** - OIDC identity provider (SSO)
-- **[TinyAuth](https://auth.tosih.org)** - Lightweight authentication service
+**Total: 50+ applications** across 10 namespaces
 
 ## 📚 Key Documentation
 

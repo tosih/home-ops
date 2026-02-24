@@ -273,32 +273,49 @@ graph LR
 | **Cloud Services** | | | |
 | Immich | cloud | external | Photo & video backup (OIDC-enabled) |
 | ImmichFrame | cloud | internal | Digital photo frame for Immich |
-| Linkding | cloud | internal | Bookmark manager |
 | Memos | cloud | internal | Note-taking service |
 | Romm | cloud | internal | ROM manager for retro gaming |
 | Syncthing | cloud | internal | File synchronization |
 | **Media Automation** | | | |
-| Plex | media | internal | Media streaming |
-| Jellyseerr | media | internal | Media requests |
-| Sonarr | media | internal | TV automation |
+| Plex | media | internal | Media streaming server |
+| Jellyseerr | media | internal | Media request management |
+| Sonarr | media | internal | TV show automation |
 | Radarr | media | internal | Movie automation |
+| Lidarr | media | internal | Music automation |
+| Readarr | media | internal | eBook & audiobook automation |
 | Prowlarr | media | internal | Indexer management |
 | Recyclarr | media | internal | TRaSH guide automation |
-| qBittorrent | media | internal | Torrent client |
-| NZBGet | media | internal | Usenet downloader |
+| qBittorrent | media | internal | Torrent download client |
+| NZBGet | media | internal | Usenet download client |
+| Audiobookshelf | media | internal | Audiobook & podcast server |
+| Beets | media | internal | Music library manager |
 | **Home Automation** | | | |
-| Home Assistant | home | internal | Home automation |
+| Home Assistant | home | internal | Home automation platform |
 | Homebridge | home | internal | HomeKit bridge |
+| AirConnect | home | internal | AirPlay to UPnP/Sonos bridge |
+| Eufy Security WS | home | internal | Eufy camera integration |
 | **Infrastructure** | | | |
-| Homepage | default | internal | Dashboard |
+| Homepage | default | internal | Application dashboard |
 | Uptime Kuma | default | internal | Uptime monitoring |
-| AdGuard Home | network | internal | DNS & ad blocking |
-| Rook-Ceph Dashboard | rook-ceph | internal | Storage management |
-| **Security** | | | |
-| Pocket ID | security | external | OIDC identity provider |
-| TinyAuth | security | internal | Lightweight authentication |
+| Echo | default | internal | HTTP echo server for testing |
+| **Network Services** | | | |
+| AdGuard Home | network | internal | DNS server & ad blocking |
+| k8s-gateway | network | internal | Internal DNS for *.tosih.org |
+| Cloudflare Tunnel | network | external | Secure external access via Cloudflare |
+| Cloudflare DNS | network | external | DNS record automation |
+| **Security & Authentication** | | | |
+| Pocket ID | security | external | OIDC identity provider (SSO) |
+| External Secrets | security | internal | 1Password secret integration |
+| OnePassword Connect | security | internal | 1Password API server |
+| **Storage & Databases** | | | |
+| Rook-Ceph Dashboard | rook-ceph | internal | Storage cluster management |
+| ZFS Provisioner | kubernetes-zfs-provisioner | internal | Local ZFS storage provisioning |
+| CloudNativePG | databases | internal | PostgreSQL operator (3 databases) |
+| Dragonfly | databases | internal | Redis-compatible in-memory datastore |
+| External Postgres Operator | databases | internal | External PostgreSQL management |
+| VerneMQ | databases | internal | MQTT message broker for IoT |
 
-**Total:** 35+ applications across 9 namespaces
+**Total:** 40+ applications across 10 namespaces
 
 ### Infrastructure Services
 
