@@ -38,7 +38,7 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/nextcloud/all-in-one
+              repository: docker.io/nextcloud/all-in-one
               tag: v12.7.0
             env:
               TZ: America/Los_Angeles
