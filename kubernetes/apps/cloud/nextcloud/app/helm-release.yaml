@@ -38,8 +38,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/nextcloud/all-in-one
-              tag: v12.0.0
+              repository: ghcr.io/nextcloud
+              tag: 32.0.6-fpm-alpine
             env:
               TZ: America/Los_Angeles
               NEXTCLOUD_DATABASE_HOST: "postgres17-rw.databases.svc.cluster.local"
