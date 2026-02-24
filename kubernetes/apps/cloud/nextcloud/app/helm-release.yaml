@@ -39,7 +39,7 @@ spec:
           app:
             image:
               repository: ghcr.io/nextcloud/all-in-one
-              tag: 2025.0.0
+              tag: v12.0.0
             env:
               TZ: America/Los_Angeles
               NEXTCLOUD_DATABASE_HOST: "postgres17-rw.databases.svc.cluster.local"
