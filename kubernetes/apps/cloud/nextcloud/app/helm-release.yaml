@@ -1,0 +1,137 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nextcloud
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      nextcloud:
+        replicas: 1
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/nextcloud/all-in-one
+              tag: latest
+            env:
+              TZ: America/Los_Angeles
+              NEXTCLOUD_DATABASE_HOST: "postgres17-rw.databases.svc.cluster.local"
+              NEXTCLOUD_DATABASE_PORT: 5432
+              NEXTCLOUD_DATABASE_NAME: &dbname nextcloud
+              NEXTCLOUD_DATABASE_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-nextcloud-user
+                    key: POSTGRES_USER
+              NEXTCLOUD_DATABASE_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: database-nextcloud-user
+                    key: POSTGRES_PASSWORD
+              NEXTCLOUD_ADMIN_USER: &adminuser admin
+              NEXTCLOUD_ADMIN_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: nextcloud-admin-secret
+                    key: NEXTCLOUD_ADMIN_PASSWORD
+              NEXTCLOUD_TRUSTED_DOMAINS: "nextcloud.tosih.org"
+              APACHE_PORT: 11000
+              APACHE_IP_BINDING: "127.0.0.1"
+
+            probes:
+              liveness:
+                enabled: true
+                type: HTTP
+                path: /healthz
+                port: 11000
+              readiness:
+                enabled: true
+                type: HTTP
+                path: /healthz
+                port: 11000
+
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1Gi
+              limits:
+                memory: 2Gi
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+
+    service:
+      app:
+        controller: nextcloud
+        type: ClusterIP
+        ports:
+          http:
+            port: 11000
+
+    route:
+      app:
+        annotations:
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/description: File sync and share
+          gethomepage.dev/group: Apps
+          gethomepage.dev/icon: mdi-folder-sync
+          gethomepage.dev/name: Nextcloud
+          gethomepage.dev/app: nextcloud
+        hostnames: ["nextcloud.tosih.org"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 11000
+
+    persistence:
+      nextcloud:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        storageClass: ceph-block
+        size: 20Gi
+        globalMounts:
+          - path: /var/www/html/data
+      workspace:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        storageClass: ceph-block
+        size: 10Gi
+        globalMounts:
+          - path: /var/www/html/custom_apps
+          - path: /var/www/html/config
+          - path: /var/www/html/themes

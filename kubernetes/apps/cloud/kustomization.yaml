@@ -8,6 +8,7 @@ components:
 resources:
   - ./immich/ks.yaml
   - ./immichframe/ks.yaml
+  - ./nextcloud/ks.yaml
   - ./memos/ks.yaml
   - ./romm/ks.yaml
   - ./syncthing/ks.yaml
