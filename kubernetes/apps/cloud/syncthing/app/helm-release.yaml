@@ -20,6 +20,8 @@ spec:
     fullnameOverride: *app
     controllers:
       syncthing:
+        replicas: 1
+        strategy: Recreate
         initContainers:
           init-permissions:
             image:

@@ -22,6 +22,7 @@ spec:
     controllers:
       prowlarr:
         replicas: 1
+        strategy: Recreate
         annotations:
           reloader.stakater.com/auto: "true"
 

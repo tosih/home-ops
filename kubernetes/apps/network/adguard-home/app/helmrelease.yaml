@@ -21,6 +21,8 @@ spec:
     fullnameOverride: *app
     controllers:
       adguard-home:
+        replicas: 1
+        strategy: Recreate
         containers:
           app:
             image:
