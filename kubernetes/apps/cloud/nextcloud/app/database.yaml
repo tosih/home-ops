@@ -6,14 +6,3 @@ metadata:
   namespace: cloud
 spec:
   database: nextcloud
----
-apiVersion: db.movetokube.com/v1alpha1
-kind: PostgresUser
-metadata:
-  name: nextcloud-user
-  namespace: cloud
-spec:
-  role: nextcloud
-  database: nextcloud
-  secretName: database-nextcloud-user
-  privileges: SUPERUSER
