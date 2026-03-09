@@ -1,8 +1,1 @@
----
-apiVersion: db.movetokube.com/v1alpha1
-kind: Postgres
-metadata:
-  name: nextcloud
-  namespace: cloud
-spec:
-  database: nextcloud
+# No database resources - Nextcloud installer will create the database
