@@ -16,4 +16,4 @@ spec:
   role: nextcloud
   database: nextcloud
   secretName: database-nextcloud-user
-  privileges: OWNER
+  privileges: SUPERUSER
