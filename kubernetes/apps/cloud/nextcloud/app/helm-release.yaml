@@ -29,28 +29,24 @@ spec:
 
         pod:
           securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            runAsNonRoot: true
-            fsGroup: 1000
+            fsGroup: 33
             fsGroupChangePolicy: OnRootMismatch
 
         containers:
           app:
             image:
-              repository: ghcr.io/nextcloud-releases/all-in-one
-              tag: latest
+              repository: nextcloud
+              tag: 30-apache
             env:
               TZ: America/Los_Angeles
-              NEXTCLOUD_DATABASE_HOST: "postgres17-rw.databases.svc.cluster.local"
-              NEXTCLOUD_DATABASE_PORT: 5432
-              NEXTCLOUD_DATABASE_NAME: &dbname nextcloud
-              NEXTCLOUD_DATABASE_USER:
+              POSTGRES_HOST: "postgres17-rw.databases.svc.cluster.local"
+              POSTGRES_DB: &dbname nextcloud
+              POSTGRES_USER:
                 valueFrom:
                   secretKeyRef:
                     name: database-nextcloud-user-nextcloud-user
                     key: LOGIN
-              NEXTCLOUD_DATABASE_PASSWORD:
+              POSTGRES_PASSWORD:
                 valueFrom:
                   secretKeyRef:
                     name: database-nextcloud-user-nextcloud-user
@@ -62,20 +58,18 @@ spec:
                     name: nextcloud-admin-secret
                     key: NEXTCLOUD_ADMIN_PASSWORD
               NEXTCLOUD_TRUSTED_DOMAINS: "nextcloud.tosih.org"
-              APACHE_PORT: 11000
-              APACHE_IP_BINDING: "127.0.0.1"
 
             probes:
               liveness:
                 enabled: true
                 type: HTTP
-                path: /healthz
-                port: 11000
+                path: /status.php
+                port: 80
               readiness:
                 enabled: true
                 type: HTTP
-                path: /healthz
-                port: 11000
+                path: /status.php
+                port: 80
 
             resources:
               requests:
@@ -85,11 +79,7 @@ spec:
                 memory: 2Gi
 
             securityContext:
-              allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
-              capabilities:
-                drop:
-                  - ALL
 
     service:
       app:
@@ -97,7 +87,7 @@ spec:
         type: ClusterIP
         ports:
           http:
-            port: 11000
+            port: 80
 
     route:
       app:
@@ -116,7 +106,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-                port: 11000
+                port: 80
 
     persistence:
       nextcloud:
@@ -126,12 +116,17 @@ spec:
         size: 20Gi
         globalMounts:
           - path: /var/www/html/data
-      workspace:
+      config:
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         storageClass: ceph-block
-        size: 10Gi
+        size: 5Gi
+        globalMounts:
+          - path: /var/www/html/config
+      custom-apps:
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        storageClass: ceph-block
+        size: 5Gi
         globalMounts:
           - path: /var/www/html/custom_apps
-          - path: /var/www/html/config
-          - path: /var/www/html/themes
