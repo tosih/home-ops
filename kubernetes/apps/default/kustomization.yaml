@@ -8,4 +8,5 @@ components:
 resources:
   - ./echo/ks.yaml
   - ./homepage/ks.yaml
+  - ./renovate/ks.yaml
   - ./uptime-kuma/ks.yaml
