@@ -31,8 +31,6 @@ spec:
       concurrencyPolicy: Forbid
       
     renovate:
-      # Use your existing .renovaterc.json5 config from the repo
-      existingConfigFile: true
       config: |
         {
           "platform": "github",
