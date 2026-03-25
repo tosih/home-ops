@@ -37,12 +37,12 @@ spec:
           "autodiscover": false,
           "repositories": ["tosih/home-ops"],
           "onboarding": false,
-          "requireConfig": "optional"
+          "requireConfig": "required"
         }
     
     env:
       - name: LOG_LEVEL
-        value: "info"
+        value: "debug"
     
     envFrom:
       - secretRef:
