@@ -114,3 +114,8 @@ spec:
         size: 100Gi
         globalMounts:
           - path: /data
+      media:
+        type: persistentVolumeClaim
+        existingClaim: media-nfs
+        globalMounts:
+          - path: /media
