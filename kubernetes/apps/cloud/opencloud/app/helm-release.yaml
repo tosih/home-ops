@@ -39,10 +39,12 @@ spec:
             image:
               repository: opencloudeu/opencloud
               tag: 4.0.3
+            command:
+              - /bin/sh
+              - -c
             args:
-              - init
-              - --insecure
-              - "yes"
+              - |
+                opencloud init --diff || opencloud init --insecure yes
             env:
               IDM_ADMIN_PASSWORD:
                 valueFrom:
