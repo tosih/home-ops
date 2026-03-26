@@ -24,6 +24,7 @@ data:
           issuerUrl: "https://pid.tosih.org"
           scopes: "email openid profile"
           userIdentifier: "preferred_username"
+          createUser: true
     
     userDefaults:
       darkMode: true
