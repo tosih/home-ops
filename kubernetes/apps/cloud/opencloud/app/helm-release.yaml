@@ -43,7 +43,7 @@ spec:
               - opencloud
               - init
             env:
-              - name: IDM_ADMIN_PASSWORD
+              IDM_ADMIN_PASSWORD:
                 valueFrom:
                   secretKeyRef:
                     name: opencloud-secret
