@@ -26,14 +26,13 @@ spec:
         strategy: Recreate
         annotations:
           reloader.stakater.com/auto: "true"
-        
         pod:
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
-        
+
         initContainers:
           init:
             image:
@@ -44,24 +43,25 @@ spec:
               - -c
             args:
               - |
-                opencloud init --diff || opencloud init --insecure yes
+                IDM_ADMIN_PASSWORD="" opencloud init --diff || opencloud init
             env:
               IDM_ADMIN_PASSWORD:
                 valueFrom:
                   secretKeyRef:
                     name: opencloud-secret
                     key: IDM_ADMIN_PASSWORD
-        
+              OC_INSECURE: "true"
+
         containers:
           app:
             image:
               repository: opencloudeu/opencloud
               tag: 4.0.3
-            
+
             command:
               - opencloud
               - server
-            
+
             env:
               TZ: America/Los_Angeles
               OC_URL: https://opencloud.tosih.org
@@ -69,27 +69,27 @@ spec:
               OC_LOG_PRETTY: "false"
               PROXY_TLS: "false"
               OC_INSECURE: "false"
-              
+
               # OIDC Configuration for PocketID
               WEB_OIDC_CLIENT_ID: opencloud
               PROXY_OIDC_ISSUER: https://pid.tosih.org
               PROXY_OIDC_REWRITE_WELLKNOWN: "true"
               PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: none
               PROXY_OIDC_SKIP_USER_INFO: "false"
-              
+
               # Auto-provision users from PocketID
               PROXY_AUTOPROVISION_ACCOUNTS: "true"
               PROXY_AUTOPROVISION_CLAIM_USERNAME: preferred_username
               PROXY_AUTOPROVISION_CLAIM_DISPLAYNAME: name
               PROXY_AUTOPROVISION_CLAIM_EMAIL: email
-              
+
               # Disable built-in IDP (using PocketID instead)
               IDM_CREATE_DEMO_USERS: "false"
-            
+
             envFrom:
               - secretRef:
                   name: opencloud-secret
-            
+
             probes:
               liveness:
                 enabled: true
@@ -101,14 +101,14 @@ spec:
                 type: HTTP
                 path: /healthz
                 port: 9200
-            
+
             resources:
               requests:
                 cpu: 200m
                 memory: 512Mi
               limits:
                 memory: 2Gi
-    
+
     service:
       app:
         controller: opencloud
@@ -116,7 +116,7 @@ spec:
         ports:
           http:
             port: 9200
-    
+
     route:
       app:
         annotations:
@@ -135,7 +135,7 @@ spec:
           - backendRefs:
               - identifier: app
                 port: 9200
-    
+
     persistence:
       config:
         type: persistentVolumeClaim
