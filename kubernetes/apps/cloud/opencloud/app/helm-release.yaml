@@ -52,7 +52,6 @@ spec:
               OC_INSECURE: "false"
 
               # OIDC Configuration for PocketID
-              WEB_OIDC_CLIENT_ID: opencloud
               PROXY_OIDC_ISSUER: https://pid.tosih.org
               PROXY_OIDC_REWRITE_WELLKNOWN: "true"
               PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD: none
