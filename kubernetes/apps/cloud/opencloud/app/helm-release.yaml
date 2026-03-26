@@ -68,9 +68,6 @@ spec:
               # Disable built-in IDP (using PocketID instead)
               IDM_CREATE_DEMO_USERS: "false"
 
-              # CSP config to allow PocketID OIDC issuer
-              PROXY_CSP_CONFIG_FILE_LOCATION: /etc/opencloud/csp.yaml
-
               # Runtime secrets from init-secret (skip opencloud init)
               OC_JWT_SECRET:
                 valueFrom:
@@ -244,13 +241,6 @@ spec:
                 port: 9200
 
     persistence:
-      csp:
-        type: configMap
-        name: opencloud-csp
-        globalMounts:
-          - path: /etc/opencloud/csp.yaml
-            subPath: csp.yaml
-            readOnly: true
       config:
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
