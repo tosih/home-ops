@@ -51,25 +51,8 @@ spec:
               PROXY_TLS: "false"
               OC_INSECURE: "false"
 
-              # OIDC Configuration for PocketID
-              OC_OIDC_ISSUER: https://pid.tosih.org
-              OC_EXCLUDE_RUN_SERVICES: idp
-              PROXY_OIDC_REWRITE_WELLKNOWN: "true"
-              PROXY_USER_OIDC_CLAIM: preferred_username
-              PROXY_USER_CS3_CLAIM: username
-
-              # Auto-provision users from PocketID
-              PROXY_AUTOPROVISION_ACCOUNTS: "true"
-              PROXY_AUTOPROVISION_CLAIM_USERNAME: preferred_username
-              PROXY_AUTOPROVISION_CLAIM_DISPLAYNAME: name
-              PROXY_AUTOPROVISION_CLAIM_EMAIL: email
-              GRAPH_USERNAME_MATCH: none
-
-              # Disable built-in IDP (using PocketID instead)
-              IDM_CREATE_DEMO_USERS: "false"
-
-              # CSP config to allow PocketID OIDC issuer
-              PROXY_CSP_CONFIG_FILE_LOCATION: /etc/opencloud/csp.yaml
+              # Enable built-in IDP with demo users
+              IDM_CREATE_DEMO_USERS: "true"
 
               # Runtime secrets from init-secret (skip opencloud init)
               OC_JWT_SECRET:
