@@ -37,8 +37,8 @@ spec:
         containers:
           app:
             image:
-              repository: owncloud/ocis
-              tag: 5.2.0
+              repository: opencloudeu/opencloud
+              tag: latest
             
             env:
               TZ: America/Los_Angeles
