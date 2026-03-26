@@ -34,16 +34,30 @@ spec:
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
         
+        initContainers:
+          init:
+            image:
+              repository: opencloudeu/opencloud
+              tag: 4.0.3
+            command:
+              - opencloud
+              - init
+            env:
+              - name: IDM_ADMIN_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: opencloud-secret
+                    key: IDM_ADMIN_PASSWORD
+        
         containers:
           app:
             image:
               repository: opencloudeu/opencloud
               tag: 4.0.3
             
-            args:
-              - /bin/sh
-              - -c
-              - "opencloud init || true; opencloud server"
+            command:
+              - opencloud
+              - server
             
             env:
               TZ: America/Los_Angeles
