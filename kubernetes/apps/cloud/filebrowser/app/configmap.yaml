@@ -11,7 +11,7 @@ data:
       baseURL: "/"
       cacheDir: /home/filebrowser/data/tmp
       sources:
-        - path: /files
+        - path: /data
           config:
             defaultEnabled: true
     
