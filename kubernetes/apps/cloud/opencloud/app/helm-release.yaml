@@ -136,17 +136,17 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: opencloud-init-secret
-                    key: idmServicePassword
+                    key: idmRevaServicePassword
               GROUPS_LDAP_BIND_PASSWORD:
                 valueFrom:
                   secretKeyRef:
                     name: opencloud-init-secret
-                    key: idmServicePassword
+                    key: idmRevaServicePassword
               AUTH_BASIC_LDAP_BIND_PASSWORD:
                 valueFrom:
                   secretKeyRef:
                     name: opencloud-init-secret
-                    key: idmServicePassword
+                    key: idmRevaServicePassword
               IDP_LDAP_BIND_PASSWORD:
                 valueFrom:
                   secretKeyRef:
@@ -156,7 +156,7 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: opencloud-init-secret
-                    key: idmServicePassword
+                    key: idmRevaServicePassword
               OC_SYSTEM_USER_ID:
                 valueFrom:
                   secretKeyRef:
