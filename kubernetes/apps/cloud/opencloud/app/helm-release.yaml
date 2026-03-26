@@ -231,7 +231,7 @@ spec:
           gethomepage.dev/app: opencloud
         hostnames: ["opencloud.tosih.org"]
         parentRefs:
-          - name: internal
+          - name: external
             namespace: kube-system
             sectionName: https
         rules:
