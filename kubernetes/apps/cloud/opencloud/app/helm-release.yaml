@@ -42,7 +42,6 @@ spec:
             args:
               - |
                 opencloud init || true
-                chown -R 1000:1000 /etc/opencloud /var/lib/opencloud
             env:
               TZ: America/Los_Angeles
               OC_URL: https://opencloud.tosih.org
@@ -172,8 +171,10 @@ spec:
               - secretRef:
                   name: opencloud-secret
             securityContext:
-              runAsUser: 0
-              allowPrivilegeEscalation: true
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
+              allowPrivilegeEscalation: false
 
         containers:
           app:
