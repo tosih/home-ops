@@ -40,8 +40,10 @@ spec:
               repository: opencloudeu/opencloud
               tag: 4.0.3
             
-            command: ["/bin/sh"]
-            args: ["-c", "opencloud init || true; opencloud server"]
+            args:
+              - /bin/sh
+              - -c
+              - "opencloud init || true; opencloud server"
             
             env:
               TZ: America/Los_Angeles
