@@ -33,154 +33,11 @@ spec:
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
 
-        initContainers:
-          init:
-            image:
-              repository: opencloudeu/opencloud
-              tag: 4.0.3
-            command: ["/bin/sh", "-c"]
-            args:
-              - |
-                opencloud init || true
-            env:
-              TZ: America/Los_Angeles
-              OC_URL: https://opencloud.tosih.org
-              OC_LOG_LEVEL: info
-              OC_INSECURE: "false"
-              OC_JWT_SECRET:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: jwtSecret
-              OC_MACHINE_AUTH_API_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: machineAuthApiKey
-              OC_TRANSFER_SECRET:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: transferSecret
-              OC_SYSTEM_USER_API_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: systemUserApiKey
-              OC_URL_SIGNING_SECRET:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: urlSigningSecret
-              OC_SERVICE_ACCOUNT_ID:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: serviceAccountID
-              OC_SERVICE_ACCOUNT_SECRET:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: serviceAccountSecret
-              SETTINGS_SERVICE_ACCOUNT_IDS:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: serviceAccountID
-              IDM_ADMIN_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: idmAdminPassword
-              IDM_SVC_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: idmServicePassword
-              IDM_REVASVC_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: idmRevaServicePassword
-              IDM_IDPSVC_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: idmIdpServicePassword
-              USERS_LDAP_BIND_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: idmServicePassword
-              GROUPS_LDAP_BIND_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: idmServicePassword
-              AUTH_BASIC_LDAP_BIND_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: idmServicePassword
-              IDP_LDAP_BIND_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: idmIdpServicePassword
-              GRAPH_LDAP_BIND_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: idmServicePassword
-              OC_SYSTEM_USER_ID:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: systemUserID
-              OC_ADMIN_USER_ID:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: adminUserID
-              GRAPH_APPLICATION_ID:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: graphApplicationID
-              STORAGE_USERS_MOUNT_ID:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: storageUsersMountID
-              GATEWAY_STORAGE_USERS_MOUNT_ID:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: storageUsersMountID
-              COLLABORATION_WOPI_SECRET:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: collaborationWopiSecret
-              THUMBNAILS_TRANSFER_TOKEN:
-                valueFrom:
-                  secretKeyRef:
-                    name: opencloud-init-secret
-                    key: thumbnailsTransferSecret
-            envFrom:
-              - secretRef:
-                  name: opencloud-secret
-            securityContext:
-              runAsUser: 1000
-              runAsGroup: 1000
-              fsGroup: 1000
-              allowPrivilegeEscalation: false
-
         containers:
           app:
             image:
-              repository: opencloudeu/opencloud
-              tag: 4.0.3
+              repository: opencloudeu/opencloud-rolling
+              tag: "5.2.0"
 
             command:
               - opencloud
@@ -390,35 +247,21 @@ spec:
       csp:
         type: configMap
         name: opencloud-csp
-        advancedMounts:
-          opencloud:
-            init:
-              - path: /etc/opencloud/csp.yaml
-                subPath: csp.yaml
-                readOnly: true
-            app:
-              - path: /etc/opencloud/csp.yaml
-                subPath: csp.yaml
-                readOnly: true
+        globalMounts:
+          - path: /etc/opencloud/csp.yaml
+            subPath: csp.yaml
+            readOnly: true
       config:
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         storageClass: ceph-block
         size: 10Gi
-        advancedMounts:
-          opencloud:
-            init:
-              - path: /etc/opencloud
-            app:
-              - path: /etc/opencloud
+        globalMounts:
+          - path: /etc/opencloud
       data:
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         storageClass: ceph-block
         size: 50Gi
-        advancedMounts:
-          opencloud:
-            init:
-              - path: /var/lib/opencloud
-            app:
-              - path: /var/lib/opencloud
+        globalMounts:
+          - path: /var/lib/opencloud
