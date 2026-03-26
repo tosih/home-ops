@@ -1,0 +1,24 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: opencloud
+  namespace: flux-system
+spec:
+  targetNamespace: cloud
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: opencloud
+  path: ./kubernetes/apps/cloud/opencloud/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age

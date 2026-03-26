@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: app-template
+spec:
+  interval: 1h
+  url: oci://ghcr.io/bjw-s-labs/helm
+  ref:
+    tag: app-template-4.0.0
