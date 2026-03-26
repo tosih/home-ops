@@ -177,9 +177,9 @@ spec:
                     name: opencloud-init-secret
                     key: thumbnailsTransferSecret
 
-            envFrom:
-              - secretRef:
-                  name: opencloud-secret
+            # envFrom:
+            #   - secretRef:
+            #       name: opencloud-secret
 
             probes:
               liveness:
