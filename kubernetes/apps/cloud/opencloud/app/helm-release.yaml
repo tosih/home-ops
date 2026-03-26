@@ -51,9 +51,6 @@ spec:
               PROXY_TLS: "false"
               OC_INSECURE: "false"
 
-              # Enable built-in IDP with demo users
-              IDM_CREATE_DEMO_USERS: "true"
-
               # Runtime secrets from init-secret (skip opencloud init)
               OC_JWT_SECRET:
                 valueFrom:
