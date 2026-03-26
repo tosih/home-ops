@@ -18,7 +18,12 @@ data:
     auth:
       methods:
         password:
+          enabled: false
+        oidc:
           enabled: true
+          issuerUrl: "https://pid.tosih.org"
+          scopes: "email openid profile"
+          userIdentifier: "preferred_username"
     
     userDefaults:
       darkMode: true
