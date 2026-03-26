@@ -51,6 +51,10 @@ spec:
               PROXY_TLS: "false"
               OC_INSECURE: "false"
 
+              # PocketID OIDC config
+              OC_OIDC_ISSUER: https://pid.tosih.org
+              OC_EXCLUDE_RUN_SERVICES: idp
+
               # Runtime secrets from init-secret (skip opencloud init)
               OC_JWT_SECRET:
                 valueFrom:
