@@ -111,7 +111,7 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: opencloud-init-secret
-                    key: IDM_ADMIN_PASSWORD
+                    key: idmAdminPassword
               IDM_SVC_PASSWORD:
                 valueFrom:
                   secretKeyRef:
