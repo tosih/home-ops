@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: nextcloud
-              tag: 30-apache
+              tag: 33-apache
             env:
               TZ: America/Los_Angeles
               POSTGRES_HOST: "postgres17-rw.databases.svc.cluster.local"
