@@ -5,4 +5,5 @@ namespace: cloud
 resources:
   - ./oci-repository.yaml
   - ./helm-release.yaml
+  - ./external-secret.yaml
   - ./secret.sops.yaml
