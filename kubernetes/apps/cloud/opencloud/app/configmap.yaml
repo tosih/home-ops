@@ -1,0 +1,45 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opencloud-csp
+  namespace: cloud
+data:
+  csp.yaml: |
+    directives:
+      child-src:
+        - '''self'''
+      connect-src:
+        - '''self'''
+        - 'blob:'
+        - 'https://raw.githubusercontent.com/opencloud-eu/awesome-apps/'
+        - 'https://pid.tosih.org/'
+      default-src:
+        - '''none'''
+      font-src:
+        - '''self'''
+        - 'data:'
+      frame-ancestors:
+        - '''self'''
+      frame-src:
+        - '''self'''
+        - 'blob:'
+        - 'https://embed.diagrams.net/'
+      img-src:
+        - '''self'''
+        - 'data:'
+        - 'blob:'
+        - 'https://raw.githubusercontent.com/opencloud-eu/awesome-apps/'
+      manifest-src:
+        - '''self'''
+      media-src:
+        - '''self'''
+      object-src:
+        - '''self'''
+        - 'blob:'
+      script-src:
+        - '''self'''
+        - '''unsafe-inline'''
+      style-src:
+        - '''self'''
+        - '''unsafe-inline'''
