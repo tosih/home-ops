@@ -6,6 +6,5 @@ namespace: default
 components:
   - ../../components/common
 resources:
-  - ./homepage/ks.yaml
   - ./renovate/ks.yaml
   - ./uptime-kuma/ks.yaml
