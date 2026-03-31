@@ -7,15 +7,12 @@ components:
 resources:
   - ./media-nfs-pv.yaml
   - ./downloads-pvc.yaml
-  - ./audiobookshelf/ks.yaml
   - ./beets/ks.yaml
   - ./jellyseerr/ks.yaml
   - ./lidarr/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
-  - ./readarr/ks.yaml
   - ./sonarr/ks.yaml
   - ./qbittorrent/ks.yaml
   - ./nzbget/ks.yaml
-  - ./recyclarr/ks.yaml
