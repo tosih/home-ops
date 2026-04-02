@@ -71,10 +71,8 @@ spec:
                 
                 # Create secrets.yaml with OIDC credentials
                 echo "Creating secrets.yaml with OIDC credentials"
-                cat > /config/secrets.yaml <<EOF
-                oidc_client_id: $OIDC_CLIENT_ID
-                oidc_client_secret: $OIDC_CLIENT_SECRET
-                EOF
+                echo "oidc_client_id: $OIDC_CLIENT_ID" > /config/secrets.yaml
+                echo "oidc_client_secret: $OIDC_CLIENT_SECRET" >> /config/secrets.yaml
                 echo "secrets.yaml created"
 
         containers:
