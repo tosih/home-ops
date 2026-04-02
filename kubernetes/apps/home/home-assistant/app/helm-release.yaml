@@ -69,11 +69,12 @@ spec:
                   echo "HTTP configuration added"
                 fi
                 
-                # Process secrets.yaml with environment variable substitution
+                # Create secrets.yaml with OIDC credentials
                 echo "Creating secrets.yaml with OIDC credentials"
-                sed -e "s|\${OIDC_CLIENT_ID}|$OIDC_CLIENT_ID|g" \
-                    -e "s|\${OIDC_CLIENT_SECRET}|$OIDC_CLIENT_SECRET|g" \
-                    /tmp/http-config/secrets.yaml > /config/secrets.yaml
+                cat > /config/secrets.yaml <<EOF
+                oidc_client_id: $OIDC_CLIENT_ID
+                oidc_client_secret: $OIDC_CLIENT_SECRET
+                EOF
                 echo "secrets.yaml created"
 
         containers:
