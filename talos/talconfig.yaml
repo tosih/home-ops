@@ -113,6 +113,24 @@ nodes:
           - network: "0.0.0.0/0"
             gateway: "10.0.0.1"
         mtu: 1500
+  - hostname: "worker3"
+    ipAddress: "10.0.50.13"
+    installDiskSelector:
+      wwid: "naa.5002538900000000"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/9715604b0538b2060e3b595891240b58f5c8e9d4debaa22cf84d76c81d8d6bef
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "00:3e:e1:cf:83:79"
+        dhcp: false
+        addresses:
+          - "10.0.50.13/16"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.0.0.1"
+        mtu: 1500
 
 # Global patches
 patches:
