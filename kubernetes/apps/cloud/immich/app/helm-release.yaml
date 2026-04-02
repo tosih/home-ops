@@ -106,12 +106,6 @@ spec:
     route:
       server:
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Photo management platform
-          gethomepage.dev/group: Apps
-          gethomepage.dev/icon: sh-immich.svg
-          gethomepage.dev/name: Immich
-          gethomepage.dev/app: immich
         hostnames: ["photos.tosih.org"]
         parentRefs:
           - name: external

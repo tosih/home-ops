@@ -211,12 +211,6 @@ spec:
     route:
       app:
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: File sync and collaboration
-          gethomepage.dev/group: Apps
-          gethomepage.dev/icon: owncloud
-          gethomepage.dev/name: OpenCloud
-          gethomepage.dev/app: opencloud
         hostnames: ["opencloud.tosih.org"]
         parentRefs:
           - name: external

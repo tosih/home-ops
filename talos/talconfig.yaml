@@ -42,7 +42,7 @@ nodes:
   - hostname: "control1"
     ipAddress: "10.0.50.2"
     installDiskSelector:
-      serial: "0x9595162d"
+      model: "SK hynix SC311 S*"
     machineSpec:
       secureboot: false
     talosImageURL: factory.talos.dev/installer/9715604b0538b2060e3b595891240b58f5c8e9d4debaa22cf84d76c81d8d6bef
@@ -131,6 +131,8 @@ nodes:
           - network: "0.0.0.0/0"
             gateway: "10.0.0.1"
         mtu: 1500
+    patches:
+      - "@./patches/worker3-gpu.yaml"
 
 # Global patches
 patches:

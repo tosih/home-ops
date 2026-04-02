@@ -75,12 +75,6 @@ spec:
     route:
       app:
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Music management
-          gethomepage.dev/group: Media
-          gethomepage.dev/icon: sh-lidarr.svg
-          gethomepage.dev/name: Lidarr
-          gethomepage.dev/app: lidarr
         hostnames: ["lidarr.tosih.org"]
         parentRefs:
           - name: internal

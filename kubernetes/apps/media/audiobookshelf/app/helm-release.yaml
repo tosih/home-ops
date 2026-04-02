@@ -83,12 +83,6 @@ spec:
     route:
       app:
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Audiobook & podcast server
-          gethomepage.dev/group: Media
-          gethomepage.dev/icon: audiobookshelf.svg
-          gethomepage.dev/name: Audiobookshelf
-          gethomepage.dev/app: audiobookshelf
         hostnames: ["audiobooks.tosih.org"]
         parentRefs:
           - name: internal

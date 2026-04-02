@@ -63,11 +63,6 @@ spec:
     route:
       immichframe:
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Immich Photo Frame
-          gethomepage.dev/group: Apps
-          gethomepage.dev/icon: sh-immich.svg
-          gethomepage.dev/name: Immich Frame
         hostnames: ["frame.tosih.org"]
         parentRefs:
           - name: internal

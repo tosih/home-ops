@@ -76,12 +76,6 @@ spec:
     route:
       app:
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: File manager and sharing
-          gethomepage.dev/group: Apps
-          gethomepage.dev/icon: filebrowser
-          gethomepage.dev/name: FileBrowser
-          gethomepage.dev/app: filebrowser
         hostnames: ["files.tosih.org"]
         parentRefs:
           - name: external

@@ -143,11 +143,6 @@ spec:
     route:
       romm:
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: ROM Manager
-          gethomepage.dev/group: Apps
-          gethomepage.dev/icon: mdi-gamepad-variant
-          gethomepage.dev/name: RomM
         hostnames: ["romm.tosih.org"]
         parentRefs:
           - name: internal

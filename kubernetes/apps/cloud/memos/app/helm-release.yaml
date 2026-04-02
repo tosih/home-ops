@@ -101,12 +101,6 @@ spec:
     route:
       grpc:
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Note-taking service
-          gethomepage.dev/group: Apps
-          gethomepage.dev/icon: mdi-note-text
-          gethomepage.dev/name: Memos
-          gethomepage.dev/app: memos
         hostnames: ["memos.tosih.org"]
         parentRefs:
           - name: external

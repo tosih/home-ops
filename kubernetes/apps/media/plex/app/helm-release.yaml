@@ -27,6 +27,8 @@ spec:
           reloader.stakater.com/auto: "true"
 
         pod:
+          nodeSelector:
+            kubernetes.io/hostname: worker3
           securityContext:
             runAsUser: 568
             runAsGroup: 568
@@ -78,12 +80,6 @@ spec:
     route:
       app:
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Media streaming server
-          gethomepage.dev/group: Media
-          gethomepage.dev/icon: sh-plex.svg
-          gethomepage.dev/name: Plex
-          gethomepage.dev/app: plex
         hostnames: ["plex.tosih.org"]
         parentRefs:
           - name: external

@@ -76,12 +76,6 @@ spec:
     route:
       app:
         annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/description: Ebook & audiobook management
-          gethomepage.dev/group: Media
-          gethomepage.dev/icon: sh-readarr.svg
-          gethomepage.dev/name: Readarr
-          gethomepage.dev/app: readarr
         hostnames: ["readarr.tosih.org"]
         parentRefs:
           - name: internal

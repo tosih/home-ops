@@ -1,0 +1,9 @@
+---
+# AMD GPU support for Mac Pro 2013 (worker3)
+- op: add
+  path: /machine/kernel
+  value:
+    modules:
+      - name: amdgpu
+      - name: drm
+      - name: drm_kms_helper
