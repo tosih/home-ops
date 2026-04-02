@@ -71,8 +71,8 @@ spec:
                 
                 # Process secrets.yaml with environment variable substitution
                 echo "Creating secrets.yaml with OIDC credentials"
-                sed -e "s/\${OIDC_CLIENT_ID}/$OIDC_CLIENT_ID/g" \
-                    -e "s/\${OIDC_CLIENT_SECRET}/$OIDC_CLIENT_SECRET/g" \
+                sed -e "s|\${OIDC_CLIENT_ID}|$OIDC_CLIENT_ID|g" \
+                    -e "s|\${OIDC_CLIENT_SECRET}|$OIDC_CLIENT_SECRET|g" \
                     /tmp/http-config/secrets.yaml > /config/secrets.yaml
                 echo "secrets.yaml created"
 
