@@ -15,4 +15,5 @@ data:
     
     auth_oidc:
       client_id: !env_var OIDC_CLIENT_ID
+      client_secret: !env_var OIDC_CLIENT_SECRET
       discovery_url: https://pid.tosih.org/.well-known/openid-configuration
