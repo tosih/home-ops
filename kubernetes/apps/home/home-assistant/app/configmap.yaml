@@ -12,3 +12,7 @@ data:
         - 10.42.0.0/16
         - 10.43.0.0/16
         - 10.0.50.0/24
+    
+    auth_oidc:
+      client_id: !env_var OIDC_CLIENT_ID
+      discovery_url: https://pid.tosih.org/.well-known/openid-configuration

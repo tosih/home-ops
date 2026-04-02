@@ -69,6 +69,11 @@ spec:
                   secretKeyRef:
                     name: database-homeassistant-user
                     key: POSTGRES_URL
+              OIDC_CLIENT_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: home-assistant-oidc-secret
+                    key: OIDC_CLIENT_ID
 
             probes:
               liveness:
