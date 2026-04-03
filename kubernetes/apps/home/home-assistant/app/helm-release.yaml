@@ -59,8 +59,10 @@ spec:
                 cp /tmp/http-config/configuration.yaml /config/configuration.yaml
                 echo "Configuration updated"
                 
-                # Create secrets.yaml with OIDC credentials (commented out until hass-oidc-auth is installed)
-                cp /tmp/http-config/secrets.yaml /config/secrets.yaml
+                # Create secrets.yaml with OIDC credentials
+                echo "Creating secrets.yaml with OIDC credentials"
+                echo "oidc_client_id: $OIDC_CLIENT_ID" > /config/secrets.yaml
+                echo "oidc_client_secret: $OIDC_CLIENT_SECRET" >> /config/secrets.yaml
                 echo "secrets.yaml created"
 
         containers:

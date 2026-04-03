@@ -13,13 +13,11 @@ data:
         - 10.43.0.0/16
         - 10.0.50.0/24
     
-    # OIDC configuration - uncomment after installing hass-oidc-auth via HACS
-    # auth_oidc:
-    #   client_id: !secret oidc_client_id
-    #   client_secret: !secret oidc_client_secret
-    #   discovery_url: https://pid.tosih.org/.well-known/openid-configuration
+    auth_oidc:
+      client_id: !secret oidc_client_id
+      client_secret: !secret oidc_client_secret
+      discovery_url: https://pid.tosih.org/.well-known/openid-configuration
   
   secrets.yaml: |
-    # OIDC secrets - uncomment after installing hass-oidc-auth via HACS
-    # oidc_client_id: ${OIDC_CLIENT_ID}
-    # oidc_client_secret: ${OIDC_CLIENT_SECRET}
+    oidc_client_id: ${OIDC_CLIENT_ID}
+    oidc_client_secret: ${OIDC_CLIENT_SECRET}
