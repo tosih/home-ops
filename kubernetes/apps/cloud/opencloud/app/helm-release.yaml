@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: opencloudeu/opencloud-rolling
-              tag: "5.2.0"
+              tag: "6.1.0"
 
             command:
               - opencloud
