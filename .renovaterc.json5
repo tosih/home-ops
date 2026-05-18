@@ -45,6 +45,12 @@
       commitMessageTopic: "{{{groupName}}} group",
     },
     {
+      description: "bjw-s OCI Helm Chart",
+      matchDatasources: ["helm"],
+      matchPackageNames: ["app-template"],
+      registryUrls: ["oci://ghcr.io/bjw-s-labs/helm-charts"],
+    },
+    {
       description: "Auto-merge GitHub Actions",
       matchManagers: ["github-actions"],
       automerge: true,
