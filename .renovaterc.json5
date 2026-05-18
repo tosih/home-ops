@@ -102,26 +102,28 @@
       ignoreTests: true,
     },
     {
-      description: 'Auto-merge Helm Chart Patch Updates',
+      description: 'Auto-merge Helm Chart Minor and Patch Updates',
       matchDatasources: [
         'helm',
       ],
       automerge: true,
       automergeType: 'branch',
       matchUpdateTypes: [
+        'minor',
         'patch',
       ],
       minimumReleaseAge: '3 days',
       ignoreTests: true,
     },
     {
-      description: 'Auto-merge Container Patch Updates',
+      description: 'Auto-merge Container Minor and Patch Updates',
       matchDatasources: [
         'docker',
       ],
       automerge: true,
       automergeType: 'branch',
       matchUpdateTypes: [
+        'minor',
         'patch',
       ],
       minimumReleaseAge: '3 days',
