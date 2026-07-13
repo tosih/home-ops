@@ -17,7 +17,3 @@ data:
       client_id: !secret oidc_client_id
       client_secret: !secret oidc_client_secret
       discovery_url: https://pid.tosih.org/.well-known/openid-configuration
-  
-  secrets.yaml: |
-    oidc_client_id: ${OIDC_CLIENT_ID}
-    oidc_client_secret: ${OIDC_CLIENT_SECRET}
