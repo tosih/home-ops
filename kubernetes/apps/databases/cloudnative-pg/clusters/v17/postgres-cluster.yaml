@@ -27,6 +27,8 @@ spec:
     enablePodAntiAffinity: true
     topologyKey: kubernetes.io/hostname
     podAntiAffinityType: required
+    nodeSelector:
+      node-role.kubernetes.io/worker: ""
 
   postgresql:
     shared_preload_libraries:

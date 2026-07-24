@@ -17,6 +17,8 @@ spec:
         annotations:
           secret.reloader.stakater.com/reload: vernemq-auth-secret
         pod:
+          nodeSelector:
+            node-role.kubernetes.io/worker: ""
           securityContext:
             runAsUser: 10000
             runAsNonRoot: true

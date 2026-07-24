@@ -30,6 +30,8 @@ spec:
     type: LoadBalancer
     annotations:
       lbipam.cilium.io/ips: 10.0.1.22
+  nodeSelector:
+    node-role.kubernetes.io/worker: ""
   topologySpreadConstraints:
     - maxSkew: 1
       topologyKey: "kubernetes.io/hostname"
