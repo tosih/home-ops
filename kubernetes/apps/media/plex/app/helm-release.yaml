@@ -28,7 +28,7 @@ spec:
 
         pod:
           nodeSelector:
-            kubernetes.io/hostname: worker3
+            node-role.kubernetes.io/worker: ""
           securityContext:
             runAsUser: 568
             runAsGroup: 568
