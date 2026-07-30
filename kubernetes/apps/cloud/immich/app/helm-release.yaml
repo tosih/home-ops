@@ -59,9 +59,9 @@ spec:
             resources:
               requests:
                 cpu: 15m
-                memory: 933Mi
+                memory: 2Gi
               limits:
-                memory: 1536Mi
+                memory: 4Gi
 
       machine-learning:
         replicas: 1
