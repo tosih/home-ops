@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-operations/qbittorrent
-              tag: 5.1.4
+              tag: 5.2.3
             env:
               TZ: America/Los_Angeles
               QBITTORRENT__PORT: &port 8080
