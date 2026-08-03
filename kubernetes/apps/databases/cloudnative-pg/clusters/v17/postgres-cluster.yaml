@@ -19,9 +19,9 @@ spec:
   resources:
     requests:
       cpu: 500m
-      memory: 512Mi
+      memory: 2Gi
     limits:
-      memory: 1Gi
+      memory: 4Gi
 
   affinity:
     enablePodAntiAffinity: true
@@ -35,4 +35,4 @@ spec:
       - "vchord.so"
     parameters:
       max_connections: "300"
-      shared_buffers: 512MB
+      shared_buffers: 1GB
