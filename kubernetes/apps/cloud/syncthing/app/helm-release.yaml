@@ -78,19 +78,13 @@ spec:
       config:
         enabled: true
         type: persistentVolumeClaim
-        storageClass: ceph-block
-        accessMode: ReadWriteOnce
-        size: 5Gi
-        retain: true
+        existingClaim: syncthing-config-longhorn
         globalMounts:
           - path: /var/syncthing
       data:
         enabled: true
         type: persistentVolumeClaim
-        storageClass: ceph-block
-        accessMode: ReadWriteOnce
-        size: 100Gi
-        retain: true
+        existingClaim: syncthing-data-longhorn
         globalMounts:
           - path: /data
     route:
