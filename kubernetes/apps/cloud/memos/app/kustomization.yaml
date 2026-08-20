@@ -8,3 +8,4 @@ resources:
   - ./helm-release.yaml
   - ./grpcroute.yaml
   - ./database.yaml
+  - ./pvc.yaml
