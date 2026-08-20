@@ -127,9 +127,7 @@ spec:
       config:
         enabled: true
         type: persistentVolumeClaim
-        accessMode: ReadWriteOnce
-        storageClass: ceph-block
-        size: 5Gi
+        existingClaim: home-assistant-longhorn
         advancedMounts:
           home-assistant:
             init-config:
