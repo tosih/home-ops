@@ -171,6 +171,6 @@ spec:
             readOnly: false
       config:
         type: persistentVolumeClaim
-        existingClaim: romm-config
+        existingClaim: romm-config-longhorn
         globalMounts:
           - path: /romm/config
