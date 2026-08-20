@@ -135,8 +135,6 @@ spec:
     persistence:
       data:
         type: persistentVolumeClaim
-        accessMode: ReadWriteOnce
-        storageClass: ceph-block
-        size: 5Gi
+        existingClaim: memos-longhorn
         globalMounts:
           - path: /var/opt/memos
