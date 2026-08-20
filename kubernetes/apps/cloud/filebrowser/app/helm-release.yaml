@@ -96,9 +96,7 @@ spec:
             readOnly: true
       data:
         type: persistentVolumeClaim
-        accessMode: ReadWriteOnce
-        storageClass: ceph-block
-        size: 5Gi
+        existingClaim: filebrowser-data-longhorn
         globalMounts:
           - path: /home/filebrowser/data
       files:
