@@ -97,18 +97,12 @@ spec:
       config:
         enabled: true
         type: persistentVolumeClaim
-        storageClass: ceph-block
-        accessMode: ReadWriteOnce
-        size: 1Gi
-        retain: true
+        existingClaim: adguard-home-config-longhorn
         globalMounts:
           - path: /opt/adguardhome/conf
       data:
         enabled: true
         type: persistentVolumeClaim
-        storageClass: ceph-block
-        accessMode: ReadWriteOnce
-        size: 5Gi
-        retain: true
+        existingClaim: adguard-home-data-longhorn
         globalMounts:
           - path: /opt/adguardhome/work
