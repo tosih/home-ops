@@ -135,9 +135,12 @@ spec:
         existingClaim: immich-machine-learning-cache-zfs
         globalMounts:
           - path: /cache
-            subPath: cache
+
+      dotcache:
+        type: persistentVolumeClaim
+        existingClaim: immich-machine-learning-dotcache-zfs
+        globalMounts:
           - path: /.cache
-            subPath: dotCache
 
       tmpfs:
         type: emptyDir

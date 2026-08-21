@@ -24,3 +24,16 @@ spec:
       storage: 10Gi
   storageClassName: "zfs-nfs"
   volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: immich-machine-learning-dotcache-zfs
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: "zfs-nfs"
+  volumeMode: Filesystem
