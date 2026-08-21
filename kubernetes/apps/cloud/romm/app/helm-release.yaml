@@ -145,7 +145,7 @@ spec:
         annotations:
         hostnames: ["romm.tosih.org"]
         parentRefs:
-          - name: internal
+          - name: external
             namespace: kube-system
             sectionName: https
         rules:
