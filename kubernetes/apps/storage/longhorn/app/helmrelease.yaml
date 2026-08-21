@@ -23,7 +23,7 @@ spec:
       retries: 3
   values:
     persistence:
-      defaultClass: false
+      defaultClass: true
       defaultClassReplicaCount: 3
       defaultDataPath: /var/lib/longhorn
       reclaimPolicy: Retain

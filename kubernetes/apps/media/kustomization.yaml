@@ -6,7 +6,6 @@ components:
   - ../../components/common
 resources:
   - ./media-nfs-pv.yaml
-  - ./downloads-pvc.yaml
   - ./downloads-zfs-pvc.yaml
   - ./beets/ks.yaml
   - ./jellyseerr/ks.yaml
