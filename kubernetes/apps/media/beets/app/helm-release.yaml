@@ -84,7 +84,7 @@ spec:
       config:
         enabled: true
         type: persistentVolumeClaim
-        existingClaim: beets-config
+        existingClaim: beets-config-longhorn
         advancedMounts:
           beets:
             app:
