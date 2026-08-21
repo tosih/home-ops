@@ -17,6 +17,9 @@
     '**/*.sops.*',
     '**/kubernetes/apps/kubernetes-zfs-provisioner/**',
   ],
+  ignoreDeps: [
+    'ghcr.io/immich-app/immich-machine-learning',
+  ],
   flux: {
     managerFilePatterns: [
       '/(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$/',
