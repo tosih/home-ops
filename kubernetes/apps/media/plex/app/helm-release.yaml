@@ -94,9 +94,7 @@ spec:
       config:
         enabled: true
         type: persistentVolumeClaim
-        accessMode: ReadWriteOnce
-        storageClass: ceph-block
-        size: 50Gi
+        existingClaim: plex-longhorn
         advancedMounts:
           plex:
             app:
