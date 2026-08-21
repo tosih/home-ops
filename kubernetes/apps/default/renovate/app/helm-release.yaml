@@ -54,7 +54,10 @@ spec:
         memory: 256Mi
       limits:
         memory: 1Gi
-    
+
+    nodeSelector:
+      node-role.kubernetes.io/worker: ""
+
     securityContext:
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true

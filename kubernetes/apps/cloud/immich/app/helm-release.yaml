@@ -29,6 +29,8 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           enableServiceLinks: false
+          nodeSelector:
+            node-role.kubernetes.io/worker: ""
 
         containers:
           main:
@@ -59,7 +61,7 @@ spec:
 
             resources:
               requests:
-                cpu: 15m
+                cpu: 250m
                 memory: 2Gi
               limits:
                 memory: 4Gi
@@ -71,6 +73,12 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           enableServiceLinks: false
+          nodeSelector:
+            node-role.kubernetes.io/worker: ""
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
 
         containers:
           main:
@@ -87,10 +95,10 @@ spec:
               IMMICH_MEDIA_LOCATION: *mediaLocation
             resources:
               requests:
-                cpu: 15m
+                cpu: 250m
                 memory: 283Mi
               limits:
-                memory: 2Gi
+                memory: 4Gi
 
     service:
       server:
