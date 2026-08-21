@@ -132,7 +132,7 @@ spec:
 
       cache:
         type: persistentVolumeClaim
-        existingClaim: immich-machine-learning-cache
+        existingClaim: immich-machine-learning-cache-zfs
         globalMounts:
           - path: /cache
             subPath: cache
