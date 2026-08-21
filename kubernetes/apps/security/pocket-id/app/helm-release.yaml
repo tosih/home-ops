@@ -78,7 +78,7 @@ spec:
       config:
         enabled: true
         type: persistentVolumeClaim
-        existingClaim: pocket-id-ceph
+        existingClaim: pocket-id-longhorn
         globalMounts:
           - path: /app/data
       var:
