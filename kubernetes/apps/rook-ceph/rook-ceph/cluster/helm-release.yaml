@@ -37,6 +37,7 @@ spec:
         mgr:
           mgr/crash/warn_recent_interval: "7200" # 2h
       cleanupPolicy:
+        confirmation: yes-really-destroy-data
         wipeDevicesFromOtherClusters: true
 
       dashboard:
