@@ -107,7 +107,7 @@ spec:
       downloads:
         enabled: true
         type: persistentVolumeClaim
-        existingClaim: downloads
+        existingClaim: downloads-zfs
         advancedMounts:
           radarr:
             app:
