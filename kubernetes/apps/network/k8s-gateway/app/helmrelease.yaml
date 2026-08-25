@@ -27,3 +27,9 @@ spec:
         lbipam.cilium.io/ips: "10.0.50.100"
       externalTrafficPolicy: Cluster
     watchedResources: ["HTTPRoute", "Service"]
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+      limits:
+        memory: 64Mi

@@ -17,12 +17,30 @@ spec:
     leaderElect: true
     image:
       repository: ghcr.io/external-secrets/external-secrets
+    resources:
+      requests:
+        cpu: 25m
+        memory: 128Mi
+      limits:
+        memory: 256Mi
     certController:
       image:
         repository: ghcr.io/external-secrets/external-secrets
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          memory: 128Mi
     webhook:
       image:
         repository: ghcr.io/external-secrets/external-secrets
+      resources:
+        requests:
+          cpu: 10m
+          memory: 32Mi
+        limits:
+          memory: 64Mi
     cleanupOnFail: true
     remediation:
       strategy: rollback
