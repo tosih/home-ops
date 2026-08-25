@@ -27,6 +27,8 @@ spec:
           reloader.stakater.com/auto: "true"
 
         pod:
+          nodeSelector:
+            node-role.kubernetes.io/worker: ""
           securityContext:
             runAsUser: 568
             runAsGroup: 568
