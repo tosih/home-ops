@@ -23,6 +23,42 @@ spec:
       unifi-network-application:
         replicas: 1
         strategy: Recreate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          build-p12:
+            image:
+              repository: alpine/openssl
+              tag: "3.3.2"
+            command:
+              - sh
+              - -c
+              - |
+                openssl pkcs12 -export \
+                  -in /tls/tls.crt \
+                  -inkey /tls/tls.key \
+                  -name unifi \
+                  -out /shared/unifi.p12 \
+                  -passout pass:aircontrolenterprise
+          import-keystore:
+            image:
+              repository: eclipse-temurin
+              tag: 21-jre-alpine
+            command:
+              - sh
+              - -c
+              - |
+                mkdir -p /config/data
+                rm -f /config/data/keystore
+                keytool -importkeystore \
+                  -deststorepass aircontrolenterprise \
+                  -destkeypass aircontrolenterprise \
+                  -destkeystore /config/data/keystore \
+                  -srckeystore /shared/unifi.p12 \
+                  -srcstoretype PKCS12 \
+                  -srcstorepass aircontrolenterprise \
+                  -alias unifi \
+                  -noprompt
         containers:
           app:
             image:
@@ -166,6 +202,26 @@ spec:
           unifi-network-application:
             app:
               - path: /config
+            import-keystore:
+              - path: /config
+      tls-cert:
+        enabled: true
+        type: secret
+        name: unifi-network-application-tls
+        advancedMounts:
+          unifi-network-application:
+            build-p12:
+              - path: /tls
+                readOnly: true
+      tls-p12:
+        enabled: true
+        type: emptyDir
+        advancedMounts:
+          unifi-network-application:
+            build-p12:
+              - path: /shared
+            import-keystore:
+              - path: /shared
       mongodb-data:
         enabled: true
         type: persistentVolumeClaim
