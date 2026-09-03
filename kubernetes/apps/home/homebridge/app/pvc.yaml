@@ -13,5 +13,9 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
+      # zfs-nfs does not support volume expansion (kubectl rejects any
+      # change here). The dataset's actual refquota was manually raised
+      # to 2G on the NAS on 2026-09-03 to fix Homebridge running out of
+      # space mid-update; this field is only the initial-provision size.
       storage: 250Mi
   storageClassName: zfs-nfs
