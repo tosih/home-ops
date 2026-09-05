@@ -29,7 +29,7 @@ spec:
           build-p12:
             image:
               repository: alpine/openssl
-              tag: "3.3.2"
+              tag: "3.5.8"
             command:
               - sh
               - -c
