@@ -43,7 +43,7 @@ spec:
           import-keystore:
             image:
               repository: eclipse-temurin
-              tag: 21-jre-alpine
+              tag: 25-jre-alpine
             command:
               - sh
               - -c
