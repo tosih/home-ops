@@ -36,7 +36,7 @@ spec:
           main:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v3.1.0
+              tag: v3.2.0
             env:
               IMMICH_MEDIA_LOCATION: &mediaLocation /usr/src/app/upload
               DB_HOSTNAME: "postgres17-rw.databases.svc.cluster.local"
@@ -84,7 +84,7 @@ spec:
           main:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v3.1.0
+              tag: v3.2.0
             envFrom:
               - secretRef:
                   name: immich-secret
