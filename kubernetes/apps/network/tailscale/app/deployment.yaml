@@ -32,6 +32,8 @@ spec:
               value: tailscale-state
             - name: TS_ROUTES
               value: 10.0.50.0/24
+            - name: XDG_CACHE_HOME
+              value: /tmp/.cache
             - name: TS_AUTH_ONCE
               value: "true"
             - name: TS_AUTHKEY
@@ -48,3 +50,9 @@ spec:
               cpu: 10m
             limits:
               memory: 256Mi
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir: {}
