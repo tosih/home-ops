@@ -1,6 +1,7 @@
 ---
 originRequest:
   originServerName: "external.${SECRET_DOMAIN}"
+  http2Origin: false
 
 ingress:
   - hostname: "${SECRET_DOMAIN}"
