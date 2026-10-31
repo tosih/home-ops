@@ -35,12 +35,12 @@ spec:
               tag: latest
             env:
               TZ: America/Los_Angeles
-              # To exclude devices, add -x <device_name> to the variables below
-              # Example: AIRUPNP_VAR: "-l 1000:2000 -x LG -x Samsung"
-              # Multiple -x flags can be used to exclude multiple devices
+              # To exclude devices by name, use -n <token>[,<token>...] (NOT -x, which reads a config file)
+              # Example: AIRUPNP_VAR: "-l 1000:2000 -n LG,Samsung"
+              # Use -m <token> to exclude by model instead
               # -N "%s" prevents adding "+" suffix to device names (uses original name)
-              AIRUPNP_VAR: "-l 1000:2000 -x LG -N %s"
-              AIRCAST_VAR: "-l 1000:2000 -x LG -N %s"
+              AIRUPNP_VAR: "-l 1000:2000 -n LG -N %s"
+              AIRCAST_VAR: "-l 1000:2000 -N %s"
             resources:
               requests:
                 cpu: 10m
