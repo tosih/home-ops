@@ -1,0 +1,67 @@
+---
+# Nightly restart of airconnect. The RAOP/Cast sessions go stale after long
+# uptimes (audio silent, "NTP not acquired yet"); a daily restart clears them.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: airconnect-restart
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: airconnect-restart
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    resourceNames: ["airconnect"]
+    verbs: ["get", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: airconnect-restart
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: airconnect-restart
+subjects:
+  - kind: ServiceAccount
+    name: airconnect-restart
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: airconnect-restart
+spec:
+  schedule: "0 4 * * *"
+  timeZone: America/Los_Angeles
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      ttlSecondsAfterFinished: 3600
+      template:
+        spec:
+          serviceAccountName: airconnect-restart
+          restartPolicy: OnFailure
+          containers:
+            - name: kubectl
+              image: registry.k8s.io/kubectl:v1.34.1
+              command:
+                - kubectl
+                - rollout
+                - restart
+                - deployment/airconnect
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: ["ALL"]
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 32Mi
+                limits:
+                  memory: 64Mi
