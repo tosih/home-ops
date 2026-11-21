@@ -43,8 +43,11 @@ spec:
               tag: 5.2.3
             env:
               TZ: America/Los_Angeles
-              QBITTORRENT__PORT: &port 8080
-              QBITTORRENT__BT_PORT: &bt-port 50413
+              # qbittorrent-nox reads QBT_<OPTION> (see `qbittorrent-nox --help`); the image's
+              # entrypoint ignores the old QBITTORRENT__* names, so the saved config's
+              # Session\Port=6881 won
+              QBT_WEBUI_PORT: &port 8080
+              QBT_TORRENTING_PORT: &bt-port 50413
 
             probes:
               liveness:
