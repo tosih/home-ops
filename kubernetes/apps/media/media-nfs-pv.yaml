@@ -10,6 +10,10 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   storageClassName: ""
+  # NFSv4.2 server-side COPY hangs qBittorrent's move thread (nfs42_proc_copy);
+  # 4.1 has no COPY, so the client falls back to a normal read/write copy.
+  mountOptions:
+    - nfsvers=4.1
   nfs:
     server: 10.0.0.2
     path: /mnt/data/media
